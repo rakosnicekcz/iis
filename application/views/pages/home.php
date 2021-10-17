@@ -17,7 +17,7 @@
         <li class="list-group-item">Capacity: <?php echo $conf["capacity"] ?></li>
     </ul>
     <div class="card-body">
-        <a href=<?php echo '"/conference?id='.$conf["conference_id"].'"' ?> class="card-link">více</a>
+        <a href=<?php echo '"'.base_url().'conference?id='.$conf["conference_id"].'"' ?> class="card-link">více</a>
     </div>
     <div class="card-footer text-muted">
         2 days ago

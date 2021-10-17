@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'md54.wedos.net',
-	'username' => 'a224799_iis',
-	'password' => 'eACuAMNF',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
 	'database' => 'd224799_iis',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
