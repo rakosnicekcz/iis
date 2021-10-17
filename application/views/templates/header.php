@@ -20,7 +20,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href=<?php echo site_url('pages/logout'); ?>>Logout</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
