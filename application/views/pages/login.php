@@ -6,7 +6,6 @@
           <div class="card-body p-5 text-center">
 
             <div class="mb-md-5 mt-md-4">
-              <?php var_dump($_SESSION);?>
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
               <p class="text-white-50 mb-5">Please enter your login and password!</p>
               <?php echo form_open('pages/login'); ?>
@@ -30,7 +29,7 @@
             </div>
 
             <div>
-              <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a></p>
+              <p class="mb-0">Don't have an account? <a href=<?php echo site_url('pages/registration'); ?> class="text-white-50 fw-bold">Sign Up</a></p>
             </div>
 
           </div>

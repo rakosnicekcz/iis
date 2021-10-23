@@ -1,3 +1,9 @@
+<?php if($justloggedin) :?>
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>successfully logged in</strong>.
+    </div>
+<?php endif; ?>
 <?php foreach ($conferences as $conf) : ?>
     <div class="card mb-3 d-inline-block">
         <h4 class="card-header"><?php echo $conf["name"] ?></h3>

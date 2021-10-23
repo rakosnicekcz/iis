@@ -14,7 +14,11 @@
             return $query->row_array();
         }
 
-        public function get_user_by_mail($email){
+        public function get_user_by_email($email){
             return $this->db->get_where('Users',['email' => $email])->row();
+        }
+
+        public function add_user($email, $name, $surename, $password){
+            $this->db->insert("users", ["email"=>$email, "name"=>$name, "surename"=>$surename, "password"=>$password]);
         }
     }

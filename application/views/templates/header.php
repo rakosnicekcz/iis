@@ -15,12 +15,9 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home
+          <a class="nav-link active" href=<?php echo base_url();?>>Home
             <span class="visually-hidden">(current)</span>
           </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href=<?php echo site_url('pages/logout'); ?>>Logout</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
@@ -39,10 +36,28 @@
           </div>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      <?php if($this->session->has_userdata('email')): ?>
+        <ul class="navbar-nav me-auto">
+        <li class="nav-item dropdown dropleft">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My account</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">my presentations</a>
+            <a class="dropdown-item" href="#">my conferences</a>
+            <a class="dropdown-item" href="#">my tickets</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href=<?php echo site_url('pages/logout'); ?>>Logout</a>
+          </div>
+        </li></ul>
+      <?php else:?>
+        <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href=<?php echo site_url('pages/login'); ?>>Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=<?php echo site_url('pages/registration'); ?>>Sign up</a>
+        </li>
+      </ul>
+      <?php endif;?>
     </div>
   </div>
 </nav>
