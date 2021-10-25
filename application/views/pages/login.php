@@ -8,7 +8,7 @@
             <div class="mb-md-5 mt-md-4">
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
               <p class="text-white-50 mb-5">Please enter your login and password!</p>
-              <?php echo form_open('pages/login'); ?>
+              <?php echo form_open('userAccessController/login'); ?>
                 <div class="form-outline form-white mb-4">
                     <input type="email" id="typeEmail" name="email" class="form-control form-control-lg" value="<?php echo set_value('email'); ?>">
                     <?php echo form_error('email'); ?>
@@ -25,11 +25,11 @@
 
                 <button class="btn btn-outline-light btn-lg px-5" type="submit" name="submit">Login</button>
               <?php echo $this->session->flashdata('login_error'); ?>
-              <?php form_close(); ?>
+              <?php form_close();?>
             </div>
 
             <div>
-              <p class="mb-0">Don't have an account? <a href=<?php echo site_url('pages/registration'); ?> class="text-white-50 fw-bold">Sign Up</a></p>
+              <p class="mb-0">Don't have an account? <a href=<?php echo site_url('userAccessController/registration'); ?> class="text-white-50 fw-bold">Sign Up</a></p>
             </div>
 
           </div>

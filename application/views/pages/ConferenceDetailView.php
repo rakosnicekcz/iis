@@ -27,14 +27,14 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title"><?php echo $conference["name"]?></h3>
+                        <h3 class="card-title"><?php echo $conference["name"] ?></h3>
                         <br>
                         <div class="col">
                             <div class="white-box text-center"><img src="https://picsum.photos/600/400" class="img-responsive"></div>
                         </div>
                         <br>
                         <h4 class="box-title mt-5">Description</h4>
-                        <p> <?php echo $conference["description"]?> </p>
+                        <p> <?php echo $conference["description"] ?> </p>
                     </div>
                 </div>
             </div>
@@ -42,40 +42,40 @@
              <div class="col">
                         <h4 class="box-title mt-5">Where?</h4>
                         <div class="row">
-                            <div class "col">
+                            <div class="col">
                             <img src="https://img.icons8.com/ios/50/000000/worldwide-location.png" alt="Conference place" class="img-thumbnail">
                             </div>
-                            <div class "col">
-                                <p> <?php echo $conference["place"]?> <p>
+                            <div class="col">
+                                <p> <?php echo $conference["place"] ?> <p>
                             </div>
                         </div>
                         <h4 class="box-title mt-5">When?</h4>
                         <div class="row">
-                            <div class "col">
+                            <div class="col">
                             <img src="https://img.icons8.com/dotty/80/000000/time.png" alt="Conference place" class="img-thumbnail">
                             </div>
-                            <div class "col">
-                                <p>  <?php echo date("d-m-Y", strtotime($conference["from"]))?> until <?php echo date("d-m-Y", strtotime($conference["to"]))?> <p>
+                            <div class="col">
+                                <p>  <?php echo date("d-m-Y", strtotime($conference["from"])) ?> until <?php echo date("d-m-Y", strtotime($conference["to"])) ?> <p>
                             </div>
                         </div>
                         <h4 class="box-title mt-5">Available seats</h4>
-                        <p> <?php echo $available?>/<?php echo $conference["capacity"]?> </p>
+                        <p> <?php echo $available ?>/<?php echo $conference["capacity"] ?> </p>
                         <div class="row">
-                            <div class "col">
+                            <div class="col">
                                 <button type="button" class="btn btn-primary btn-lg">Buy Ticket</button>
                             </div>
-                            <div class "col">
-                                <p>  <?php echo $conference["price"]?> $ <p>
+                            <div class="col">
+                                <p>  <?php echo $conference["price"] ?> $ <p>
                             </div>
                     </div>
             </div>
 
             <div class="col">
                 <br>
-                <button href=<?php echo '"'.base_url().'conferenceedit?id='.$conference["conference_id"].'"' ?> class="btn btn-primary">Edit Presentation</button>
-                <button type="button" class="btn btn-primary" onclick= "<?php echo base_url()?>ConferenceController/Edit?id=<?php echo $conference['conference_id']; ?> ">Edit Presentation</button>
+                <button href=<?php echo '"' . base_url() . 'conferenceedit?id=' . $conference["conference_id"] . '"' ?> class="btn btn-primary">Edit Presentation</button>
+                <button type="button" class="btn btn-primary" onclick= "<?php echo base_url() ?>ConferenceController/Edit?id=<?php echo $conference['conference_id']; ?> ">Edit Presentation</button>
                 <button type="button" class="btn btn-link">Back to Conferences</button>
-                <a href=<?php echo '"'.base_url().'conferenceedit?id='.$conference["conference_id"].'"' ?> class="card-link">více</a>
+                <a href=<?php echo '"' . base_url() . 'conferenceedit?id=' . $conference["conference_id"] . '"' ?> class="card-link">více</a>
             </div>
         </div>
     </div>
@@ -84,11 +84,11 @@
 
 
 <div class="accordion" id="accordionExample">
-<?php foreach ($presentations as $presentation) : ?>
+<?php foreach ($presentations as $presentation): ?>
     <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <?php echo $presentation["name"]?> &#9; From <?php echo $presentation["Start"]?> Until <?php echo $presentation["Finish"]?>
+        <?php echo $presentation["name"] ?> &#9; From <?php echo $presentation["start"] ?> Until <?php echo $presentation["finish"] ?>
       </button>
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -97,7 +97,7 @@
       </div>
     </div>
   </div>
-<?php endforeach; ?>
+<?php endforeach;?>
 </div>
   </body>
 </html>
