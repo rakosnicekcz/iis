@@ -72,10 +72,9 @@
 
             <div class="col">
                 <br>
-                <button href=<?php echo '"' . base_url() . 'conferenceedit?id=' . $conference["conference_id"] . '"' ?> class="btn btn-primary">Edit Presentation</button>
-                <button type="button" class="btn btn-primary" onclick= "<?php echo base_url() ?>ConferenceController/Edit?id=<?php echo $conference['conference_id']; ?> ">Edit Presentation</button>
-                <button type="button" class="btn btn-link">Back to Conferences</button>
-                <a href=<?php echo '"' . base_url() . 'conferenceedit?id=' . $conference["conference_id"] . '"' ?> class="card-link">více</a>
+                <button onclick='location.href=<?php echo '"' . base_url() . 'conferenceedit?id=' . $conference["conference_id"] . '"' ?>' class="btn btn-primary">Edit Conference</button>
+                <button onclick='location.href=<?php echo '"' . base_url() . 'conferencecreate'. '"'?>' class="btn btn-primary">New Conference</button>
+                <button onclick='location.href=<?php echo '"' . base_url() . 'conference'. '"'?>' class="btn btn-link">Back to conferences</button>
             </div>
         </div>
     </div>
