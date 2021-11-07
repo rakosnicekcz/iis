@@ -6,6 +6,7 @@ class UserAccessController extends CI_Controller
 
         parent::__construct();
         $this->load->helper(array('form', 'url'));
+        $this->load->model('user_model');
         $this->load->library(['form_validation']);
         $this->load->library('session');
         $this->load->database();
@@ -37,7 +38,7 @@ class UserAccessController extends CI_Controller
             $name = $this->input->post('name');
             $surename = $this->input->post('surename');
 
-            if ($this->conference_model->get_user_by_email($email)) {
+            if ($this->user_model->get_user_by_email($email)) {
                 $this->session->set_flashdata('registration_error', 'Account with this email already exist.', 300);
                 redirect(uri_string());
             } elseif ($password !== $passwordAgain) {
@@ -45,7 +46,7 @@ class UserAccessController extends CI_Controller
                 redirect(uri_string());
             } else {
                 $this->session->set_userdata(['name' => $name, 'surename' => $surename, 'email' => $email, "justloggedin" => true]);
-                $this->conference_model->add_user($email, $name, $surename, password_hash($password, PASSWORD_DEFAULT));
+                $this->user_model->add_user($email, $name, $surename, password_hash($password, PASSWORD_DEFAULT));
                 redirect('/');
             }
         }
@@ -65,7 +66,7 @@ class UserAccessController extends CI_Controller
             $email = $this->input->post('email');
             $password = $this->input->post('password');
 
-            $user = $this->conference_model->get_user_by_email($email);
+            $user = $this->user_model->get_user_by_email($email);
 
             if (!$user) {
                 $this->session->set_flashdata('login_error', 'Please check your email or password and try again.', 300);
@@ -77,7 +78,7 @@ class UserAccessController extends CI_Controller
                 redirect(uri_string());
             }
 
-            $this->session->set_userdata(['name' => $user->name, 'surename' => $user->surename, 'email' => $user->email, "justloggedin" => true]); ///TODO víc dat + info o prihlaseni
+            $this->session->set_userdata(['id' => $user->ID, 'name' => $user->name, 'surename' => $user->surename, 'email' => $user->email, "justloggedin" => true]); ///TODO víc dat + info o prihlaseni
             redirect('/');
         }
         $this->load->view('templates/footer');

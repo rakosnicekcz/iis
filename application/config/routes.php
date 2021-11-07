@@ -53,6 +53,7 @@ $route['conferencecreate'] = 'conference/create';
 $route['conferenceedit'] = 'conference/edit';
 $route['registration'] = 'userAccessController/registration';
 $route['login'] = 'userAccessController/login';
+$route['user'] = 'user/user';
 $route['conference'] = 'conference/conference';
 $route['default_controller'] = 'home/home';
 $route['404_override'] = '';
