@@ -24,8 +24,36 @@ class User extends CI_Controller
         }
         $data["presentations"] = $this->user_model->get_presentations_by_user_id(intval($this->session->userdata["id"]));
 
+        if ($this->session->userdata["admin"]) {
+            $data["users"] = $this->user_model->get_all_users();
+        }
+
         $this->load->view('templates/header');
         $this->load->view('pages/user', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function ajaxGetUserById()
+    {
+        if (isset($_SESSION["admin"]) && $_SESSION["admin"] == 1) {
+            echo json_encode($this->user_model->get_user_by_id($_POST["id"]));
+        }
+    }
+
+    public function ajaxUpdateUserById()
+    {
+        if (isset($_SESSION["admin"]) && $_SESSION["admin"] == 1) {
+            $newData = ["name" => $_POST["name"], "surename" => $_POST["surename"], "email" => $_POST["email"], "is_admin" => (int)$_POST["admin"]];
+            $this->user_model->update_user_by_id($_POST["id"], $newData);
+            echo json_encode($this->user_model->get_all_users());
+        }
+    }
+
+    public function ajaxDeleteUserById()
+    {
+        if (isset($_SESSION["admin"]) && $_SESSION["admin"] == 1) {
+            $this->user_model->delete_user_by_id($_POST["id"]);
+            echo json_encode($this->user_model->get_all_users());
+        }
     }
 }

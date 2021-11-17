@@ -1,0 +1,14 @@
+.tableDivContainer {
+	max-height: 400px;
+	overflow: auto;
+}
+.tableDivContainer thead th {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	background-color: var(--bs-body-bg);
+}
+
+#usersFilter {
+	width: 200px;
+}

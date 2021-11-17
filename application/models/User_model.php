@@ -35,4 +35,25 @@ class User_model extends CI_Model
     {
         return $this->db->query('SELECT p.name "p_name", p.presentation_id, p.start, p.finish, p.conference_id, c.name "c_name" FROM presentations p JOIN conferences c on c.conference_id=p.conference_id WHERE p.User_id = ?', [$id])->result_array();
     }
+
+    public function get_all_users()
+    {
+        return $this->db->query('SELECT u.id, u.email, u.name, u.surename, u.is_admin, count(c.User_id) "conferences", count(p.User_id) "presentations" FROM users u left join presentations p on p.User_id = u.ID left join conferences c on c.User_id = u.ID group by u.name')->result_array();
+    }
+
+    public function get_user_by_id($id)
+    {
+        return $this->db->get_where('users', ['ID' => $id])->row();
+    }
+
+    public function update_user_by_id($id, $data)
+    {
+        $this->db->where('ID', $id);
+        $this->db->update('users', $data);
+    }
+
+    public function delete_user_by_id($id)
+    {
+        $this->db->delete('users', ['ID' => $id]);
+    }
 }

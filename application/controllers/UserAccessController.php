@@ -78,7 +78,7 @@ class UserAccessController extends CI_Controller
                 redirect(uri_string());
             }
 
-            $this->session->set_userdata(['id' => $user->ID, 'name' => $user->name, 'surename' => $user->surename, 'email' => $user->email, "justloggedin" => true]); ///TODO víc dat + info o prihlaseni
+            $this->session->set_userdata(['admin' => $user->is_admin, 'id' => $user->ID, 'name' => $user->name, 'surename' => $user->surename, 'email' => $user->email, "justloggedin" => true]); ///TODO víc dat + info o prihlaseni
             redirect('/');
         }
         $this->load->view('templates/footer');
