@@ -40,9 +40,20 @@ class User extends CI_Controller
         }
     }
 
+    public function ajaxGetUserBySessionId()
+    {
+        if (isset($_SESSION["id"])) {
+            echo json_encode($this->user_model->get_user_by_id($_SESSION["id"]));
+        }
+    }
+
     public function ajaxUpdateUserById()
     {
         if (isset($_SESSION["admin"]) && $_SESSION["admin"] == 1) {
+            if ($this->user_model->get_user_by_id($_POST["id"])->email != $_POST["email"] && $this->user_model->get_user_by_email($_POST["email"]) != null) {
+                echo json_encode("err-email");
+                return;
+            }
             $newData = ["name" => $_POST["name"], "surename" => $_POST["surename"], "email" => $_POST["email"], "is_admin" => (int)$_POST["admin"]];
             $this->user_model->update_user_by_id($_POST["id"], $newData);
             echo json_encode($this->user_model->get_all_users());
@@ -54,6 +65,31 @@ class User extends CI_Controller
         if (isset($_SESSION["admin"]) && $_SESSION["admin"] == 1) {
             $this->user_model->delete_user_by_id($_POST["id"]);
             echo json_encode($this->user_model->get_all_users());
+        }
+    }
+
+    public function ajaxUpdateUserInfoById()
+    {
+        if (isset($_SESSION["id"])) {
+            $user = $this->user_model->get_user_by_email($_SESSION["email"]);
+            $newData = ["name" => $_POST["name"], "surename" => $_POST["surename"], "email" => $_POST["email"]];
+            if ($_SESSION["email"] != $_POST["email"] && $this->user_model->get_user_by_email($_POST["email"]) != null) {
+                echo json_encode("err-email");
+                return;
+            }
+            if ($_POST["changepass"] == "true") {
+                if (!password_verify($_POST["oldpass"], $user->password)) {
+                    echo json_encode("err-pass");
+                    return;
+                } else {
+                    $newData["password"] = password_hash($_POST["newpass"], PASSWORD_DEFAULT);
+                }
+            }
+            $_SESSION["name"] = $_POST["name"];
+            $_SESSION["surename"] = $_POST["surename"];
+            $_SESSION["email"] = $_POST["email"];
+            $this->user_model->update_user_by_id($_SESSION["id"], $newData);
+            echo json_encode("ok");
         }
     }
 }

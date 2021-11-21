@@ -1,5 +1,6 @@
 let userToEditId;
 let modalEditErr = { email: 0, name: 0, surename: 0 };
+let modalEditMeErr = { email: 0, name: 0, surename: 0, changePass: 0 };
 
 window.onload = () => {
 	addListeners();
@@ -10,6 +11,35 @@ function validate_modalEditErr() {
 		modalEditErr.email == 0 &&
 		modalEditErr.name == 0 &&
 		modalEditErr.surename == 0
+	);
+}
+
+function validate_password(val) {
+	return (
+		val.length >= 6 &&
+		/[a-z]/.test(val) &&
+		/[A-Z]/.test(val) &&
+		/[0-9]/.test(val)
+	);
+}
+
+function validate_password_form() {
+	if (modalEditMeErr.changePass) {
+		return (
+			validate_password(document.querySelector("#modalMyNewPassword").value) &&
+			document.querySelector("#modalMyNewPassword").value ==
+				document.querySelector("#modalMyNewPasswordAgain").value
+		);
+	}
+	return true;
+}
+
+function validate_modalEditMeErr() {
+	return (
+		modalEditMeErr.email == 0 &&
+		modalEditMeErr.name == 0 &&
+		modalEditMeErr.surename == 0 &&
+		validate_password_form()
 	);
 }
 
@@ -28,10 +58,63 @@ function search() {
 }
 
 function addListeners() {
+	//validate my personal data
+	document.querySelector("#modalInputMyEmail").addEventListener("input", () => {
+		validate_modalInputMyEmail();
+	});
+	document.querySelector("#modalInputMyName").addEventListener("input", () => {
+		validate_modalInputMyName();
+	});
+	document
+		.querySelector("#modalInputMySurename")
+		.addEventListener("input", () => {
+			validate_modalInputMySurename();
+		});
+
+	document
+		.querySelectorAll("#modalMyNewPassword, #modalMyNewPasswordAgain")
+		.forEach((item) => {
+			item.addEventListener("input", function () {
+				document.querySelector("#editMeSubmit").disabled =
+					!validate_modalEditMeErr();
+			});
+		});
+
+	document
+		.querySelector("#modalMyNewPassword")
+		.addEventListener("input", function () {
+			if (validate_password(this.value)) {
+				this.classList.remove("is-invalid");
+			} else {
+				this.classList.add("is-invalid");
+			}
+		});
+
+	document
+		.querySelector("#modalMyNewPasswordAgain")
+		.addEventListener("input", function () {
+			if (this.value == document.querySelector("#modalMyNewPassword").value) {
+				this.classList.remove("is-invalid");
+			} else {
+				this.classList.add("is-invalid");
+			}
+		});
+
+	document
+		.querySelector("#modalChangePassword")
+		.addEventListener("change", function () {
+			modalEditMeErr.changePass = this.checked;
+			document.querySelector("#editMeSubmit").disabled =
+				!validate_modalEditMeErr();
+			document.querySelector("#modalMyOldPassword").disabled = !this.checked;
+			document.querySelector("#modalMyNewPassword").disabled = !this.checked;
+			document.querySelector("#modalMyNewPasswordAgain").disabled =
+				!this.checked;
+		});
 	document.querySelector("#usersFilter").addEventListener("input", () => {
 		search();
 	});
-
+	// validate input for editing users
 	document.querySelector("#modalInputEmail").addEventListener("input", (e) => {
 		if (validateEmail(e.target.value)) {
 			e.target.classList.remove("is-invalid");
@@ -70,7 +153,50 @@ function addListeners() {
 		});
 }
 
+function validate_modalInputMyName() {
+	let ele = document.querySelector("#modalInputMyName");
+	if (ele.value.length > 0) {
+		ele.classList.remove("is-invalid");
+		modalEditMeErr.name = 0;
+		document.querySelector("#editMeSubmit").disabled =
+			!validate_modalEditMeErr();
+	} else {
+		ele.classList.add("is-invalid");
+		modalEditMeErr.name = 1;
+		document.querySelector("#editMeSubmit").disabled = true;
+	}
+}
+
+function validate_modalInputMyEmail() {
+	let ele = document.querySelector("#modalInputMyEmail");
+	if (validateEmail(ele.value)) {
+		ele.classList.remove("is-invalid");
+		modalEditMeErr.email = 0;
+		document.querySelector("#editMeSubmit").disabled =
+			!validate_modalEditMeErr();
+	} else {
+		ele.classList.add("is-invalid");
+		modalEditMeErr.email = 1;
+		document.querySelector("#editMeSubmit").disabled = true;
+	}
+}
+
+function validate_modalInputMySurename() {
+	let ele = document.querySelector("#modalInputMySurename");
+	if (ele.value.length > 0) {
+		ele.classList.remove("is-invalid");
+		modalEditMeErr.surename = 0;
+		document.querySelector("#editMeSubmit").disabled =
+			!validate_modalEditMeErr();
+	} else {
+		ele.classList.add("is-invalid");
+		modalEditMeErr.surename = 1;
+		document.querySelector("#editMeSubmit").disabled = true;
+	}
+}
+
 function editUserModal(id) {
+	userToEditId = id;
 	var formData = new FormData();
 	formData.append("id", id);
 	fetch("ajax-getUserById", {
@@ -83,6 +209,24 @@ function editUserModal(id) {
 		.then(function (data) {
 			editUserModalInsertData(data);
 		});
+}
+
+function editMeModal() {
+	fetch("ajax-getUserBySession", {
+		method: "POST",
+	})
+		.then(function (response) {
+			return response.json();
+		})
+		.then(function (data) {
+			editMeModalInsertData(data);
+		});
+}
+
+function editMeModalInsertData(data) {
+	document.querySelector("#modalInputMyEmail").value = data.email;
+	document.querySelector("#modalInputMyName").value = data.name;
+	document.querySelector("#modalInputMySurename").value = data.surename;
 }
 
 function editUserModalInsertData(data) {
@@ -105,7 +249,6 @@ function editUserModalSubmit() {
 	formData.append("name", name);
 	formData.append("surename", surename);
 	formData.append("admin", admin);
-	userToEditId = undefined;
 
 	fetch("ajax-updateUserById", {
 		method: "POST",
@@ -115,6 +258,13 @@ function editUserModalSubmit() {
 			return response.json();
 		})
 		.then(function (data) {
+			if (data == "err-email") {
+				document.querySelector("#modalInputEmail").classList.add("is-invalid");
+				return;
+			}
+			//document.querySelector("#userEditModal").modal("hide");
+			$("#userEditModal").modal("hide");
+			userToEditId = undefined;
 			editUsersUpdateTable(data);
 		});
 }
@@ -158,11 +308,42 @@ function validateEmail(email) {
 }
 
 function deleteUserModalSubmit() {
-	var formData = new FormData();
-	formData.append("id", userToEditId);
-	userToEditId = undefined;
+	var conf = confirm("Do you really want to delete this user?");
+	if (conf) {
+		var formData = new FormData();
+		formData.append("id", userToEditId);
+		userToEditId = undefined;
 
-	fetch("ajax-deleteUserById", {
+		fetch("ajax-deleteUserById", {
+			method: "POST",
+			body: formData,
+		})
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (data) {
+				editUsersUpdateTable(data);
+			});
+	}
+}
+
+function editUserMeModalSubmit() {
+	let email = document.querySelector("#modalInputMyEmail").value;
+	let name = document.querySelector("#modalInputMyName").value;
+	let surename = document.querySelector("#modalInputMySurename").value;
+	let changePass = document.querySelector("#modalChangePassword").checked;
+	let oldPass = document.querySelector("#modalMyOldPassword").value;
+	let newPass = document.querySelector("#modalMyNewPassword").value;
+
+	var formData = new FormData();
+	formData.append("email", email);
+	formData.append("name", name);
+	formData.append("surename", surename);
+	formData.append("changepass", changePass);
+	formData.append("oldpass", oldPass);
+	formData.append("newpass", newPass);
+
+	fetch("ajax-updateUserInfoById", {
 		method: "POST",
 		body: formData,
 	})
@@ -170,6 +351,26 @@ function deleteUserModalSubmit() {
 			return response.json();
 		})
 		.then(function (data) {
-			editUsersUpdateTable(data);
+			if (data == "err-pass") {
+				document.querySelector("#modalMyOldPassword").value = "";
+				document
+					.querySelector("#modalMyOldPassword")
+					.classList.add("is-invalid");
+			} else if (data == "err-email") {
+				document
+					.querySelector("#modalInputMyEmail")
+					.classList.add("is-invalid");
+			} else {
+				document
+					.querySelectorAll("#modalMyOldPassword, #modalInputMyEmail")
+					.forEach((e) => {
+						e.classList.remove("is-invalid");
+					});
+				document.querySelector("#userEditMeModalCloseBtn").click();
+				document.querySelector("#alertChangedUserInforamtions").style.display =
+					"block";
+				document.querySelector("#editMeSubmit").disabled = true;
+			}
+			console.log(data);
 		});
 }
