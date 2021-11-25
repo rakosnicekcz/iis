@@ -35,7 +35,7 @@
                     <tbody>
                         <?php foreach ($tickets as $ticket) : ?>
                             <tr>
-                                <th scope="row"><a href=<?php echo '"' . base_url() . 'conference?id=' . $ticket["ID"] . '"' ?>><?php echo $ticket["name"] ?></a></th>
+                                <th scope="row"><a href=<?php echo '"' . base_url() . 'conference?id=' . $ticket["conference_id"] . '"' ?>><?php echo $ticket["name"] ?></a></th>
                                 <td><?php echo $ticket["count"] ?></td>
                                 <td><?php echo $ticket["code"] ?></td>
                                 <td><?php echo $ticket["from"] . " - " . $ticket["to"] ?></td>

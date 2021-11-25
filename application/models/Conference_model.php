@@ -12,6 +12,12 @@ class Conference_model extends CI_Model
         return $query->result_array();
     }
 
+    public function get_conference_by_userId_and_conferenceId($userId, $onferenceId)
+    {
+        $query = $this->db->query("SELECT * FROM Conferences WHERE conference_id = ? and user_id = ?", [$onferenceId, $userId]);
+        return $query->row_array();
+    }
+
     public function get_conference_by_id($id)
     {
         $query = $this->db->query("SELECT * FROM Conferences WHERE conference_id = ?", [$id]);
@@ -21,6 +27,12 @@ class Conference_model extends CI_Model
     public function get_conference_by_highest_id()
     {
         $query = $this->db->query("SELECT conference_id FROM Conferences ORDER BY conference_id DESC LIMIT 1");
+        return $query->row_array();
+    }
+
+    public function get_count_of_tickets_on_conference()
+    {
+        $query = $this->db->query('SELECT count(User_id) as "count" FROM tickets WHERE Conference_id = 3');
         return $query->row_array();
     }
 
@@ -46,10 +58,8 @@ class Conference_model extends CI_Model
     }
 
     public function update_conference($data, $id)
-    {   
+    {
         $this->db->where('conference_id', $id);
         $this->db->update('conferences', $data);
     }
-    
-
 }

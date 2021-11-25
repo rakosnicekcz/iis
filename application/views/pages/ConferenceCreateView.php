@@ -1,91 +1,75 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<section class="vh-200 gradient-custom mt-5">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+            <?php echo form_open_multipart('conference/create'); ?>
+            <div class="mb-md-5 mt-md-4">
+              <h2 class="fw-bold mb-2 text-uppercase">Create a new conference</h2>
+              <div class="form-outline form-white mb-4">
+                <label for="name" class="form-label mt-4">Name</label>
+                <input type="text" class="form-control" id="name" name="name">
+                <span class="text-danger"><?php echo form_error('name'); ?></span>
+                <small id="name" class="form-text text-muted">Please type name for your conference</small>
+              </div>
+              <div class="form-outline form-white mb-4">
+                <label for="genre" class="form-label mt-4">Genre</label>
+                <select class="form-select" id="genre" name="genre_id">
+                  <?php foreach ($genres as $genre) : ?>
+                    <option value="<?php echo $genre["genre_id"] ?>" name="genre"> <?php echo $genre["name"] ?> </option>
+                  <?php endforeach; ?>
+                </select>
+                <span class="text-danger"><?php echo form_error('genre_id'); ?></span>
+              </div>
+              <div class="form-outline form-white mb-4">
+                <label for="description" class="form-label mt-4">Description</label>
+                <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="formFile" class="form-label mt-4">Image</label>
+                <input class="form-control" type="file" name="image" id="image" accept="image/*">
+              </div>
+              <div class="form-outline form-white mb-4">
+                <label for="place" class="form-label mt-4">Place</label>
+                <input type="text" class="form-control" id="place" aria-describedby="place" name="place">
+                <span class="text-danger"><?php echo form_error('place'); ?></span>
+                <small id="place" class="form-text text-muted">Please type where your conference takes place</small>
+              </div>
+              <div class="form-outline form-white mb-4">
+                <label for="price" class="form-label mt-4">Price</label>
+                <input type="number" min="0" class="form-control" id="price" aria-describedby="price" name="price">
+                <span class="text-danger"><?php echo form_error('price'); ?></span>
+                <small id="price" class="form-text text-muted">Please type ticket price</small>
+              </div>
+              <div class="form-outline form-white mb-4">
+                <!-- Date input -->
+                <label class="control-label" for="from">Date from</label>
+                <input class="form-control" id="from" type="datetime-local" name="from">
+                <span class="text-danger"><?php echo form_error('from'); ?></span>
+              </div>
+            </div>
+            <div class="form-outline form-white mb-4">
+              <!-- Date input -->
+              <label class="control-label" for="to">Date until</label>
+              <input class="form-control" id="to" type="datetime-local" name="to">
+              <span class="text-danger"><?php echo form_error('to'); ?><?php echo $this->session->flashdata('date_error'); ?><?php echo $this->session->flashdata('capacity_error'); ?></span>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+            </div>
 
-    <!-- Optional JavaScript; choose one of the two! -->
+            <div class="form-outline form-white mb-4">
+              <label for="capacity" class="form-label mt-4">Capacity</label>
+              <input type="number" min="0" class="form-control" id="capacity" aria-describedby="capacity" name="capacity">
+              <span class="text-danger"><?php echo form_error('capacity'); ?></span>
+              <small id="capacity" class="form-text text-muted">Please type maximum conference capacity</small>
+            </div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
-
-    <title>Edit Conference</title>
-  </head>
-  <body>
-
-<form method="post" action="<?php echo site_url('conference/conference');?>">
-  <fieldset>
-    <legend>Create a new conference</legend>
-    <div class="form-group">
-      <label for="name" class="form-label mt-4">Name</label>
-      <input type="name" class="form-control" id="name" name="name" >
-      <small id="name" class="form-text text-muted">Please type name for your conference</small>
-    </div>
-    <div class="form-group">
-      <label for="genre" class="form-label mt-4">Genre</label>
-      <select class="form-select" id="genre" name="genre_id">
-      <?php foreach ($genres as $genre) : ?>
-        <option value="<?php echo $genre["genre_id"]?>" name="genre"> <?php echo $genre["genre_id"]?> </option>
-        <?php endforeach;?>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="description" class="form-label mt-4">Description</label>
-      <textarea class="form-control" id="description" rows="3" name="description"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="image" class="form-label mt-4">Upload image</label>
-      <input class="form-control" type="file" id="image">
-    </div>
-    <div class="form-group">
-      <label for="place" class="form-label mt-4">Place</label>
-      <input type="name" class="form-control" id="place" aria-describedby="place" name="place">
-      <small id="place" class="form-text text-muted">Please type where your conference takes place</small>
-    <div class="form-group">
-      <label for="price" class="form-label mt-4">Price</label>
-      <input type="name" class="form-control" id="price" aria-describedby="price" name="price" >
-      <small id="price" class="form-text text-muted">Please type ticket price</small>
-    </div>
-    <div class="form-group"> <!-- Date input -->
-        <label class="control-label" for="from">Date from</label>
-        <input class="form-control" id="from" placeholder="YYYY-MM-DD" type="text" name="from">
+            <button class="btn btn-outline-light btn-lg px-5" type="submit" name="submit">Create</button>
+            <?php form_close(); ?>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="form-group"> <!-- Date input -->
-        <label class="control-label" for="to">Date until</label>
-        <input class="form-control" id="to" placeholder="YYYY-MM-DD" type="text" name="to">
-      </div>
-
-      <div class="form-group">
-      <label for="capacity" class="form-label mt-4">Capacity</label>
-      <input type="name" class="form-control" id="capacity" aria-describedby="capacity" name="capacity">
-      <small id="capacity" class="form-text text-muted">Please type maximum conference capacity</small>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <br>
-        <button type="button" class="btn btn-primary"><input type="submit" name="save" value="Save"/> </button>
-      </div>
-      <div class="col">
-        <br>
-        <button type="button" class="btn btn-primary"> Cancel </button>
-      </div>
-    </div>
-
-    </div>
-</div>
-    
-</form>
-
-</body>>
+  </div>
+</section>
