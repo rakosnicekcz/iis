@@ -65,3 +65,7 @@ $route['404_override'] = '';
 $route["home"] = 'home/home';
 #$route['(:any)'] = 'pages/view/$1';
 $route['translate_uri_dashes'] = false;
+//marhy
+$route['reserve'] = 'reservationController/reserve';
+$route["contacts"] = 'contacts/contacts';
+$route["reserveTickets"] = 'reserveTickets/reserveTickets';
