@@ -16,6 +16,10 @@ class Home extends CI_Controller
         }
 
         $data["conferences"] = $this->conference_model->get_all_conferences();
+        $this->load->model('GenreModel');
+        $data["genres"] = $this->GenreModel->get_all_genres();
+        $this->load->model('CountryModel');
+        $data["countries"] = $this->CountryModel->get_all_countries();
         foreach ($data["conferences"] as $key => $value) {
             $data["conferences"][$key]["left"] = $value["capacity"] - $this->conference_model->get_sold_tickets_count_by_conference_id($value["id"])["sold"];
         }

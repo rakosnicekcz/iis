@@ -8,68 +8,72 @@
 
 <!-- ROWS -->
 <div class="dropdown" style="float:left">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color:rgba(255,255,255,.6);">Filters</a>
-    <div class="dropdown-menu dropdown-multicol" style="width: 600px">
-        <div class="dropdown-row">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin-left: 5%">
-            <label class="form-check-label" for="flexCheckDefault">
-                Default checkbox
-            </label>
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin-left: 5%">
-            <label class="form-check-label" for="flexCheckDefault">
-                Default checkbox
-            </label>
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin-left: 5%">
-            <label class="form-check-label" for="flexCheckDefault">
-                Default checkbox
-            </label>
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color:rgba(255,255,255,.6);" data-keepOpenOnClick>Filters</a>
+    <div class="dropdown-menu dropdown-multicol" style="width: 300px; margin-left: 10px;" data-keepOpenOnClick>
+        <div class="dropdown-row" style="margin-left: 2%">
+            <div style="float:left">
+                <label for="countrySelect" class="form-label mt-4">Country</label>
+                <select class="form-select" id="countrySelect" style="width: 120px">
+                <option selected>-</option>
+                <?php foreach ($countries as $country):?>
+                    <option><?php echo $country["name"] ?></option>
+                <?php endforeach; ?>
+                </select>
+            </div>
+            <div style="margin-left: 135px">
+                <label for="freeSlots" class="form-label mt-4">Free slots</label>
+                <input type="number" min="0" class="form-control" id="freeSlots" style="width: 120px">
+            </div>
         </div>
-        <div class="dropdown-row">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin-left: 5%">
-            <label class="form-check-label" for="flexCheckDefault">
-                Default checkbox
-            </label>
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin-left: 5%">
-            <label class="form-check-label" for="flexCheckDefault">
-                Default checkbox
-            </label>
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin-left: 5%">
-            <label class="form-check-label" for="flexCheckDefault">
-                Default checkbox
-            </label>
+        
+        <div class="dropdown-row" style="margin-left: 2%;">
+            <div style="float:left">
+                <label for="from" class="form-label mt-4">From</label>
+                <input type="date" class="form-control" id="from" style="width: 120px">
+            </div>
+            <div style="margin-left: 135px">
+                <label for="to" class="form-label mt-4">To</label>
+                <input type="date" class="form-control" id="to" style="width: 120px">
+            </div>   
         </div>
-        <div class="dropdown-row">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin-left: 5%">
-            <label class="form-check-label" for="flexCheckDefault">
-                Default checkbox
-            </label>
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin-left: 5%">
-            <label class="form-check-label" for="flexCheckDefault">
-                Default checkbox
-            </label>
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin-left: 5%">
-            <label class="form-check-label" for="flexCheckDefault">
-                Default checkbox
-            </label>
+
+        <div class="dropdown-row" style="margin-left: 2%;" >
+            <div style="float:left">
+                <label for="priceRange" class="form-label mt-4">Maximum price</label>
+                <input type="number" min="0" step="0.01" class="form-control" id="priceRange" style="width: 120px">
+            </div>
+            <div style="margin-left: 135px">
+                <label for="genreSelect" class="form-label mt-4">Genre</label>
+                <select class="form-select" id="genreSelect" style="width: 120px">
+                <option selected>-</option>
+                <?php foreach ($genres as $genre):?>
+                   <option><?php echo $genre["name"] ?></option>
+                <?php endforeach; ?>
+                </select>
+            </div>
         </div>
-        <div class="dropdown-row" style="width: 25%; margin-left: 5%; float:left">
-            <label for="countrySelect" class="form-label mt-4">Country</label>
-            <select class="form-select" id="countrySelect">
-                <option>Slovakia</option>
-                <option>Czechia</option>
-                <option>Poland</option>
-                <option>Austria</option>
-                <option>blablala</option>
-            </select>
-        </div>
-        <div class="dropdown-row" style="width: 25%; margin-left: 5%; float:left">
-            <label for="freeSlots" class="form-label mt-4">Free slots</label>
-            <input type="email" class="form-control" id="freeSlots">
-        </div>
-        <div class="dropdown-row" style="width: 25%; margin-left: 5%; float:left">
-            <label for="priceRange" class="form-label mt-4">Maximum price</label>
-            <input type="email" class="form-control" id="priceRange">
-        </div>
+        
+        <!-- element pre Matejka -->
+        <!-- <div class="dropdown-row" style="margin-left: 2%;" >
+            <div style="float:left">
+                <label for="genreSelect" class="form-label mt-4">Genre</label>
+                <select class="form-select" id="genreSelect" style="width: 120px">
+                <option selected>-</option>
+                <?php foreach ($genres as $genre):?>
+                   <option><?php echo $genre["name"] ?></option>
+                <?php endforeach; ?>
+                </select>
+            </div>
+            <div style="margin-left: 135px">
+                <label for="genreSelect" class="form-label mt-4">Genre</label>
+                <select class="form-select" id="genreSelect" style="width: 120px">
+                <option selected>-</option>
+                <?php foreach ($genres as $genre):?>
+                   <option><?php echo $genre["name"] ?></option>
+                <?php endforeach; ?>
+                </select>
+            </div>
+        </div>            -->
     </div>
 
 </div>
