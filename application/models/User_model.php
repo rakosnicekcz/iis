@@ -33,7 +33,7 @@ class User_model extends CI_Model
 
     public function get_presentations_by_user_id($id)
     {
-        return $this->db->query('SELECT p.name "p_name", p.id, p.start, p.finish, p.conference_id, c.name "c_name" FROM presentations p JOIN conferences c on c.id=p.conference_id WHERE p.user_id = ?', [$id])->result_array();
+        return $this->db->query('SELECT p.name "p_name", p.id, p.start, p.finish, p.conference_id, c.name "c_name", p.confirmed FROM presentations p JOIN conferences c on c.id=p.conference_id WHERE p.user_id = ?', [$id])->result_array();
     }
 
     public function get_all_users()

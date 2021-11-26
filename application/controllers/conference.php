@@ -137,7 +137,7 @@ class Conference extends CI_Controller
     public function conference()
     {
         $id = 0;
-        if (isset($this->input->get()["id"])) {
+        if (isset($this->input->get()["id"]) && $this->input->get()["id"] != "" && is_numeric($this->input->get()["id"])) {
             $id = intval($this->input->get()["id"]);
         } else {
             redirect("/");

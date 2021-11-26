@@ -1,4 +1,4 @@
-<section class="vh-200 gradient-custom mt-5">
+<section class="vh-200 gradient-custom" style="margin-top: 100px">
   <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">

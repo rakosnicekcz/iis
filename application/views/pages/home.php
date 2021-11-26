@@ -1,3 +1,4 @@
+<script type='text/javascript' src="<?php echo base_url(); ?>js/home.js"></script>
 <?php if ($justloggedin) : ?>
     <div class="alert alert-dismissible alert-success">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -88,16 +89,19 @@
             </h4>
             <h6 class="card-subtitle text-muted"><?php echo $conf["from"] . " - " . $conf["to"] ?></h6>
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-            <rect width="100%" height="100%" fill="#868e96"></rect>
-            <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-        </svg>
-        <div class="card-body">
-            <p class="card-text"><?php echo $conf["description"] ?></p>
-        </div>
+        <?php if ($conf["image"] == "") : ?>
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+                <rect width="100%" height="100%" fill="#868e96"></rect>
+                <text x="50%" y="50%" fill="#dee2e6" dy=".3em">No image</text>
+            </svg>
+        <?php else : ?>
+            <div style="height: 200px; width: 353px;">
+                <img src="<?php echo "uploads/" . $conf["image"] ?>" class="img-fluid" alt="Responsive image" style="max-width: 100%; max-height: 100%; margin: auto; display: block;">
+            </div>
+        <?php endif; ?>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Price: <?php echo $conf["price"] ?></li>
-            <li class="list-group-item">Capacity: <?php echo $conf["capacity"] ?></li>
+            <li class="list-group-item">Tickets left: <?php echo '<span class="ticketsLeft">' . $conf["left"] . '</span>/<span class="ticketsCapacity" >' . $conf["capacity"] . "</span>" ?></li>
         </ul>
         <div class="card-body">
             <a href=<?php echo '"' . base_url() . 'conference?id=' . $conf["id"] . '"' ?> class="card-link">Show details</a>

@@ -16,6 +16,10 @@ class Home extends CI_Controller
         }
 
         $data["conferences"] = $this->conference_model->get_all_conferences();
+        foreach ($data["conferences"] as $key => $value) {
+            $data["conferences"][$key]["left"] = $value["capacity"] - $this->conference_model->get_sold_tickets_count_by_conference_id($value["id"])["sold"];
+        }
+
         $data["justloggedin"] = $this->session->has_userdata('justloggedin');
         $this->session->unset_userdata('justloggedin');
 

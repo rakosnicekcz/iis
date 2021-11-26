@@ -5,6 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/user.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<div style="margin-top: 80px"></div>
 <div class="alert alert-dismissible alert-success" id="alertChangedUserInforamtions" style="display: none">
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     <strong>successfully changed your informations</strong>.
@@ -58,14 +59,16 @@
                             <th scope="col">Presentation</th>
                             <th scope="col">Conference</th>
                             <th scope="col">Date</th>
+                            <th scope="col">Confirmed</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($presentations as $pres) : ?>
                             <tr>
-                                <th scope="row"><a href=<?php echo '"' . base_url() . 'presentation?id=' . $pres["presentation_id"] . '"' ?>><?php echo $pres["p_name"] ?></a></th>
+                                <th scope="row"><a href=<?php echo '"' . base_url() . 'presentation?id=' . $pres["id"] . '"' ?>><?php echo $pres["p_name"] ?></a></th>
                                 <td><a href=<?php echo '"' . base_url() . 'conference?id=' . $pres["conference_id"] . '"' ?>><?php echo $pres["c_name"] ?></a></td>
                                 <td><?php echo $pres["start"] . " - " . $pres["finish"] ?></td>
+                                <td><?php echo intval($pres["confirmed"]) ? '<i class="text-success fa fa-check me-1 "></i>' : '<i class="text-danger fa fa-close me-1 "></i>' ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
