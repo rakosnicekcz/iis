@@ -14,10 +14,10 @@
             <div style="float:left">
                 <label for="countrySelect" class="form-label mt-4">Country</label>
                 <select class="form-select" id="countrySelect" style="width: 120px">
-                <option selected>-</option>
-                <?php foreach ($countries as $country):?>
-                    <option><?php echo $country["name"] ?></option>
-                <?php endforeach; ?>
+                    <option selected>-</option>
+                    <?php foreach ($countries as $country) : ?>
+                        <option><?php echo $country["name"] ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div style="margin-left: 135px">
@@ -25,7 +25,7 @@
                 <input type="number" min="0" class="form-control" id="freeSlots" style="width: 120px">
             </div>
         </div>
-        
+
         <div class="dropdown-row" style="margin-left: 2%;">
             <div style="float:left">
                 <label for="from" class="form-label mt-4">From</label>
@@ -34,10 +34,10 @@
             <div style="margin-left: 135px">
                 <label for="to" class="form-label mt-4">To</label>
                 <input type="date" class="form-control" id="to" style="width: 120px">
-            </div>   
+            </div>
         </div>
 
-        <div class="dropdown-row" style="margin-left: 2%;" >
+        <div class="dropdown-row" style="margin-left: 2%;">
             <div style="float:left">
                 <label for="priceRange" class="form-label mt-4">Maximum price</label>
                 <input type="number" min="0" step="0.01" class="form-control" id="priceRange" style="width: 120px">
@@ -45,21 +45,21 @@
             <div style="margin-left: 135px">
                 <label for="genreSelect" class="form-label mt-4">Genre</label>
                 <select class="form-select" id="genreSelect" style="width: 120px">
-                <option selected>-</option>
-                <?php foreach ($genres as $genre):?>
-                   <option><?php echo $genre["name"] ?></option>
-                <?php endforeach; ?>
+                    <option selected>-</option>
+                    <?php foreach ($genres as $genre) : ?>
+                        <option><?php echo $genre["name"] ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
         </div>
-        
+
         <!-- element pre Matejka -->
         <!-- <div class="dropdown-row" style="margin-left: 2%;" >
             <div style="float:left">
                 <label for="genreSelect" class="form-label mt-4">Genre</label>
                 <select class="form-select" id="genreSelect" style="width: 120px">
                 <option selected>-</option>
-                <?php foreach ($genres as $genre):?>
+                <?php foreach ($genres as $genre) : ?>
                    <option><?php echo $genre["name"] ?></option>
                 <?php endforeach; ?>
                 </select>
@@ -68,7 +68,7 @@
                 <label for="genreSelect" class="form-label mt-4">Genre</label>
                 <select class="form-select" id="genreSelect" style="width: 120px">
                 <option selected>-</option>
-                <?php foreach ($genres as $genre):?>
+                <?php foreach ($genres as $genre) : ?>
                    <option><?php echo $genre["name"] ?></option>
                 <?php endforeach; ?>
                 </select>
@@ -78,7 +78,7 @@
 
 </div>
 <div style="margin-top: 85px;">
-    <input class="form-control me-sm-2" type="text" placeholder="Search" style="width: 40%; margin-left: 2%; float:left">
+    <input class="form-control me-sm-2" type="text" id="searchInput" placeholder="Search" style="width: 40%; margin-left: 2%; float:left">
     <button class="btn btn-secondary my-sm-0" style="margin-left: 40px">Search</button>
 </div>
 

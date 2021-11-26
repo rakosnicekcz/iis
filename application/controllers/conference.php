@@ -152,6 +152,9 @@ class Conference extends CI_Controller
         }
 
         $data["conference"] = $this->conference_model->get_conference_by_id($id);
+        if (!$data["conference"]) {
+            redirect("/");
+        }
 
         $this->load->model('PresentationModel');
         $data["presentations"] = $this->PresentationModel->get_presentations_by_conference_id($id);

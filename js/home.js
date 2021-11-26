@@ -15,3 +15,13 @@ function highlightLeftSlots() {
 		}
 	});
 }
+
+function search() {
+	let country = document.querySelector("#countrySelect").value;
+	let freeSlots = document.querySelector("#freeSlots").value;
+	let from = document.querySelector("#from").value;
+	let to = document.querySelector("#to").value;
+	let maxPrice = document.querySelector("#priceRange").value;
+	let genre = document.querySelector("#genreSelect").value;
+	let searchText = document.querySelector("#searchInput").value;
+}
