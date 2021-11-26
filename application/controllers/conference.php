@@ -69,12 +69,18 @@ class Conference extends CI_Controller
 
             if (strtotime($sdata["from"]) > strtotime($sdata["to"])) {
                 $this->session->set_flashdata('date_error', 'Conference start after it ends.', 300);
-                redirect(uri_string() . "?id=" . $id);
+                $this->load->view('templates/header');
+                $this->load->view('pages/ConferenceEditView', $data);
+                $this->load->view('templates/footer');
+                return;
             }
             $this->load->model('Conference_model');
             if ((int)$this->Conference_model->get_count_of_tickets_on_conference($id)["count"] > (int)$sdata['capacity']) {
                 $this->session->set_flashdata('capacity_error', 'Capacity is lower then count of tickets.', 300);
-                redirect(uri_string() . "?id=" . $id);
+                $this->load->view('templates/header');
+                $this->load->view('pages/ConferenceEditView', $data);
+                $this->load->view('templates/footer');
+                return;
             }
 
             $this->Conference_model->update_conference($sdata, $data["conference"]["id"]);
@@ -98,7 +104,6 @@ class Conference extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header');
             $this->load->view('pages/ConferenceCreateView', $data);
-            $this->load->view('templates/footer');
         } else {
 
             $config['upload_path'] = './uploads/'; // upload image
@@ -122,7 +127,10 @@ class Conference extends CI_Controller
 
             if (strtotime($sdata["from"]) > strtotime($sdata["to"])) {
                 $this->session->set_flashdata('date_error', 'Conference start after it ends.', 300);
-                redirect(uri_string());
+                $this->load->view('templates/header');
+                $this->load->view('pages/ConferenceCreateView', $data);
+                $this->load->view('templates/footer');
+                return;
             }
 
             $this->load->model('Conference_model');

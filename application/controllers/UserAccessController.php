@@ -40,10 +40,14 @@ class UserAccessController extends CI_Controller
 
             if ($this->user_model->get_user_by_email($email)) {
                 $this->session->set_flashdata('registration_error', 'Account with this email already exist.', 300);
-                redirect(uri_string());
+                $this->load->view('pages/registration');
+                $this->load->view('templates/footer');
+                return;
             } elseif ($password !== $passwordAgain) {
                 $this->session->set_flashdata('registration_error', 'Passwords are not same.', 300);
-                redirect(uri_string());
+                $this->load->view('pages/registration');
+                $this->load->view('templates/footer');
+                return;
             } else {
                 $this->session->set_userdata(['name' => $name, 'surename' => $surename, 'email' => $email, "justloggedin" => true]);
                 $this->user_model->add_user($email, $name, $surename, password_hash($password, PASSWORD_DEFAULT));
@@ -70,12 +74,16 @@ class UserAccessController extends CI_Controller
 
             if (!$user) {
                 $this->session->set_flashdata('login_error', 'Please check your email or password and try again.', 300);
-                redirect(uri_string());
+                $this->load->view('pages/login');
+                $this->load->view('templates/footer');
+                return;
             }
 
             if (!password_verify($password, $user->password)) {
                 $this->session->set_flashdata('login_error', 'Please check your email or password and try again.', 300);
-                redirect(uri_string());
+                $this->load->view('pages/login');
+                $this->load->view('templates/footer');
+                return;
             }
 
             $this->session->set_userdata(['admin' => $user->is_admin, 'id' => $user->id, 'name' => $user->name, 'surename' => $user->surename, 'email' => $user->email, "justloggedin" => true]); ///TODO víc dat + info o prihlaseni

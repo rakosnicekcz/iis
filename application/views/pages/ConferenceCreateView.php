@@ -9,7 +9,7 @@
               <h2 class="fw-bold mb-2 text-uppercase">Create a new conference</h2>
               <div class="form-outline form-white mb-4">
                 <label for="name" class="form-label mt-4">Name</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" class="form-control" id="name" name="name" value="<?php echo set_value('name'); ?>">
                 <span class="text-danger"><?php echo form_error('name'); ?></span>
                 <small id="name" class="form-text text-muted">Please type name for your conference</small>
               </div>
@@ -24,7 +24,7 @@
               </div>
               <div class="form-outline form-white mb-4">
                 <label for="description" class="form-label mt-4">Description</label>
-                <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+                <textarea class="form-control" id="description" rows="3" name="description"><?php echo set_value('description'); ?></textarea>
               </div>
               <div class="form-group">
                 <label for="formFile" class="form-label mt-4">Image</label>
@@ -32,34 +32,34 @@
               </div>
               <div class="form-outline form-white mb-4">
                 <label for="place" class="form-label mt-4">Place</label>
-                <input type="text" class="form-control" id="place" aria-describedby="place" name="place">
+                <input type="text" class="form-control" id="place" aria-describedby="place" name="place" value="<?php echo set_value('place'); ?>">
                 <span class="text-danger"><?php echo form_error('place'); ?></span>
                 <small id="place" class="form-text text-muted">Please type where your conference takes place</small>
               </div>
               <div class="form-outline form-white mb-4">
                 <label for="price" class="form-label mt-4">Price</label>
-                <input type="number" min="0" class="form-control" id="price" aria-describedby="price" name="price">
+                <input type="number" min="0" class="form-control" id="price" aria-describedby="price" name="price" value="<?php echo set_value('price'); ?>">
                 <span class="text-danger"><?php echo form_error('price'); ?></span>
                 <small id="price" class="form-text text-muted">Please type ticket price</small>
               </div>
               <div class="form-outline form-white mb-4">
                 <!-- Date input -->
                 <label class="control-label" for="from">Date from</label>
-                <input class="form-control" id="from" type="datetime-local" name="from">
+                <input class="form-control" id="from" type="datetime-local" name="from" value="<?php echo set_value('from'); ?>">
                 <span class="text-danger"><?php echo form_error('from'); ?></span>
               </div>
             </div>
             <div class="form-outline form-white mb-4">
               <!-- Date input -->
               <label class="control-label" for="to">Date until</label>
-              <input class="form-control" id="to" type="datetime-local" name="to">
+              <input class="form-control" id="to" type="datetime-local" name="to" value="<?php echo set_value('to'); ?>">
               <span class="text-danger"><?php echo form_error('to'); ?><?php echo $this->session->flashdata('date_error'); ?><?php echo $this->session->flashdata('capacity_error'); ?></span>
 
             </div>
 
             <div class="form-outline form-white mb-4">
               <label for="capacity" class="form-label mt-4">Capacity</label>
-              <input type="number" min="0" class="form-control" id="capacity" aria-describedby="capacity" name="capacity">
+              <input type="number" min="0" class="form-control" id="capacity" aria-describedby="capacity" name="capacity" value="<?php echo set_value('capacity'); ?>">
               <span class="text-danger"><?php echo form_error('capacity'); ?></span>
               <small id="capacity" class="form-text text-muted">Please type maximum conference capacity</small>
             </div>
