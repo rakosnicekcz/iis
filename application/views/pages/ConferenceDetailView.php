@@ -1,8 +1,4 @@
-<!doctype html>
-<html lang="en">
-
-<body>
-  <div class="detail-img">
+ <div class="detail-img">
     <div class="card">
       <div class="card-body">
         <h3 class="card-title"><?php echo $conference["name"] ?></h3>
@@ -78,6 +74,3 @@
       </div>
     </div>
   </div>
-</body>
-
-</html>
