@@ -1,4 +1,7 @@
 <script type='text/javascript' src="<?php echo base_url(); ?>js/user.js"></script>
+<script>
+    ajaxPath = "<?php echo base_url() ?>"
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/user.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -35,7 +38,7 @@
                     <tbody>
                         <?php foreach ($tickets as $ticket) : ?>
                             <tr>
-                                <th scope="row"><a href=<?php echo '"' . base_url() . 'conference?id=' . $ticket["conference_id"] . '"' ?>><?php echo $ticket["name"] ?></a></th>
+                                <th scope="row"><a href=<?php echo '"' . base_url() . 'conference?id=' . $ticket["id"] . '"' ?>><?php echo $ticket["name"] ?></a></th>
                                 <td><?php echo $ticket["count"] ?></td>
                                 <td><?php echo $ticket["code"] ?></td>
                                 <td><?php echo $ticket["from"] . " - " . $ticket["to"] ?></td>
@@ -85,7 +88,7 @@
 
                         <?php foreach ($conferences as $conf) : ?>
                             <tr>
-                                <th scope="row"><a href=<?php echo '"' . base_url() . 'conference?id=' . $conf["conference_id"] . '"' ?>><?php echo $conf["name"] ?></a></th>
+                                <th scope="row"><a href=<?php echo '"' . base_url() . 'conference?id=' . $conf["id"] . '"' ?>><?php echo $conf["name"] ?></a></th>
                                 <td><?php echo $conf["reserved"] . "/" . $conf["capacity"] ?></td>
                                 <td><?php echo $conf["from"] . " - " . $conf["to"] ?></td>
                             </tr>
@@ -150,7 +153,7 @@
                         <div class="form-group">
                             <label for="modalInputEmail" class="form-label mt-4">Email address</label>
                             <input type="email" class="form-control" id="modalInputEmail" aria-describedby="emailHelp" placeholder="Enter email">
-                            <div class="invalid-feedback">User with this email already exist</div>
+                            <div class="invalid-feedback">User with this email already exist or wrong format of email</div>
                         </div>
                         <div class="form-group">
                             <label for="modalInputName" class="form-label mt-4">Name</label>
@@ -188,7 +191,7 @@
                     <div class="form-group">
                         <label for="modalInputMyEmail" class="form-label mt-4">Email address</label>
                         <input type="email" class="form-control" id="modalInputMyEmail" aria-describedby="emailHelp" placeholder="Enter email">
-                        <div class="invalid-feedback">User with this email already exist</div>
+                        <div class="invalid-feedback">User with this email already exist or wrong format of email</div>
                     </div>
                     <div class="form-group">
                         <label for="modalInputMyName" class="form-label mt-4">Name</label>
@@ -208,17 +211,17 @@
                     <div class="ms-3">
                         <div class="form-group">
                             <label for="modalMyOldPassword" class="form-label mt-4">Old Password</label>
-                            <input type="email" class="form-control" id="modalMyOldPassword" aria-describedby="emailHelp" placeholder="Enter old password" disabled>
-                            <div class="invalid-feedback">Wrong password ()</div>
+                            <input type="password" class="form-control" id="modalMyOldPassword" aria-describedby="emailHelp" placeholder="Enter old password" disabled>
+                            <div class="invalid-feedback">Wrong password</div>
                         </div>
                         <div class="form-group">
                             <label for="modalMyNewPassword" class="form-label mt-4">New Password</label>
-                            <input type="email" class="form-control" id="modalMyNewPassword" aria-describedby="emailHelp" placeholder="Enter new password" disabled>
+                            <input type="password" class="form-control" id="modalMyNewPassword" aria-describedby="emailHelp" placeholder="Enter new password" disabled>
                             <div class="invalid-feedback">Passwords must be 6 characters long and contain at leats 1 number, 1 Big char and 1 small cahr</div>
                         </div>
                         <div class="form-group">
                             <label for="modalMyNewPasswordAgain" class="form-label mt-4">New Password Again</label>
-                            <input type="email" class="form-control" id="modalMyNewPasswordAgain" aria-describedby="emailHelp" placeholder="Enter new passrod again" disabled>
+                            <input type="password" class="form-control" id="modalMyNewPasswordAgain" aria-describedby="emailHelp" placeholder="Enter new passrod again" disabled>
                             <div class="invalid-feedback">Passwords are not same</div>
                         </div>
                     </div>

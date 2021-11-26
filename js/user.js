@@ -1,6 +1,7 @@
 let userToEditId;
 let modalEditErr = { email: 0, name: 0, surename: 0 };
 let modalEditMeErr = { email: 0, name: 0, surename: 0, changePass: 0 };
+let ajaxPath = "";
 
 window.onload = () => {
 	addListeners();
@@ -88,16 +89,13 @@ function addListeners() {
 			} else {
 				this.classList.add("is-invalid");
 			}
+			validate_modalInputMyPasswordAgain();
 		});
 
 	document
 		.querySelector("#modalMyNewPasswordAgain")
 		.addEventListener("input", function () {
-			if (this.value == document.querySelector("#modalMyNewPassword").value) {
-				this.classList.remove("is-invalid");
-			} else {
-				this.classList.add("is-invalid");
-			}
+			validate_modalInputMyPasswordAgain();
 		});
 
 	document
@@ -153,6 +151,15 @@ function addListeners() {
 		});
 }
 
+function validate_modalInputMyPasswordAgain() {
+	ele = document.querySelector("#modalMyNewPasswordAgain");
+	if (ele.value == document.querySelector("#modalMyNewPassword").value) {
+		ele.classList.remove("is-invalid");
+	} else {
+		ele.classList.add("is-invalid");
+	}
+}
+
 function validate_modalInputMyName() {
 	let ele = document.querySelector("#modalInputMyName");
 	if (ele.value.length > 0) {
@@ -197,9 +204,15 @@ function validate_modalInputMySurename() {
 
 function editUserModal(id) {
 	userToEditId = id;
+	modalEditErr = { email: 0, name: 0, surename: 0 };
+	document.querySelector("#editMeSubmit").disabled = false;
+	document
+		.querySelectorAll("#userEditModal input")
+		.forEach((e) => e.classList.remove("is-invalid"));
+
 	var formData = new FormData();
 	formData.append("id", id);
-	fetch("ajax-getUserById", {
+	fetch(ajaxPath + "ajax-getUserById", {
 		method: "POST",
 		body: formData,
 	})
@@ -212,7 +225,13 @@ function editUserModal(id) {
 }
 
 function editMeModal() {
-	fetch("ajax-getUserBySession", {
+	modalEditMeErr = { email: 0, name: 0, surename: 0, changePass: 0 };
+	document.querySelector("#editMeSubmit").disabled = false;
+	document
+		.querySelectorAll("#userEditMeModal input")
+		.forEach((e) => e.classList.remove("is-invalid"));
+
+	fetch(ajaxPath + "ajax-getUserBySession", {
 		method: "POST",
 	})
 		.then(function (response) {
@@ -230,7 +249,7 @@ function editMeModalInsertData(data) {
 }
 
 function editUserModalInsertData(data) {
-	userToEditId = data.ID;
+	userToEditId = data.id;
 	document.querySelector("#modalInputEmail").value = data.email;
 	document.querySelector("#modalInputName").value = data.name;
 	document.querySelector("#modalInputSurename").value = data.surename;
@@ -244,13 +263,14 @@ function editUserModalSubmit() {
 	let admin = document.querySelector("#modalCheckboxAdmin").checked ? "1" : "0";
 
 	var formData = new FormData();
+	console.log(userToEditId);
 	formData.append("id", userToEditId);
 	formData.append("email", email);
 	formData.append("name", name);
 	formData.append("surename", surename);
 	formData.append("admin", admin);
 
-	fetch("ajax-updateUserById", {
+	fetch(ajaxPath + "ajax-updateUserById", {
 		method: "POST",
 		body: formData,
 	})
@@ -314,7 +334,7 @@ function deleteUserModalSubmit() {
 		formData.append("id", userToEditId);
 		userToEditId = undefined;
 
-		fetch("ajax-deleteUserById", {
+		fetch(ajaxPath + "ajax-deleteUserById", {
 			method: "POST",
 			body: formData,
 		})
@@ -343,7 +363,7 @@ function editUserMeModalSubmit() {
 	formData.append("oldpass", oldPass);
 	formData.append("newpass", newPass);
 
-	fetch("ajax-updateUserInfoById", {
+	fetch(ajaxPath + "ajax-updateUserInfoById", {
 		method: "POST",
 		body: formData,
 	})
@@ -361,16 +381,14 @@ function editUserMeModalSubmit() {
 					.querySelector("#modalInputMyEmail")
 					.classList.add("is-invalid");
 			} else {
-				document
-					.querySelectorAll("#modalMyOldPassword, #modalInputMyEmail")
-					.forEach((e) => {
-						e.classList.remove("is-invalid");
-					});
+				document.querySelector("#userEditMeModal input").forEach((e) => {
+					e.classList.remove("is-invalid");
+					e.id == "modalChangePassword" ? (e.checked = false) : (e.value = "");
+				});
 				document.querySelector("#userEditMeModalCloseBtn").click();
 				document.querySelector("#alertChangedUserInforamtions").style.display =
 					"block";
 				document.querySelector("#editMeSubmit").disabled = true;
 			}
-			console.log(data);
 		});
 }

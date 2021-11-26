@@ -20,7 +20,7 @@ class User extends CI_Controller
         $data["tickets"] = $this->user_model->get_tickets_by_user_id(intval($this->session->userdata["id"]));
         $data["conferences"] = $this->user_model->get_conferences_by_user_id(intval($this->session->userdata["id"]));
         foreach ($data["conferences"] as $key => $value) {
-            $data["conferences"][$key]["reserved"] = $this->user_model->get_ticket_count_by_conference_id($value["conference_id"])->count;
+            $data["conferences"][$key]["reserved"] = $this->user_model->get_ticket_count_by_conference_id($value["id"])->count;
         }
         $data["presentations"] = $this->user_model->get_presentations_by_user_id(intval($this->session->userdata["id"]));
 

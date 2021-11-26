@@ -31,7 +31,7 @@ class Conference extends CI_Controller
         $data["id"] = $id;
 
         $this->form_validation->set_rules('name', 'Name', 'required');
-        $this->form_validation->set_rules('genre_id', 'Genre id', 'required');
+        $this->form_validation->set_rules('genre_id', 'Genre', 'required');
         $this->form_validation->set_rules('place', 'Place', 'required');
         $this->form_validation->set_rules('price', 'Price', 'required');
         $this->form_validation->set_rules('from', 'From', 'required');
@@ -65,19 +65,19 @@ class Conference extends CI_Controller
             $sdata['to'] = $this->input->post('to');
             $sdata['price'] = $this->input->post('price');
             $sdata['capacity'] = $this->input->post('capacity');
-            $sdata['user_id'] = $data["conference"]["User_id"];
+            $sdata['user_id'] = $data["conference"]["user_id"];
 
             if (strtotime($sdata["from"]) > strtotime($sdata["to"])) {
                 $this->session->set_flashdata('date_error', 'Conference start after it ends.', 300);
                 redirect(uri_string() . "?id=" . $id);
             }
             $this->load->model('Conference_model');
-            if ((int)$this->Conference_model->get_count_of_tickets_on_conference()["count"] > (int)$sdata['capacity']) {
+            if ((int)$this->Conference_model->get_count_of_tickets_on_conference($id)["count"] > (int)$sdata['capacity']) {
                 $this->session->set_flashdata('capacity_error', 'Capacity is lower then count of tickets.', 300);
                 redirect(uri_string() . "?id=" . $id);
             }
 
-            $this->Conference_model->update_conference($sdata, $data["conference"]["conference_id"]);
+            $this->Conference_model->update_conference($sdata, $data["conference"]["id"]);
             redirect('conference?id=' . $id);
         }
     }
@@ -128,7 +128,7 @@ class Conference extends CI_Controller
             $this->load->model('Conference_model');
             $this->Conference_model->insert_conference($sdata);
             $confId = $this->conference_model->get_conference_by_highest_id();
-            redirect('conference?id=' . $confId["conference_id"]);
+            redirect('conference?id=' . $confId["id"]);
         }
 
         $this->load->view('templates/footer');
@@ -136,40 +136,11 @@ class Conference extends CI_Controller
 
     public function conference()
     {
-        if ($this->input->post('save')) {
-
-
-            $config['upload_path'] = './uploads/'; // upload image
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = 50000;
-            $config['encrypt_name'] = true;
-            $this->load->library('upload', $config);
-
-            $this->upload->do_upload('image');
-
-            $sdata['name'] = $this->input->post('name');
-            $sdata['genre_id'] = $this->input->post('genre_id');
-            $sdata['description'] = $this->input->post('description');
-            $sdata['image'] = $this->upload->data()["file_name"];
-            $sdata['place'] = $this->input->post('place');
-            $sdata['from'] = $this->input->post('from');
-            $sdata['to'] = $this->input->post('to');
-            $sdata['price'] = $this->input->post('price');
-            $sdata['capacity'] = $this->input->post('capacity');
-            $sdata['user_id'] = 0;
-
-
-            $this->load->model('Conference_model');
-            $this->Conference_model->insert_conference($sdata);
-            echo "Conference succesfuly Created.";
-        }
-
+        $id = 0;
         if (isset($this->input->get()["id"])) {
             $id = intval($this->input->get()["id"]);
-        } else if ($this->input->post('edit')) {
-            $id = $this->input->post('edit');
         } else {
-            $id = $this->conference_model->get_conference_by_highest_id();
+            redirect("/");
         }
 
         $data["conference"] = $this->conference_model->get_conference_by_id($id);
@@ -179,24 +150,6 @@ class Conference extends CI_Controller
 
         $result = $this->conference_model->get_sold_tickets_count_by_conference_id($id);
         $data["available"] = $data["conference"]["capacity"] - $result["sold"];
-
-        if ($this->input->post('edit')) {
-            $sdata['name'] = $this->input->post('name');
-            $sdata['genre_id'] = $this->input->post('genre_id');
-            $sdata['description'] = $this->input->post('description');
-            //$sdata['image'] = "dsad";
-            $sdata['place'] = $this->input->post('place');
-            $sdata['from'] = $this->input->post('from');
-            $sdata['to'] = $this->input->post('to');
-            $sdata['price'] = $this->input->post('price');
-            $sdata['capacity'] = $this->input->post('capacity');
-            $sdata['user_id'] = $data["conference"]["User_id"];
-
-
-            $this->load->model('Conference_model');
-            $this->Conference_model->update_conference($sdata, $data["conference"]["conference_id"]);
-            echo "Conference succesfuly added.";
-        }
 
         $this->load->view('templates/header');
         $this->load->view('pages/ConferenceDetailView', $data);

@@ -8,7 +8,7 @@ class User_model extends CI_Model
 
     public function get_user_by_email($email)
     {
-        return $this->db->get_where('Users', ['email' => $email])->row();
+        return $this->db->get_where('users', ['email' => $email])->row();
     }
 
     public function add_user($email, $name, $surename, $password)
@@ -18,42 +18,42 @@ class User_model extends CI_Model
 
     public function get_tickets_by_user_id($id)
     {
-        return $this->db->query('SELECT C.name, c.image, c.from, c.to, t.code, c.conference_id, t.ID, count(T.Conference_id) as "count" FROM TICKETS T iNNER JOIN CONFERENCES C ON T.Conference_id = c.Conference_id WHERE t.User_id = ? Group by T.Conference_id', [$id])->result_array();
+        return $this->db->query('SELECT c.name, c.image, c.from, c.to, t.code, c.id, t.id, count(t.conference_id) as "count" FROM TICKETS t iNNER JOIN CONFERENCES c ON t.conference_id = c.id WHERE t.user_id = ? Group by t.conference_id', [$id])->result_array();
     }
 
     public function get_conferences_by_user_id($id)
     {
-        return $this->db->query('SELECT c.conference_id, c.name, c.image, c.from, c.to, c.capacity FROM conferences c JOIN genres g ON c.genre_id=g.genre_id WHERE c.User_id= ?', [$id])->result_array();
+        return $this->db->query('SELECT c.id, c.name, c.image, c.from, c.to, c.capacity FROM conferences c JOIN genres g ON c.genre_id=g.id WHERE c.user_id= ?', [$id])->result_array();
     }
 
     public function get_ticket_count_by_conference_id($id)
     {
-        return $this->db->query('SELECT count(*) as "count" FROM tickets WHERE Conference_id = ?', [$id])->row();
+        return $this->db->query('SELECT count(*) as "count" FROM tickets WHERE conference_id = ?', [$id])->row();
     }
 
     public function get_presentations_by_user_id($id)
     {
-        return $this->db->query('SELECT p.name "p_name", p.presentation_id, p.start, p.finish, p.conference_id, c.name "c_name" FROM presentations p JOIN conferences c on c.conference_id=p.conference_id WHERE p.User_id = ?', [$id])->result_array();
+        return $this->db->query('SELECT p.name "p_name", p.id, p.start, p.finish, p.conference_id, c.name "c_name" FROM presentations p JOIN conferences c on c.id=p.conference_id WHERE p.user_id = ?', [$id])->result_array();
     }
 
     public function get_all_users()
     {
-        return $this->db->query('SELECT u.id, u.email, u.name, u.surename, u.is_admin, count(c.User_id) "conferences", count(p.User_id) "presentations" FROM users u left join presentations p on p.User_id = u.ID left join conferences c on c.User_id = u.ID group by u.name')->result_array();
+        return $this->db->query('SELECT u.id, u.email, u.name, u.surename, u.is_admin, count(c.user_id) "conferences", count(p.user_id) "presentations" FROM users u left join presentations p on p.user_id = u.id left join conferences c on c.user_id = u.id group by u.name')->result_array();
     }
 
     public function get_user_by_id($id)
     {
-        return $this->db->get_where('users', ['ID' => $id])->row();
+        return $this->db->get_where('users', ['id' => $id])->row();
     }
 
     public function update_user_by_id($id, $data)
     {
-        $this->db->where('ID', $id);
+        $this->db->where('id', $id);
         $this->db->update('users', $data);
     }
 
     public function delete_user_by_id($id)
     {
-        $this->db->delete('users', ['ID' => $id]);
+        $this->db->delete('users', ['id' => $id]);
     }
 }

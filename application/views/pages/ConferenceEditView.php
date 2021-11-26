@@ -17,7 +17,7 @@
                 <label for="genre" class="form-label mt-4">Genre</label>
                 <select class="form-select" id="genre" name="genre_id">
                   <?php foreach ($genres as $genre) : ?>
-                    <option value="<?php echo $genre["genre_id"] ?>" name="genre" <?php $genre["genre_id"] == $conference["genre_id"] ? "selected" : "" ?>> <?php echo $genre["name"] ?> </option>
+                    <option value="<?php echo $genre["id"] ?>" name="genre" <?php $genre["id"] == $conference["genre_id"] ? "selected" : "" ?>> <?php echo $genre["name"] ?> </option>
                   <?php endforeach; ?>
                 </select>
                 <span class="text-danger"><?php echo form_error('genre_id'); ?></span>
