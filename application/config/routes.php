@@ -60,12 +60,13 @@ $route['ajax-updateUserInfoById'] = 'user/ajaxUpdateUserInfoById';
 $route['ajax-getUserBySession'] = 'user/ajaxGetUserBySessionId';
 $route['user'] = 'user/user';
 $route['conference'] = 'conference/conference';
-$route['default_controller'] = 'home/home';
+
 $route['404_override'] = '';
 $route["home"] = 'home/home';
 #$route['(:any)'] = 'pages/view/$1';
 $route['translate_uri_dashes'] = false;
 //marhy
 $route['reserve'] = 'reservationController/reserve';
-$route["contacts"] = 'contacts/contacts';
+$route["contacts"] = 'home/contacts';
 $route["reserveTickets"] = 'reserveTickets/reserveTickets';
+$route['default_controller'] = 'home/home';

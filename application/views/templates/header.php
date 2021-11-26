@@ -20,7 +20,10 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href=<?php echo site_url('contacts/contacts'); ?>>Contacts</a>
+            <a class="nav-link" href=<?php echo base_url(); ?>>Conferences</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=<?php echo site_url('contacts'); ?>>Contacts</a>
           </li>
         </ul>
         <?php if ($this->session->has_userdata('email')) : ?>
