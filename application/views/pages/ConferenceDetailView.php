@@ -69,8 +69,68 @@
                 </div>
               </div>
             </div>
+<<<<<<< Updated upstream
           <?php endforeach; ?>
         </div>
+=======
+
+             <div class="col">
+                        <h4 class="box-title mt-5">Where?</h4>
+                        <div class="row">
+                            <div class="col">
+                            <img src="https://img.icons8.com/ios/50/000000/worldwide-location.png" alt="Conference place" class="img-thumbnail">
+                            </div>
+                            <div class="col">
+                                <p> <?php echo $conference["place"] ?> <p>
+                            </div>
+                        </div>
+                        <h4 class="box-title mt-5">When?</h4>
+                        <div class="row">
+                            <div class="col">
+                            <img src="https://img.icons8.com/dotty/80/000000/time.png" alt="Conference place" class="img-thumbnail">
+                            </div>
+                            <div class="col">
+                                <p>  <?php echo date("d-m-Y", strtotime($conference["from"])) ?> until <?php echo date("d-m-Y", strtotime($conference["to"])) ?> <p>
+                            </div>
+                        </div>
+                        <h4 class="box-title mt-5">Available seats</h4>
+                        <p> <?php echo $available ?>/<?php echo $conference["capacity"] ?> </p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-primary btn-lg">Buy Ticket</button>
+                            </div>
+                            <div class="col">
+                                <p>  <?php echo $conference["price"] ?> $ <p>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="col">
+                <br>
+                <button onclick='location.href=<?php echo '"' . base_url() . 'conferenceedit?id=' . $conference["conference_id"] . '"' ?>' class="btn btn-primary">Edit Conference</button>
+                <button onclick='location.href=<?php echo '"' . base_url() . 'PresentationEdit?id=2' . '"' ?>' class="btn btn-primary">Edit Presentation</button>
+                <button onclick='location.href=<?php echo '"' . base_url() . 'conferencecreate'. '"'?>' class="btn btn-primary">New Conference</button>
+                <button onclick='location.href=<?php echo '"' . base_url() . 'PresentationCreate?conference_id=' . $conference["conference_id"] . '"'?>' class="btn btn-primary">New Presentation</button>
+                <button onclick='location.href=<?php echo '"' . base_url() . 'conference'. '"'?>' class="btn btn-link">Back to conferences</button>
+            </div>
+        </div>
+    </div>
+
+    <h3>  Presentations </h3>
+
+
+<div class="accordion" id="accordionExample">
+<?php foreach ($presentations as $presentation): ?>
+    <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <?php echo $presentation["name"] ?> &#9; From <?php echo $presentation["Start"] ?> Until <?php echo $presentation["Finish"] ?>
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>Tu bude adresa a picovinky</strong> hehe
+>>>>>>> Stashed changes
       </div>
     </div>
   </div>

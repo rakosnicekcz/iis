@@ -4,7 +4,7 @@
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
-            <?php echo form_open_multipart('presentation/edit'); ?>
+            <?php echo form_open_multipart('PresentationController/edit'); ?>
             <div class="mb-md-5 mt-md-4">
               <h2 class="fw-bold mb-2 text-uppercase">Edit presentation</h2>
               <div class="form-outline form-white mb-4">
@@ -15,9 +15,9 @@
               </div>
               <div class="form-outline form-white mb-4">
                 <label for="genre" class="form-label mt-4">Genre</label>
-                <select class="form-select" id="genre" name="genre_id">
+                <select class="form-select" id="room" name="room_id">
                   <?php foreach ($rooms as $room) : ?>
-                    <option value="<?php echo $room["room_id"] ?>" name="room" <?php $room["room_id"] == $presentation["room_id"] ? "selected" : "" ?>> <?php echo $room["street"] + ", " + (string)$room["street_number"] + ", " + $room["city"] +  ", " + $room["postcode"]?> </option>
+                    <option value="<?php echo $room["room_id"] ?>" name="room"> <?php echo $room["street"] . ", " . $room["street_number"] . ", " . $room["postcode"] . ", " . $room["city"] ?> </option>
                   <?php endforeach; ?>
                 </select>
                 <span class="text-danger"><?php echo form_error('room_id'); ?></span>
@@ -36,14 +36,14 @@
               <div class="form-outline form-white mb-4">
                 <!-- Date input -->
                 <label class="control-label" for="from">Presentation start</label>
-                <input class="form-control" id="start" type="datetime-local" name="start" value="<?php echo date('Y-m-d\TH:i', strtotime($presentation["start"])); ?>">
+                <input class="form-control" id="start" type="datetime-local" name="start" value="<?php echo $presentation["Start"] == NULL ? date('Y-m-d\TH:i', strtotime($presentation["Start"])) : ""; ?>">
                 <span class="text-danger"><?php echo form_error('start'); ?></span>
               </div>
             </div>
             <div class="form-outline form-white mb-4">
               <!-- Date input -->
               <label class="control-label" for="to">Presentation end</label>
-              <input class="form-control" type="datetime-local" id="finish" type="date" name="finish" value="<?php echo date('Y-m-d\TH:i', strtotime($conference["finish"])); ?>">
+              <input class="form-control" type="datetime-local" id="finish" type="date" name="finish" value="<?php echo $presentation["Finish"] == NULL ? date('Y-m-d\TH:i', strtotime($presentation["Finish"])) : "" ; ?>">
               <span class="text-danger"><?php echo form_error('finish'); ?><?php echo $this->session->flashdata('date_error'); ?></span>
             </div>
 

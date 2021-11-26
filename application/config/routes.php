@@ -51,6 +51,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 $route['conferencecreate'] = 'conference/create';
 $route['conferenceedit'] = 'conference/edit';
+$route['PresentationCreate'] = 'PresentationController/create';
+$route['PresentationEdit'] = 'PresentationController/edit';
+$route['PresentationDetail'] = 'PresentationController/detail';
 $route['registration'] = 'userAccessController/registration';
 $route['login'] = 'userAccessController/login';
 $route['ajax-getUserById'] = 'user/ajaxGetUserById'; //ajax get user data
