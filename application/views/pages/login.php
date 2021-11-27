@@ -9,23 +9,23 @@
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
               <p class="text-white-50 mb-5">Please enter your login and password!</p>
               <?php echo form_open('userAccessController/login'); ?>
-                <div class="form-outline form-white mb-4">
-                    <input type="email" id="typeEmail" name="email" class="form-control form-control-lg" value="<?php echo set_value('email'); ?>">
-                    <span class="text-danger" ><?php echo form_error('email'); ?></span>
-                    <label class="form-label" for="typeEmail">Email</label>
-                </div>
+              <div class="form-outline form-white mb-4">
+                <input type="email" id="typeEmail" name="email" class="form-control form-control-lg" value="<?php echo set_value('email'); ?>" required>
+                <span class="text-danger"><?php echo form_error('email'); ?></span>
+                <label class="form-label" for="typeEmail">Email <b class="text-danger">*</b></label>
+              </div>
 
-                <div class="form-outline form-white mb-4">
-                    <input type="password" id="typePassword" name="password" class="form-control form-control-lg">
-                    <span class="text-danger" ><?php echo form_error('password'); ?></span>
-                    <label class="form-label" for="typePassword">Password</label>
-                </div>
+              <div class="form-outline form-white mb-4">
+                <input type="password" id="typePassword" name="password" class="form-control form-control-lg" required>
+                <span class="text-danger"><?php echo form_error('password'); ?></span>
+                <label class="form-label" for="typePassword">Password <b class="text-danger">*</b></label>
+              </div>
 
-                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!"></a></p>
+              <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!"></a></p>
 
-                <button class="btn btn-outline-light btn-lg px-5" type="submit" name="submit">Login</button>
+              <button class="btn btn-outline-light btn-lg px-5" type="submit" name="submit">Login</button>
               <p class="text-danger" style="margin-top: 10px"><?php echo $this->session->flashdata('login_error'); ?></p>
-              <?php form_close();?>
+              <?php form_close(); ?>
             </div>
 
             <div>

@@ -38,7 +38,7 @@ class User_model extends CI_Model
 
     public function get_all_users()
     {
-        return $this->db->query('SELECT u.id, u.email, u.name, u.surename, u.is_admin, count(c.user_id) "conferences", count(p.user_id) "presentations" FROM users u left join presentations p on p.user_id = u.id left join conferences c on c.user_id = u.id group by u.name')->result_array();
+        return $this->db->query('SELECT u.id, u.is_deactivated, u.email, u.name, u.surename, u.is_admin, count(c.user_id) "conferences", count(p.user_id) "presentations" FROM users u left join presentations p on p.user_id = u.id left join conferences c on c.user_id = u.id group by u.name')->result_array();
     }
 
     public function get_user_by_id($id)

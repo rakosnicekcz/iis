@@ -5,6 +5,12 @@
         <strong>successfully logged in</strong>.
     </div>
 <?php endif; ?>
+<?php if (isset($_SESSION["login_error_deactivated"])) : ?>
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>Account is deactivated, contact administrator</strong>.
+    </div>
+<?php endif; ?>
 
 <!-- ROWS -->
 <div class="dropdown" style="float:left">

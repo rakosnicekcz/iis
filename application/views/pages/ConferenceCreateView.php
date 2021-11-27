@@ -8,14 +8,14 @@
             <div class="mb-md-5 mt-md-4">
               <h2 class="fw-bold mb-2 text-uppercase">Create a new conference</h2>
               <div class="form-outline form-white mb-4">
-                <label for="name" class="form-label mt-4">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="<?php echo set_value('name'); ?>">
+                <label for="name" class="form-label mt-4">Name <b class="text-danger">*</b></label>
+                <input type="text" class="form-control" id="name" name="name" value="<?php echo set_value('name'); ?>" required>
                 <span class="text-danger"><?php echo form_error('name'); ?></span>
                 <small id="name" class="form-text text-muted">Please type name for your conference</small>
               </div>
               <div class="form-outline form-white mb-4">
-                <label for="genre" class="form-label mt-4">Genre</label>
-                <select class="form-select" id="genre" name="genre_id">
+                <label for="genre" class="form-label mt-4">Genre <b class="text-danger">*</b></label>
+                <select class="form-select" id="genre" name="genre_id" required>
                   <?php foreach ($genres as $genre) : ?>
                     <option value="<?php echo $genre["id"] ?>" name="genre"> <?php echo $genre["name"] ?> </option>
                   <?php endforeach; ?>
@@ -31,35 +31,35 @@
                 <input class="form-control" type="file" name="image" id="image" accept="image/*">
               </div>
               <div class="form-outline form-white mb-4">
-                <label for="place" class="form-label mt-4">Place</label>
-                <input type="text" class="form-control" id="place" aria-describedby="place" name="place" value="<?php echo set_value('place'); ?>">
+                <label for="place" class="form-label mt-4">Place <b class="text-danger">*</b></label>
+                <input type="text" class="form-control" id="place" aria-describedby="place" name="place" value="<?php echo set_value('place'); ?>" required>
                 <span class="text-danger"><?php echo form_error('place'); ?></span>
                 <small id="place" class="form-text text-muted">Please type where your conference takes place</small>
               </div>
               <div class="form-outline form-white mb-4">
-                <label for="price" class="form-label mt-4">Price</label>
-                <input type="number" min="0" class="form-control" id="price" aria-describedby="price" name="price" value="<?php echo set_value('price'); ?>">
+                <label for="price" class="form-label mt-4">Price <b class="text-danger">*</b></label>
+                <input type="number" min="0" class="form-control" id="price" aria-describedby="price" name="price" value="<?php echo set_value('price'); ?>" required>
                 <span class="text-danger"><?php echo form_error('price'); ?></span>
                 <small id="price" class="form-text text-muted">Please type ticket price</small>
               </div>
               <div class="form-outline form-white mb-4">
                 <!-- Date input -->
-                <label class="control-label" for="from">Date from</label>
-                <input class="form-control" id="from" type="datetime-local" name="from" value="<?php echo set_value('from'); ?>">
+                <label class="control-label" for="from">Date from <b class="text-danger">*</b></label>
+                <input class="form-control" id="from" type="datetime-local" name="from" value="<?php echo set_value('from'); ?>" required>
                 <span class="text-danger"><?php echo form_error('from'); ?></span>
               </div>
             </div>
             <div class="form-outline form-white mb-4">
               <!-- Date input -->
-              <label class="control-label" for="to">Date until</label>
-              <input class="form-control" id="to" type="datetime-local" name="to" value="<?php echo set_value('to'); ?>">
+              <label class="control-label" for="to">Date until <b class="text-danger">*</b></label>
+              <input class="form-control" id="to" type="datetime-local" name="to" value="<?php echo set_value('to'); ?>" required>
               <span class="text-danger"><?php echo form_error('to'); ?><?php echo $this->session->flashdata('date_error'); ?><?php echo $this->session->flashdata('capacity_error'); ?></span>
 
             </div>
 
             <div class="form-outline form-white mb-4">
-              <label for="capacity" class="form-label mt-4">Capacity</label>
-              <input type="number" min="0" class="form-control" id="capacity" aria-describedby="capacity" name="capacity" value="<?php echo set_value('capacity'); ?>">
+              <label for="capacity" class="form-label mt-4">Capacity <b class="text-danger">*</b></label>
+              <input type="number" min="0" class="form-control" id="capacity" aria-describedby="capacity" name="capacity" value="<?php echo set_value('capacity'); ?>" required>
               <span class="text-danger"><?php echo form_error('capacity'); ?></span>
               <small id="capacity" class="form-text text-muted">Please type maximum conference capacity</small>
             </div>

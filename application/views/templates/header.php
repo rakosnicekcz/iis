@@ -6,6 +6,11 @@
   <title>Conference Book</title>
   <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type='text/javascript' src="<?php echo base_url(); ?>js/main.js"></script>
+  <script>
+    loggedIn = <?php echo isset($_SESSION["id"]) ? "1" : "0" ?>
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 
@@ -50,3 +55,4 @@
       </div>
     </div>
   </nav>
+  <div style="margin-top:72px"></div>

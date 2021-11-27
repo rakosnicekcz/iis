@@ -85,6 +85,10 @@ class UserAccessController extends CI_Controller
                 $this->load->view('templates/footer');
                 return;
             }
+            if (intval($user->is_deactivated)) {
+                $this->session->set_flashdata('login_error_deactivated', true);
+                redirect('/');
+            }
 
             $this->session->set_userdata(['admin' => $user->is_admin, 'id' => $user->id, 'name' => $user->name, 'surename' => $user->surename, 'email' => $user->email, "justloggedin" => true]); ///TODO víc dat + info o prihlaseni
             redirect('/');

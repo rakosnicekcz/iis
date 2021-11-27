@@ -54,7 +54,7 @@ class User extends CI_Controller
                 echo json_encode("err-email");
                 return;
             }
-            $newData = ["name" => $_POST["name"], "surename" => $_POST["surename"], "email" => $_POST["email"], "is_admin" => (int)$_POST["admin"]];
+            $newData = ["name" => $_POST["name"], "surename" => $_POST["surename"], "email" => $_POST["email"], "is_admin" => (int)$_POST["admin"], "is_deactivated" => (int)$_POST["deactivated"]];
             $this->user_model->update_user_by_id($_POST["id"], $newData);
             echo json_encode($this->user_model->get_all_users());
         }

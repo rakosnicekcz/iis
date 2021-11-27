@@ -254,6 +254,8 @@ function editUserModalInsertData(data) {
 	document.querySelector("#modalInputName").value = data.name;
 	document.querySelector("#modalInputSurename").value = data.surename;
 	document.querySelector("#modalCheckboxAdmin").checked = data.is_admin == "1";
+	document.querySelector("#modalCheckboxDeactivated").checked =
+		data.is_deactivated == "1";
 }
 
 function editUserModalSubmit() {
@@ -261,6 +263,9 @@ function editUserModalSubmit() {
 	let name = document.querySelector("#modalInputName").value;
 	let surename = document.querySelector("#modalInputSurename").value;
 	let admin = document.querySelector("#modalCheckboxAdmin").checked ? "1" : "0";
+	let deactivated = document.querySelector("#modalCheckboxDeactivated").checked
+		? "1"
+		: "0";
 
 	var formData = new FormData();
 	console.log(userToEditId);
@@ -269,6 +274,7 @@ function editUserModalSubmit() {
 	formData.append("name", name);
 	formData.append("surename", surename);
 	formData.append("admin", admin);
+	formData.append("deactivated", deactivated);
 
 	fetch(ajaxPath + "ajax-updateUserById", {
 		method: "POST",
@@ -282,7 +288,6 @@ function editUserModalSubmit() {
 				document.querySelector("#modalInputEmail").classList.add("is-invalid");
 				return;
 			}
-			//document.querySelector("#userEditModal").modal("hide");
 			$("#userEditModal").modal("hide");
 			userToEditId = undefined;
 			editUsersUpdateTable(data);
@@ -293,8 +298,10 @@ function editUsersUpdateTable(data) {
 	let html = "";
 	modalEditErr = 0;
 	data.forEach((e) => {
-		let style = parseInt(e.is_admin) ? 'style="color: red"' : "";
-		let email = parseInt(e.is_admin) ? e.email + " (admin)" : e.email;
+		let style = parseInt(e.is_deactivated) ? 'style="color: red"' : "";
+		let email = parseInt(e.is_admin)
+			? e.email + ' <span style="color: #00ffb8">(admin)</span>'
+			: e.email;
 		let conferenceStyle =
 			parseInt(e.conferences) == 0 ? 'style="color: grey"' : "";
 		let presentationsStyle =

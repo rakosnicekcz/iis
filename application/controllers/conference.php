@@ -156,6 +156,9 @@ class Conference extends CI_Controller
             redirect("/");
         }
 
+        $this->load->model('GenreModel');
+        $data["genre"] = $this->GenreModel->get_genre_by_id($data["conference"]["genre_id"]);
+
         $this->load->model('PresentationModel');
         $data["presentations"] = $this->PresentationModel->get_presentations_by_conference_id($id);
 

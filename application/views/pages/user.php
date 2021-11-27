@@ -2,7 +2,6 @@
 <script>
     ajaxPath = "<?php echo base_url() ?>"
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/user.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <div style="margin-top: 80px"></div>
@@ -127,7 +126,7 @@
             <tbody id="usersTbody">
                 <?php foreach ($users as $user) : ?>
                     <tr>
-                        <th scope="row" <?php echo intval($user["is_admin"]) ? 'style="color: red"' : "" ?>><?php echo $user["email"] . (intval($user["is_admin"]) ? " (admin)" : "") ?></th>
+                        <th scope="row" <?php echo intval($user["is_deactivated"]) ? 'style="color: red"' : "" ?>><?php echo $user["email"] . (intval($user["is_admin"]) ? ' <span style="color: #00ffb8" >(admin)</span>' : "") ?></th>
                         <td><?php echo $user["name"]  ?></td>
                         <td><?php echo $user["surename"] ?></td>
                         <td <?php if (!intval($user["conferences"])) {
@@ -171,6 +170,13 @@
                             <input class="form-check-input" type="checkbox" value="" id="modalCheckboxAdmin">
                             <label class="form-check-label" for="modalCheckboxAdmin">
                                 Admin
+                            </label>
+                        </div>
+                        <br>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="modalCheckboxDeactivated">
+                            <label class="form-check-label" for="modalCheckboxDeactivated">
+                                Deactivated
                             </label>
                         </div>
                         <br>
