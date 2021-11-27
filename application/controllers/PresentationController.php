@@ -139,13 +139,12 @@ class PresentationController extends CI_Controller
         $data["presentation"] = $this->PresentationModel->get_presentation_by_id($id);
 
         $this->load->model('RoomModel');
-        $data["rooms"] = $this->RoomModel->get_rooms_by_presentation_id($id);
+        $data["room"] = $this->RoomModel->get_room_by_id($data["presentation"]["room_id"]);
 
-        if($data["presentation"]["used_id"]){
+        if($data["presentation"]["user_id"]){
             $this->load->model('User_model');
-            $data["user"] = $this->User_model->get_user_by_presentation_id($id);
+            $data["user"] = $this->User_model->get_user_by_id($data["presentation"]["user_id"]);
         }
-
         $this->load->view('templates/header');
         $this->load->view('pages/PresentationDetailView', $data);
         $this->load->view('templates/footer');

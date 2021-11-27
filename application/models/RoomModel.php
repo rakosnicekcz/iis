@@ -16,14 +16,16 @@
             return $query->result_array();
         }
 
-        public function get_room_by_presentation_id($id){
-            $query = $this->db->query("SELECT * FROM Rooms WHERE presentation_id = ? LIMIT 1",[$id]);
+        public function get_room_by_id($id)
+        {
+            $query = $this->db->query("SELECT * FROM rooms WHERE id = ?", [$id]);
             return $query->row_array();
         }
 
+
         public function get_room_by_highest_id()
         {
-            $query = $this->db->query("SELECT room_id FROM Rooms ORDER BY room_id DESC LIMIT 1");
+            $query = $this->db->query("SELECT id FROM Rooms ORDER BY id DESC LIMIT 1");
             return $query->row_array();
         }
 
@@ -34,7 +36,7 @@
 
         public function update_presentation($data, $id)
         {   
-            $this->db->where('room_id', $id);
+            $this->db->where('id', $id);
             $this->db->update('Rooms', $data);
         }
     }

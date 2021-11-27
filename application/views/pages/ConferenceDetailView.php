@@ -51,7 +51,12 @@
       </div>
 
       <div style="margin-left: 50px; margin-top: 20px;float:left; margin-bottom: 10px">
-        <a href=<?php echo site_url('reserveTickets/reserveTickets'); ?> class="btn btn-primary">Reserve tickets</a>
+        <form action="<?php echo site_url('reserveTickets'); ?>" method="post">
+          <input type="hidden" name="reserve" value="<?= $conference["id"] ?>">
+          <button type="submit" class="btn btn-primary">Reserve tickets</button>
+          
+        </form>
+        
       </div>
     </div>
     <div class="tab-pane fade" id="presentations" style="margin-top: 20px; margin-bottom: 20px">
@@ -65,7 +70,7 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion1">
               <div class="accordion-body">
-                <strong> <?php echo $presentation["tags"] ?></strong> <br></br> <?php echo $presentation["description"] ?><br></br>
+                <strong> <?php echo $presentation["tags"] ?></strong> <br></br>
                 <a href=<?php echo '"' . base_url() . 'presentation?id=' . $presentation["id"] . '"' ?> class="card-link">View details</a>
               </div>
             </div>

@@ -1,0 +1,18 @@
+<?php
+class TicketModel extends CI_Model
+{
+    public function __construct()
+    {
+        $this->load->database();
+    }
+
+    public function add_ticket($email, $name, $surename, $code, $conference_id)
+    {
+        $this->db->insert("tickets", ["email" => $email, "name" => $name, "surename" => $surename, "code" => $code, "conference_id" => $conference_id]);
+    }
+
+    public function add_ticketR($email, $name, $surename, $code, $conference_id, $user_id)
+    {
+        $this->db->insert("tickets", ["email" => $email, "name" => $name, "surename" => $surename, "code" => $code, "conference_id" => $conference_id, "user_id" => $user_id]);
+    }
+}

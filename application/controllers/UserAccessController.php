@@ -39,7 +39,7 @@ class UserAccessController extends CI_Controller
             $surename = $this->input->post('surename');
 
             if ($this->user_model->get_user_by_email($email)) {
-                $this->session->set_flashdata('registration_error', 'Account with this email already exist.', 300);
+                $this->session->set_flashdata('registration_error', 'Account with this email already exists.', 300);
                 $this->load->view('pages/registration');
                 $this->load->view('templates/footer');
                 return;

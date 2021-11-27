@@ -21,7 +21,7 @@
 
         public function get_presentation_by_highest_id()
         {
-            $query = $this->db->query("SELECT presentation_id FROM Presentations ORDER BY presentation_id DESC LIMIT 1");
+            $query = $this->db->query("SELECT id FROM Presentations ORDER BY id DESC LIMIT 1");
             return $query->row_array();
         }
 
@@ -32,7 +32,7 @@
 
         public function update_presentation($data, $id)
         {   
-            $this->db->where('presentation_id', $id);
+            $this->db->where('id', $id);
             $this->db->update('Presentations', $data);
         }
     }
