@@ -20,8 +20,19 @@
       <h4 class="box-title mt-5">Description</h4>
       <p> <?php echo $conference["description"] ?> </p>
     </div>
+    </div>
+    <?php if((isset($_SESSION['id']) && ($_SESSION['id'] == $conference["user_id"])) || (isset($_SESSION['admin']) && intval($_SESSION['admin']))):?>
+    <a href=<?php echo '"' . base_url() . 'conferenceedit?id=' . $conference["id"] . '"' ?>>
+      <button type="button" class="btn btn-labeled btn-outline-info mt-3 ms-2">
+          <span class="btn-label"><i class="fa fa-cogs me-1"></i></span>Edit conference
+      </button>
+    </a>
+    <?php endif;?>
+    <div>
   </div>
+  
 </div>
+
 <div class="detail-desc">
   <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -54,21 +65,22 @@
         <form action="<?php echo site_url('reserveTickets'); ?>" method="post">
           <input type="hidden" name="reserve" value="<?= $conference["id"] ?>">
           <button type="submit" class="btn btn-primary">Reserve tickets</button>
-          
         </form>
         
       </div>
     </div>
     <div class="tab-pane fade" id="presentations" style="margin-top: 20px; margin-bottom: 20px">
       <div class="accordion" id="accordion1">
+        <?php $num = 1;?>
         <?php foreach ($presentations as $presentation) : ?>
+          <?php $heading = "heading".$num; $num++; $unique_id = "collapse".$num?>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            <h2 class="accordion-header" id="<?php echo $heading; ?>">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $unique_id; ?>" aria-expanded="false" aria-controls="<?php echo $unique_id; ?>">
                 <?php echo $presentation["name"] ?> <?php echo date("H:i", strtotime($presentation["start"])) ?> - <?php echo date("H:i", strtotime($presentation["finish"])) ?>
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion1">
+            <div id="<?php echo $unique_id; ?>" class="accordion-collapse collapse" aria-labelledby="<?php echo $heading; ?>" data-bs-parent="#accordion1">
               <div class="accordion-body">
                 <strong> <?php echo $presentation["tags"] ?></strong> <br></br>
                 <a href=<?php echo '"' . base_url() . 'presentation?id=' . $presentation["id"] . '"' ?> class="card-link">View details</a>

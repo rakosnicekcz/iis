@@ -11,24 +11,24 @@
               <?php echo form_open('ReservationController/reserveTickets'); ?>
                 <div class="form-outline form-white mb-4" style="margin:auto; width: 180px">
                   <input type="number" min="1" class="form-control" id="num_tickets" name="num_tickets" aria-describedby="emailHelp" style="width: 180px; text-align: center" value="1">
-                  <label class="form-label" for="num_tickets" style="">Number of tickets</label>
+                  <label class="form-label" for="num_tickets" style="">Number of tickets<b class="text-danger">*</b></label>
                 </div>
                 <div class="form-outline form-white mb-4">
                     <input type="text" id="name" name="name" class="form-control form-control-lg" value="">
                     <span class="text-danger"></span>
-                    <label class="form-label" for="name">Name</label>
+                    <label class="form-label" for="name">Name<b class="text-danger">*</b></label>
                 </div>
 
                 <div class="form-outline form-white mb-4">
                     <input type="text" id="surename" name="surename" class="form-control form-control-lg" value="">
                     <span class="text-danger"></span>
-                    <label class="form-label" for="surename">Surename</label>
+                    <label class="form-label" for="surename">Surename<b class="text-danger">*</b></label>
                 </div>
 
                 <div class="form-outline form-white mb-4">
                     <input type="email" id="email" name="email" class="form-control form-control-lg" value="">
                     <span class="text-danger"></span>
-                    <label class="form-label" for="email">Email</label>
+                    <label class="form-label" for="email">Email<b class="text-danger">*</b></label>
                 </div>
                 <input type="hidden" name="reserve" value="<?php echo $_POST['reserve'];?>">
                 <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!"></a></p>

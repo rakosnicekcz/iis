@@ -113,7 +113,7 @@
             <li class="list-group-item">Price: <?php echo $conf["price"] ?></li>
             <li class="list-group-item">Tickets left: <?php echo '<span class="ticketsLeft">' . $conf["left"] . '</span>/<span class="ticketsCapacity" >' . $conf["capacity"] . "</span>" ?></li>
             <li class="list-group-item">Country: <?php echo $conf["country"]->name ?> </li>
-            <li class="list-group-item">Genre: <?php echo $conf["genre"]->name ?> </li>
+            <li class="list-group-item">Genre: <?php echo $conf["genre"]["name"] ?> </li>
         </ul>
         <div class="card-body">
             <a href=<?php echo '"' . base_url() . 'conference?id=' . $conf["id"] . '"' ?> class="card-link">Show details</a>

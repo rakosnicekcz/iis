@@ -15,4 +15,9 @@ class TicketModel extends CI_Model
     {
         $this->db->insert("tickets", ["email" => $email, "name" => $name, "surename" => $surename, "code" => $code, "conference_id" => $conference_id, "user_id" => $user_id]);
     }
+    
+    public function delete_ticket_by_id($id)
+    {
+        $this->db->delete('tickets', ['id' => $id]);
+    }
 }

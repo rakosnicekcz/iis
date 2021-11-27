@@ -62,4 +62,9 @@ class Conference_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->update('conferences', $data);
     }
+
+    public function delete_conference_by_id($id)
+    {
+        $this->db->delete('conferences', ['id' => $id]);
+    }
 }

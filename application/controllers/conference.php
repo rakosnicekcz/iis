@@ -90,6 +90,9 @@ class Conference extends CI_Controller
 
     public function create()
     {
+        if (!$this->session->has_userdata("id")) {
+            redirect('/');
+        }
         $this->load->model('GenreModel');
         $data["genres"] = $this->GenreModel->get_all_genres();
 
@@ -168,5 +171,11 @@ class Conference extends CI_Controller
         $this->load->view('templates/header');
         $this->load->view('pages/ConferenceDetailView', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function removeConference()
+    {
+        $this->conference_model->delete_conference_by_id($this->input->post('removed'));
+        redirect("user/user");
     }
 }

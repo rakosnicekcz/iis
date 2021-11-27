@@ -72,5 +72,7 @@ $route['translate_uri_dashes'] = false;
 //marhy
 $route["contacts"] = 'home/contacts';
 $route["reserveTickets"] = 'ReservationController/reserveTickets';
+$route["removeTicket"] = 'ReservationController/removeTicket';
 $route["reserveTicketsLogged"] = 'ReservationController/reserveTicketsLogged';
 $route['default_controller'] = 'home/home';
+$route["removeConference"] = 'conference/removeConference';

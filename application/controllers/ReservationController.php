@@ -49,7 +49,12 @@ class ReservationController extends CI_Controller
             }
         }
         $this->load->view('templates/footer');
-        
+    }
+
+    public function removeTicket()
+    {
+        $this->TicketModel->delete_ticket_by_id($this->input->post('removed'));
+        redirect("user/user");
     }
 }
 ?>

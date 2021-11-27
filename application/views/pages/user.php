@@ -33,6 +33,7 @@
                             <th scope="col">Ticket count</th>
                             <th scope="col">Code</th>
                             <th scope="col">Date</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,6 +43,12 @@
                                 <td><?php echo $ticket["count"] ?></td>
                                 <td><?php echo $ticket["code"] ?></td>
                                 <td><?php echo $ticket["from"] . " - " . $ticket["to"] ?></td>
+                                <td>
+                                <form onsubmit="return confirm('Do you really want to delete your reservation ?')" method="post" action="<?php echo base_url() . 'removeTicket'?>">
+                                    <input type="hidden" name="removed" value="<?php echo $ticket["tid"] ?>">
+                                    <button type="submit" class="btn btn-primary">Cancel</button>
+                                </form>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -93,6 +100,12 @@
                                 <th scope="row"><a href=<?php echo '"' . base_url() . 'conference?id=' . $conf["id"] . '"' ?>><?php echo $conf["name"] ?></a></th>
                                 <td><?php echo $conf["reserved"] . "/" . $conf["capacity"] ?></td>
                                 <td><?php echo $conf["from"] . " - " . $conf["to"] ?></td>
+                                <td>
+                                <form onsubmit="return confirm('Do you really want to delete your conference ?')" method="post" action="<?php echo base_url() . 'removeConference'?>">
+                                    <input type="hidden" name="removed" value="<?php echo $conf["id"] ?>">
+                                    <button type="submit" class="btn btn-primary">Cancel</button>
+                                </form>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
 
@@ -101,6 +114,11 @@
             <?php else : ?>
                 <h6 class="ms-2 mt-1">You have no conferences</h6>
             <?php endif; ?>
+            <a href=<?php echo site_url('conferencecreate'); ?>>
+            <button type="button" class="btn btn-labeled btn-outline-info mt-3 ms-2">
+                <span class="btn-label"></span>Create a conference
+            </button>
+            </a>
         </div>
     </div>
 </div>
