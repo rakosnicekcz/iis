@@ -65,6 +65,12 @@ $route['user'] = 'user/user';
 $route['conference'] = 'conference/conference';
 $route['presentation'] = 'PresentationController/presentation';
 
+$route["managerTimePlanner"] = 'ConferenceManagerController/timePlanner';
+$route["ajax-managerDeletePlan"] = 'ConferenceManagerController/ajaxDeletePlan';
+
+$route["roomcreate"] = "RoomsController/create";
+$route["roomedit"] = "RoomsController/edit";
+
 $route['404_override'] = '';
 $route["home"] = 'home/home';
 #$route['(:any)'] = 'pages/view/$1';
@@ -76,3 +82,5 @@ $route["removeTicket"] = 'ReservationController/removeTicket';
 $route["reserveTicketsLogged"] = 'ReservationController/reserveTicketsLogged';
 $route['default_controller'] = 'home/home';
 $route["removeConference"] = 'conference/removeConference';
+$route["reserveTickets"] = 'reserveTickets/reserveTickets';
+$route['default_controller'] = 'home/home';

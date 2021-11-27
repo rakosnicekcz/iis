@@ -3,7 +3,6 @@
     ajaxPath = "<?php echo base_url() ?>"
 </script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/user.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <div style="margin-top: 80px"></div>
 <div class="alert alert-dismissible alert-success" id="alertChangedUserInforamtions" style="display: none">
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>

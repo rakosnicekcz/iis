@@ -14,6 +14,6 @@ $(document).ready(function () {
 function timerIncrement() {
 	idleTime = idleTime + 1;
 	if (idleTime >= 10 && loggedIn) {
-		window.location.replace("userAccessController/logout");
+		//window.location.replace("userAccessController/logout"); //TODO fixnout, muze byt aktivni na jine strance (mozno pres cookie)
 	}
 }
