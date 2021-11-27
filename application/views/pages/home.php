@@ -310,7 +310,7 @@ function filterDateRange(){
             </h4>
             <h6 class="card-subtitle text-muted dateRange"><?php echo date("Y/m/d",strtotime($conf["from"])) . " - " . date("Y/m/d",strtotime($conf["to"])) ?></h6>
             <br>
-            <h6 class="card-subtitle text-muted country"><?php echo $conf["country"]["name"] ?></h6>
+            <h6 class="card-subtitle text-muted country"><?php echo $conf["country"]->name ?></h6>
         </div>
         <?php if ($conf["image"] == "") : ?>
             <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
