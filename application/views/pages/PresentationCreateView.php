@@ -15,16 +15,6 @@
                 <small id="name" class="form-text text-muted">Please type name for your presentaton</small>
               </div>
               <div class="form-outline form-white mb-4">
-                <label for="room" class="form-label mt-4">Room</label>
-                <select class="form-select" id="room" name="room_id">
-                  <option> Not selected </option>
-                  <?php foreach ($rooms as $room) : ?>
-                    <option value="<?php echo $room["room_id"] ?>" name="room"> <?php echo $room["street"] . ", " . $room["street_number"] . ", " . $room["postcode"] . ", " . $room["city"] ?> </option>
-                  <?php endforeach; ?>
-                </select>
-                <span class="text-danger"><?php echo form_error('room_id'); ?></span>
-              </div>
-              <div class="form-outline form-white mb-4">
                 <label for="description" class="form-label mt-4">Description</label>
                 <textarea class="form-control" id="description" rows="3" name="description"></textarea>
               </div>

@@ -82,5 +82,5 @@ $route["removeTicket"] = 'ReservationController/removeTicket';
 $route["reserveTicketsLogged"] = 'ReservationController/reserveTicketsLogged';
 $route['default_controller'] = 'home/home';
 $route["removeConference"] = 'conference/removeConference';
-$route["reserveTickets"] = 'reserveTickets/reserveTickets';
-$route['default_controller'] = 'home/home';
+//$route["reserveTickets"] = 'reserveTickets/reserveTickets';
+$route["removePresentation"] = 'PresentationController/removePresentation';

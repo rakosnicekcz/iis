@@ -14,15 +14,6 @@
                 <small id="name" class="form-text text-muted">Please type name for your presentation</small>
               </div>
               <div class="form-outline form-white mb-4">
-                <label for="genre" class="form-label mt-4">Genre</label>
-                <select class="form-select" id="room" name="room_id">
-                  <?php foreach ($rooms as $room) : ?>
-                    <option value="<?php echo $room["room_id"] ?>" name="room"> <?php echo $room["street"] . ", " . $room["street_number"] . ", " . $room["postcode"] . ", " . $room["city"] ?> </option>
-                  <?php endforeach; ?>
-                </select>
-                <span class="text-danger"><?php echo form_error('room_id'); ?></span>
-              </div>
-              <div class="form-outline form-white mb-4">
                 <label for="description" class="form-label mt-4">Description</label>
                 <textarea class="form-control" id="description" rows="3" name="description"><?php echo $presentation["description"] ?></textarea>
               </div>
@@ -32,18 +23,18 @@
               </div>
               <div class="form-group">
                 <label for="formFile" class="form-label mt-4">Image</label>
-                <input class="form-control" type="file" name="image" id="image" accept="image/*">
+                <input class="form-control" type="file" name="image" id="image" accept="image/*"><br></br>
               <div class="form-outline form-white mb-4">
                 <!-- Date input -->
                 <label class="control-label" for="from">Presentation start</label>
-                <input class="form-control" id="start" type="datetime-local" name="start" value="<?php echo $presentation["Start"] == NULL ? date('Y-m-d\TH:i', strtotime($presentation["Start"])) : ""; ?>">
+                <input class="form-control" id="start" type="datetime-local" name="start" value="<?php echo $presentation["start"] == NULL ? date('Y-m-d\TH:i', strtotime($presentation["start"])) : ""; ?>">
                 <span class="text-danger"><?php echo form_error('start'); ?></span>
               </div>
             </div>
             <div class="form-outline form-white mb-4">
               <!-- Date input -->
               <label class="control-label" for="to">Presentation end</label>
-              <input class="form-control" type="datetime-local" id="finish" type="date" name="finish" value="<?php echo $presentation["Finish"] == NULL ? date('Y-m-d\TH:i', strtotime($presentation["Finish"])) : "" ; ?>">
+              <input class="form-control" type="datetime-local" id="finish" type="date" name="finish" value="<?php echo $presentation["finish"] == NULL ? date('Y-m-d\TH:i', strtotime($presentation["finish"])) : "" ; ?>">
               <span class="text-danger"><?php echo form_error('finish'); ?><?php echo $this->session->flashdata('date_error'); ?></span>
             </div>
 

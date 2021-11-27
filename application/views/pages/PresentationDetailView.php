@@ -22,16 +22,25 @@
       <br>
     </div>
   </div>
+  <?php if((isset($_SESSION['id']) && ($_SESSION['id'] == $presentation["user_id"])) || (isset($_SESSION['admin']) && intval($_SESSION['admin']))):?>
+    <a href=<?php echo '"' . base_url() . 'PresentationEdit?id=' . $presentation["id"] . '"' ?>>
+      <button type="button" class="btn btn-labeled btn-outline-info mt-3 ms-2">
+          <span class="btn-label"></span>Edit presentation
+      </button>
+    </a>
+  <?php endif;?><br></br>
+  <a href=<?php echo '"' . base_url() . 'conference?id=' . $presentation["conference_id"] . '"' ?> class="card-link" style="margin-left: 10px">Back to conference</a>
 </div>
 
 
 <div style="margin-top: 80px; margin-left: 10px">
     <h3>Location</h3>
+    Room <?php echo $room["name"];?><br></br>
     <?php echo $room["city"] . ", " . $room["street"] . " " . $room["street_number"] . ", " . $room["postcode"]?><br></br>
     <h3>Date and time</h3>
     From <?php echo date("d. m. Y H:i", strtotime($presentation["start"])) ?> <br>Until <?php echo date("d. m. Y H:i", strtotime($presentation["finish"])) ?><br></br>
     <h3>Description</h3>
     <p><?php echo $presentation["description"] ?></p>
     <?php echo $presentation["tags"] ?><br></br>
-    <a href=<?php echo '"' . base_url() . 'conference?id=' . $presentation["conference_id"] . '"' ?> class="card-link">Back to conference</a>
+    
 </div>

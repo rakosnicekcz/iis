@@ -27,10 +27,13 @@ class Conference extends CI_Controller
 
         $data["conference"] = $this->conference_model->get_conference_by_id($id);
         $this->load->model('GenreModel');
+        $this->load->model('CountryModel');
         $data["genres"] = $this->GenreModel->get_all_genres();
+        $data["countries"] = $this->CountryModel->get_all_countries();
         $data["id"] = $id;
 
         $this->form_validation->set_rules('name', 'Name', 'required');
+        $this->form_validation->set_rules('country_id', 'Country', 'required');
         $this->form_validation->set_rules('genre_id', 'Genre', 'required');
         $this->form_validation->set_rules('place', 'Place', 'required');
         $this->form_validation->set_rules('price', 'Price', 'required');
@@ -55,6 +58,7 @@ class Conference extends CI_Controller
             }
 
             $sdata['name'] = $this->input->post('name');
+            $data['country_id'] = $this->input->post('country_id');
             $sdata['genre_id'] = $this->input->post('genre_id');
             $sdata['description'] = $this->input->post('description');
             if ($_FILES["image"]["size"] != 0) {

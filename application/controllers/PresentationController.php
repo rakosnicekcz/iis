@@ -24,12 +24,12 @@ class PresentationController extends CI_Controller
         $data["rooms"] = $this->RoomModel->get_rooms_by_conference_id($data["presentation"]["conference_id"]);
         $data["id"] = $id;
 
-        if(!$data["presentation"]["Start"]){
-            $data["presentation"]["Start"] = "";
+        if(!$data["presentation"]["start"]){
+            $data["presentation"]["start"] = "";
         }
 
-        if(!$data["presentation"]["Finish"]){
-            $data["presentation"]["Finish"] = "";
+        if(!$data["presentation"]["finish"]){
+            $data["presentation"]["finish"] = "";
         }
 
         $this->form_validation->set_rules('name', 'Name', 'required');
@@ -148,5 +148,11 @@ class PresentationController extends CI_Controller
         $this->load->view('templates/header');
         $this->load->view('pages/PresentationDetailView', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function removePresentation()
+    {
+        $this->PresentationModel->delete_presentation_by_id($this->input->post('removed'));
+        redirect("user/user");
     }
 }

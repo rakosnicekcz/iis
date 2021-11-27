@@ -28,9 +28,6 @@
       </button>
     </a>
     <?php endif;?>
-    <div>
-  </div>
-  
 </div>
 
 <div class="detail-desc">
@@ -73,6 +70,7 @@
       <div class="accordion" id="accordion1">
         <?php $num = 1;?>
         <?php foreach ($presentations as $presentation) : ?>
+          <?php if($presentation["confirmed"]):?>
           <?php $heading = "heading".$num; $num++; $unique_id = "collapse".$num?>
           <div class="accordion-item">
             <h2 class="accordion-header" id="<?php echo $heading; ?>">
@@ -87,8 +85,15 @@
               </div>
             </div>
           </div>
+        <?php endif; ?>
         <?php endforeach; ?>
       </div>
+      <form action=<?php echo site_url('PresentationCreate')?> method="get">
+          <input type="hidden" value="<?= $conference["id"] ?>" name="conference_id">
+          <button type="submit" class="btn btn-labeled btn-outline-info mt-3 ms-2">
+              <span class="btn-label"></span>Create a presentation
+          </button>
+      </form>
     </div>
   </div>
 </div>

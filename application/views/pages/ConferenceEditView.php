@@ -14,6 +14,15 @@
                 <small id="name" class="form-text text-muted">Please type name for your conference</small>
               </div>
               <div class="form-outline form-white mb-4">
+                <label for="country" class="form-label mt-4">Country <b class="text-danger">*</b></label>
+                <select class="form-select" id="country" name="country_id" required>
+                  <?php foreach ($countries as $country) : ?>
+                    <option value="<?php echo $country["id"] ?>" name="country" <?php $country["id"] == $conference["country_id"] ? "selected" : "" ?>> <?php echo $country["name"] ?> </option>
+                  <?php endforeach; ?>
+                </select>
+                <span class="text-danger"><?php echo form_error('country_id'); ?></span>
+              </div>
+              <div class="form-outline form-white mb-4">
                 <label for="genre" class="form-label mt-4">Genre <b class="text-danger">*</b></label>
                 <select class="form-select" id="genre" name="genre_id" required>
                   <?php foreach ($genres as $genre) : ?>

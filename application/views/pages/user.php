@@ -74,6 +74,12 @@
                                 <td><a href=<?php echo '"' . base_url() . 'conference?id=' . $pres["conference_id"] . '"' ?>><?php echo $pres["c_name"] ?></a></td>
                                 <td><?php echo $pres["start"] . " - " . $pres["finish"] ?></td>
                                 <td><?php echo intval($pres["confirmed"]) ? '<i class="text-success fa fa-check me-1 "></i>' : '<i class="text-danger fa fa-close me-1 "></i>' ?></td>
+                                <td>
+                                <form onsubmit="return confirm('Do you really want to delete your presentation ?')" method="post" action="<?php echo base_url() . 'removePresentation'?>">
+                                    <input type="hidden" name="removed" value="<?php echo $pres["id"] ?>">
+                                    <button type="submit" class="btn btn-primary">Cancel</button>
+                                </form>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
