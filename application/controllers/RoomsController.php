@@ -61,6 +61,10 @@ class RoomsController extends CI_Controller
 
     public function edit()
     {
+        if ((!isset($_GET["id"]) && !isset($_POST["submit"])) || !isset($_SESSION["id"])) {
+            redirect("/");
+        }
+        
         $id = isset($_GET["id"]) ? $_GET["id"] : $_POST["submit"];
         $data["id"] = $id;
 

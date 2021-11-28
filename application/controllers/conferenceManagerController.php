@@ -37,7 +37,16 @@ class ConferenceManagerController extends CI_Controller
 
     public function ajaxDeletePlan()
     {
-        //TODO check prihlaseni;
+        if(!isset($_POST["id"]))
+        {
+            redirect('/');
+        }
+        $pres = $this->PresentationModel->get_presentation_by_id($_POST["id"]);
+        $conf = $this->Conference_model->get_conference_by_id($pres["conference_id"]);
+        if(!isset($_SESSION["id"]) || (($_SESSION["admin"] == "0") && ($_SESSION["id"] != $conf["user_id"])))
+        {
+            redirect('/');
+        }
         $this->PresentationModel->update_presentation(["room_id" => NULL, "start" => NULL, "finish" => NULL], $_POST["id"]);
     }
 
@@ -48,7 +57,16 @@ class ConferenceManagerController extends CI_Controller
 
     public function ajaxDeleteRoomById()
     {
-        //TODO check prihlaseni;
+        if(!isset($_POST["id"]))
+        {
+            redirect('/');
+        }
+        $room = $this->RoomModel->get_room_by_id($_POST["id"]);
+        $conf = $this->Conference_model->get_conference_by_id($room["conference_id"]);
+        if(!isset($_SESSION["id"]) || (($_SESSION["admin"] == "0") && ($_SESSION["id"] != $conf["user_id"])))
+        {
+            redirect('/');
+        }
         if ($this->PresentationModel->get_presentations_by_room_id($_POST["id"])) {
             echo json_encode("err");
         } else {
@@ -59,7 +77,15 @@ class ConferenceManagerController extends CI_Controller
 
     public function confirmPresentation()
     {
-        //TODO check prihlaseni a GET id
+        if(!isset($_POST["id"]))
+        {
+            redirect('/');
+        }
+        $conf = $this->Conference_model->get_conference_by_id($_POST["id"]);
+        if(!isset($_SESSION["id"]) || (($_SESSION["admin"] == "0") && ($_SESSION["id"] != $conf["user_id"])))
+        {
+            redirect('/');
+        }
         $allPresentations = $this->PresentationModel->get_presentations_by_conference_id($_POST["id"]);
         $updateData = [];
         foreach ($allPresentations as $key => $value) {
@@ -75,7 +101,15 @@ class ConferenceManagerController extends CI_Controller
 
     public function confirmReservation()
     {
-        //TODO check prihlaseni a GET id
+        if(!isset($_POST["id"]))
+        {
+            redirect('/');
+        }
+        $conf = $this->Conference_model->get_conference_by_id($_POST["id"]);
+        if(!isset($_SESSION["id"]) || (($_SESSION["admin"] == "0") && ($_SESSION["id"] != $conf["user_id"])))
+        {
+            redirect('/');
+        }
         $tickets = $this->TicketModel->get_tickets_by_conference_id($_POST["id"]);
         $updateData = [];
         foreach ($tickets as $key => $value) {
@@ -87,7 +121,15 @@ class ConferenceManagerController extends CI_Controller
 
     public function timePlanner()
     {
-        //TODO check prihlaseni a GET id
+        if(!isset($_GET["id"]))
+        {
+            redirect('/');
+        }
+        $conf = $this->Conference_model->get_conference_by_id($_GET["id"]);
+        if(!isset($_SESSION["id"]) || (($_SESSION["admin"] == "0") && ($_SESSION["id"] != $conf["user_id"])))
+        {
+            redirect('/');
+        }
 
         $data["rooms"] = $this->RoomModel->get_rooms_by_conference_id($_GET["id"]);
         $conference = $this->Conference_model->get_conference_by_id($_GET["id"]);
