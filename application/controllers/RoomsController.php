@@ -42,7 +42,7 @@ class RoomsController extends CI_Controller
             $this->load->model('RoomModel');
             $this->RoomModel->insert_room(["conference_id" => $id, "description" => $_POST["description"], "name" => $_POST["name"], "city" => $_POST["city"], "street" => $_POST["street"], "postcode" => $_POST["postcode"], "street_number" => $_POST["streetNumber"]]);
             $this->session->set_flashdata('success', 'Room created');
-            redirect(base_url() . "roomcreate?id=" . $id);
+            redirect(base_url() . "managerTimePlanner?id=" . $id);
         }
     }
 

@@ -47,6 +47,11 @@ class PresentationModel extends CI_Model
         $this->db->update('Presentations', $data);
     }
 
+    public function update_multiple_presentations_by_id($data)
+    {
+        $this->db->update_batch('presentations', $data, 'id');
+    }
+
     public function get_confirmed_presentations_with_rooms($id)
     {
         $query = $this->db->query('SELECT p.id, p.room_id, p.name, p.start, p.finish, r.name as "rname" FROM presentations p, rooms r WHERE p.room_id = r.id and p.confirmed = 1 and p.conference_id = ?', [$id]);

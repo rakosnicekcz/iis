@@ -18,3 +18,7 @@ td {
 #usersFilter {
 	width: 200px;
 }
+
+a button {
+	text-decoration: none;
+}

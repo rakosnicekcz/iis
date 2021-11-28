@@ -14,14 +14,22 @@ class ReservationController extends CI_Controller
     }
 
     public function reserveTickets()
-    {   
+    {
         $this->load->view('templates/header');
 
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('name', 'Name', 'required');
         $this->form_validation->set_rules('surename', 'Surename', 'required');
         $this->form_validation->set_rules('num_tickets', 'Number of tickets', 'required');
-        
+
+        $code = "";
+        while (1) {
+            $code = bin2hex(random_bytes(5));
+            if (!$this->TicketModel->get_ticket_by_code($code)) {
+                break;
+            }
+        }
+
         if ($this->session->has_userdata("email")) {
             $this->load->view('pages/reserveTicketsLogged');
             $id = $_SESSION["id"];
@@ -31,12 +39,10 @@ class ReservationController extends CI_Controller
             $num_tickets = $this->input->post('num_tickets');
             $conference_id = "";
             $conference_id = $_GET['reserve'];
-            for($i = 0; $i < $num_tickets; $i++)
-            {
-                $this->TicketModel->add_ticketR($email, $name, $surename, "example_code", $conference_id, $id);
+            for ($i = 0; $i < $num_tickets; $i++) {
+                $this->TicketModel->add_ticketR($email, $name, $surename, $code, $conference_id, $id);
             }
-        }
-        else {
+        } else {
             $this->load->view('pages/reserveTickets');
             $name = $this->input->post('name');
             $surename = $this->input->post('surename');
@@ -44,9 +50,8 @@ class ReservationController extends CI_Controller
             $num_tickets = $this->input->post('num_tickets');
             $conference_id = $_GET['reserve'];
 
-            for($i = 0; $i < $num_tickets; $i++)
-            {
-                $this->TicketModel->add_ticket($email, $name, $surename, "example_code", $conference_id);
+            for ($i = 0; $i < $num_tickets; $i++) {
+                $this->TicketModel->add_ticket($email, $name, $surename, $code, $conference_id);
             }
         }
         $this->load->view('templates/footer');
@@ -58,4 +63,3 @@ class ReservationController extends CI_Controller
         redirect("user/user");
     }
 }
-?>

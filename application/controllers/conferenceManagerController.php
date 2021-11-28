@@ -9,6 +9,11 @@ class ConferenceManagerController extends CI_Controller
         $this->load->library(['form_validation']);
         $this->load->library('session');
         $this->load->database();
+
+        $this->load->model('RoomModel');
+        $this->load->model('PresentationModel');
+        $this->load->model('Conference_model');
+        $this->load->model('TicketModel');
     }
 
     private function checkDateOverlap($startDate1, $endDate1, $startDate2, $endDate2)
@@ -18,21 +23,33 @@ class ConferenceManagerController extends CI_Controller
 
     public function ajaxDeletePlan()
     {
-        $this->load->model('PresentationModel');
         $this->PresentationModel->update_presentation(["room_id" => NULL, "start" => NULL, "finish" => NULL], $_POST["id"]);
+    }
+
+    public function confirmReservation()
+    {
+        //TODO check prihlaseni a GET id
+        $allPresentations = $this->PresentationModel->get_presentations_by_conference_id($_POST["id"]);
+        $updateData = [];
+        foreach ($allPresentations as $key => $value) {
+            if (isset($_POST[$value["id"]])) {
+                $updateData[] = ["id" => $value["id"], "confirmed" => 1];
+            } else {
+                $updateData[] = ["id" => $value["id"], "confirmed" => 0, "start" => NULL, "finish" => NULL, "room_id" => NULL];
+            }
+        }
+        $this->PresentationModel->update_multiple_presentations_by_id($updateData);
+        redirect(base_url() . "managerTimePlanner?id=" . $_POST["id"]);
     }
 
     public function timePlanner()
     {
         //TODO check prihlaseni a GET id
 
-        $this->load->model('RoomModel');
-        $this->load->model('PresentationModel');
-        $this->load->model('Conference_model');
-        $this->load->model('TicketModel');
         $data["rooms"] = $this->RoomModel->get_rooms_by_conference_id($_GET["id"]);
         $conference = $this->Conference_model->get_conference_by_id($_GET["id"]);
         $data["presentations"] = $this->PresentationModel->get_confirmed_presentations_by_conference_id($_GET["id"]);
+        $data["allpresentations"] = $this->PresentationModel->get_presentations_by_conference_id($_GET["id"]);
 
         $data["plan"] = $this->PresentationModel->get_confirmed_presentations_with_rooms($_GET["id"]);
         $data["reservations"] = $this->TicketModel->get_all_tickets();

@@ -116,13 +116,14 @@
 </div>
 
 <div class="modal fade" id="presentationModal" tabindex="-1" aria-labelledby="presentationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="presentationModalLabel">Presentations</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <?php echo form_open('conferenceManagerController/confirmReservation', "", ["id" => $_GET["id"]]); ?>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -131,25 +132,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($presentations as $presentation) : ?>
+                        <?php foreach ($allpresentations as $presentation) : ?>
                             <tr>
                                 <td><?php echo $presentation["name"] ?></td>
-                                <form>
                                 <td>
-                                    <?php if($presentation["confirmed"]):?>
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="" style="vertical-align: middle; position: relative;">
-                                    <?php else: ?>
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <?php if ($presentation["confirmed"]) : ?>
+                                        <input class="form-check-input" type="checkbox" value="<?php echo $presentation["id"] ?>" name="<?php echo $presentation["id"] ?>" checked style="vertical-align: middle; position: relative;">
+                                    <?php else : ?>
+                                        <input class="form-check-input" type="checkbox" value="<?php echo $presentation["id"] ?>" name="<?php echo $presentation["id"] ?>">
                                     <?php endif; ?>
                                 </td>
-                                </form>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <button type="submit" class="btn btn-primary">Confirm</button>
+                <?php form_close(); ?>
             </div>
         </div>
-    </div>                       
+    </div>
 </div>
 
 <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
@@ -178,13 +179,13 @@
                                 <td><?php echo $reservation["email"] ?></td>
                                 <td><?php echo $reservation["code"] ?></td>
                                 <form>
-                                <td>
-                                    <?php if($reservation["paid"]):?>
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="" style="vertical-align: middle; position: relative;">
-                                    <?php else: ?>
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <?php endif; ?>
-                                </td>
+                                    <td>
+                                        <?php if ($reservation["paid"]) : ?>
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="" style="vertical-align: middle; position: relative;">
+                                        <?php else : ?>
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <?php endif; ?>
+                                    </td>
                                 </form>
                             </tr>
                         <?php endforeach; ?>
@@ -192,6 +193,5 @@
                 </table>
             </div>
         </div>
-    </div>                       
+    </div>
 </div>
-

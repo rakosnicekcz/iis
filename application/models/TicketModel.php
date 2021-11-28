@@ -12,6 +12,12 @@ class TicketModel extends CI_Model
         return $query->result_array();
     }
 
+    public function get_ticket_by_code($code)
+    {
+        $query = $this->db->get_where('tickets', ['code' => $code]);
+        return $query->row_array();
+    }
+
     public function add_ticket($email, $name, $surename, $code, $conference_id)
     {
         $this->db->insert("tickets", ["email" => $email, "name" => $name, "surename" => $surename, "code" => $code, "conference_id" => $conference_id]);
@@ -21,7 +27,7 @@ class TicketModel extends CI_Model
     {
         $this->db->insert("tickets", ["email" => $email, "name" => $name, "surename" => $surename, "code" => $code, "conference_id" => $conference_id, "user_id" => $user_id]);
     }
-    
+
     public function delete_ticket_by_id($id)
     {
         $this->db->delete('tickets', ['id' => $id]);
