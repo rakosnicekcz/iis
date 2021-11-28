@@ -14,6 +14,7 @@ class User_model extends CI_Model
     public function add_user($email, $name, $surename, $password)
     {
         $this->db->insert("users", ["email" => $email, "name" => $name, "surename" => $surename, "password" => $password]);
+        return $this->db->insert_id();
     }
 
     public function get_tickets_by_user_id($id)

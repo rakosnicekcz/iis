@@ -49,9 +49,9 @@ class UserAccessController extends CI_Controller
                 $this->load->view('templates/footer');
                 return;
             } else {
-                $this->session->set_userdata(['name' => $name, 'surename' => $surename, 'email' => $email, "justloggedin" => true]);
-                $this->user_model->add_user($email, $name, $surename, password_hash($password, PASSWORD_DEFAULT));
-                redirect('/');
+                $insertedId = $this->user_model->add_user($email, $name, $surename, password_hash($password, PASSWORD_DEFAULT));
+                $this->session->set_userdata(['id' => $insertedId, 'name' => $name, 'surename' => $surename, 'email' => $email, "admin" => "0", "justloggedin" => true]);
+                redirect("/");
             }
         }
     }
