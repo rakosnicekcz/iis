@@ -170,6 +170,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">Code</th>
                             <th scope="col">Count</th>
+                            <th scope="col">Created</th>
                             <th scope="col">Paid</th>
                             <th scope="col"></th>
                         </tr>
@@ -182,6 +183,7 @@
                                 <td><?php echo $reservation["email"] ?></td>
                                 <td><?php echo $reservation["code"] ?></td>
                                 <td><?php echo $reservation["count"] ?></td>
+                                <td><?php echo $reservation["created"] ?></td>
                                 <td>
                                     <?php if ($reservation["paid"]) : ?>
                                         <input class="form-check-input" type="checkbox" value="<?php echo $reservation["code"] ?>" name="<?php echo $reservation["code"] ?>" id="flexCheckDefault" checked style="vertical-align: middle; position: relative;">

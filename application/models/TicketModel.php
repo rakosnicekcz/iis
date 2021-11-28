@@ -20,7 +20,7 @@ class TicketModel extends CI_Model
 
     public function get_tickets_by_conference_group_by_code($conference_id)
     {
-        $query =  $this->db->query('SELECT u.name, u.surename, u.email, t.code, t.paid, count(t.code) as "count" FROM TICKETS t iNNER JOIN users u ON u.id = t.user_id WHERE t.conference_id = ? Group by t.code', [$conference_id]);
+        $query =  $this->db->query('SELECT u.name, t.created, u.surename, u.email, t.code, t.paid, count(t.code) as "count" FROM TICKETS t iNNER JOIN users u ON u.id = t.user_id WHERE t.conference_id = ? Group by t.code', [$conference_id]);
         return $query->result_array();
     }
 
