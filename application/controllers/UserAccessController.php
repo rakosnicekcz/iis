@@ -36,6 +36,11 @@ class UserAccessController extends CI_Controller
     {
     }
 
+    private function validatePassword($pass)
+    {
+        return preg_match("/[a-z]/", $pass) && preg_match("/[A-Z]/", $pass) && preg_match("/[0-9]/", $pass) && strlen($pass) >= 6;
+    }
+
     public function registration()
     {
         $this->redirect_if_logged();
@@ -60,6 +65,10 @@ class UserAccessController extends CI_Controller
                 $this->load->view('pages/registration');
                 $this->load->view('templates/footer');
                 return;
+            } elseif (!$this->validatePassword($this->input->post('password'))) {
+                $this->session->set_flashdata('registration_error', 'Passwords have to be at least 6 charackter long and contain big character, small characket and number.', 300);
+                $this->load->view('pages/registration');
+                $this->load->view('templates/footer');
             } elseif ($password !== $passwordAgain) {
                 $this->session->set_flashdata('registration_error', 'Passwords are not same.', 300);
                 $this->load->view('pages/registration');
