@@ -59,7 +59,14 @@ class ReservationController extends CI_Controller
 
     public function removeTicket()
     {
-        $this->TicketModel->delete_ticket_by_id($this->input->post('removed'));
+        if (!isset($_POST["removed"])) {
+            redirect("/");
+        }
+        $ticket = $this->TicketModel->get_ticket_by_code($_POST["removed"]);
+        if (!$ticket || ($ticket["user_id"] != $_SESSION["id"] && $_SESSION["admin"] != "1")) {
+            redirect("/");
+        }
+        $this->TicketModel->delete_ticket_by_code($this->input->post('removed'));
         redirect("user/user");
     }
 }

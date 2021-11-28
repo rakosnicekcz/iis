@@ -17,7 +17,7 @@ class User extends CI_Controller
             redirect('/');
         }
 
-        $data["tickets"] = $this->user_model->get_tickets_by_user_id(intval($this->session->userdata["id"]));
+        $data["tickets"] = $this->user_model->get_tickets_by_user_id_groub_by_code(intval($this->session->userdata["id"]));
         $data["conferences"] = $this->user_model->get_conferences_by_user_id(intval($this->session->userdata["id"]));
         foreach ($data["conferences"] as $key => $value) {
             $data["conferences"][$key]["reserved"] = $this->user_model->get_ticket_count_by_conference_id($value["id"])->count;

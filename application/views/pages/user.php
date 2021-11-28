@@ -43,10 +43,10 @@
                                 <td><?php echo $ticket["code"] ?></td>
                                 <td><?php echo $ticket["from"] . " - " . $ticket["to"] ?></td>
                                 <td>
-                                <form onsubmit="return confirm('Do you really want to delete your reservation ?')" method="post" action="<?php echo base_url() . 'removeTicket'?>">
-                                    <input type="hidden" name="removed" value="<?php echo $ticket["tid"] ?>">
-                                    <button type="submit" class="btn btn-primary">Cancel</button>
-                                </form>
+                                    <form onsubmit="return confirm('Do you really want to delete your reservation ?')" method="post" action="<?php echo base_url() . 'removeTicket' ?>">
+                                        <input type="hidden" name="removed" value="<?php echo $ticket["code"] ?>">
+                                        <button type="submit" class="btn btn-danger">Cancel</button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -75,10 +75,10 @@
                                 <td><?php echo $pres["start"] . " - " . $pres["finish"] ?></td>
                                 <td><?php echo intval($pres["confirmed"]) ? '<i class="text-success fa fa-check me-1 "></i>' : '<i class="text-danger fa fa-close me-1 "></i>' ?></td>
                                 <td>
-                                <form onsubmit="return confirm('Do you really want to delete your presentation ?')" method="post" action="<?php echo base_url() . 'removePresentation'?>">
-                                    <input type="hidden" name="removed" value="<?php echo $pres["id"] ?>">
-                                    <button type="submit" class="btn btn-primary">Cancel</button>
-                                </form>
+                                    <form onsubmit="return confirm('Do you really want to delete your presentation ?')" method="post" action="<?php echo base_url() . 'removePresentation' ?>">
+                                        <input type="hidden" name="removed" value="<?php echo $pres["id"] ?>">
+                                        <button type="submit" class="btn btn-primary">Cancel</button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -106,10 +106,10 @@
                                 <td><?php echo $conf["reserved"] . "/" . $conf["capacity"] ?></td>
                                 <td><?php echo $conf["from"] . " - " . $conf["to"] ?></td>
                                 <td>
-                                <form onsubmit="return confirm('Do you really want to delete your conference ?')" method="post" action="<?php echo base_url() . 'removeConference'?>">
-                                    <input type="hidden" name="removed" value="<?php echo $conf["id"] ?>">
-                                    <button type="submit" class="btn btn-primary">Cancel</button>
-                                </form>
+                                    <form onsubmit="return confirm('Do you really want to delete your conference ?')" method="post" action="<?php echo base_url() . 'removeConference' ?>">
+                                        <input type="hidden" name="removed" value="<?php echo $conf["id"] ?>">
+                                        <button type="submit" class="btn btn-primary">Cancel</button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -120,9 +120,9 @@
                 <h6 class="ms-2 mt-1">You have no conferences</h6>
             <?php endif; ?>
             <a href=<?php echo site_url('conferencecreate'); ?>>
-            <button type="button" class="btn btn-labeled btn-outline-info mt-3 ms-2">
-                <span class="btn-label"></span>Create a conference
-            </button>
+                <button type="button" class="btn btn-labeled btn-outline-info mt-3 ms-2">
+                    <span class="btn-label"></span>Create a conference
+                </button>
             </a>
         </div>
     </div>

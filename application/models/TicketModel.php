@@ -32,4 +32,9 @@ class TicketModel extends CI_Model
     {
         $this->db->delete('tickets', ['id' => $id]);
     }
+
+    public function delete_ticket_by_code($code)
+    {
+        $this->db->delete('tickets', ['code' => $code]);
+    }
 }
