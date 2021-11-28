@@ -335,7 +335,6 @@ function filterDateRange(){
             <a href=<?php echo '"' . base_url() . 'conference?id=' . $conf["id"] . '"' ?> class="card-link">Show details</a>
         </div>
         <div class="card-footer text-muted">
-            2 days ago
         </div>
 </div>
 <?php endforeach; ?>
