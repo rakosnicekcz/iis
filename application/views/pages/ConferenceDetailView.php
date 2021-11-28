@@ -24,7 +24,12 @@
     <?php if((isset($_SESSION['id']) && ($_SESSION['id'] == $conference["user_id"])) || (isset($_SESSION['admin']) && intval($_SESSION['admin']))):?>
     <a href=<?php echo '"' . base_url() . 'conferenceedit?id=' . $conference["id"] . '"' ?>>
       <button type="button" class="btn btn-labeled btn-outline-info mt-3 ms-2">
-          <span class="btn-label"><i class="fa fa-cogs me-1"></i></span>Edit conference
+          <span class="btn-label"></span>Edit conference
+      </button>
+    </a>
+    <a href=<?php echo site_url('managerTimePlanner?id=').$conference["id"]; ?>>
+      <button type="button" class="btn btn-labeled btn-outline-info mt-3 ms-2">
+          <span class="btn-label"></span>Manage my conference
       </button>
     </a>
     <?php endif;?>

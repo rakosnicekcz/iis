@@ -5,6 +5,13 @@
 </script>
 <button type="button" class="btn btn-labeled btn-outline-info mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#addRoomModal"><span class="btn-label">
         <i class="fa fa-list me-1 "></i></span>Rooms</button>
+
+<button type="button" class="btn btn-labeled btn-outline-info mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#presentationModal"><span class="btn-label">
+        <i class="fa fa-list me-1 "></i></span>Presentations</button>
+
+<button type="button" class="btn btn-labeled btn-outline-info mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#reservationModal"><span class="btn-label">
+        <i class="fa fa-list me-1 "></i></span>Reservations</button>
+
 <br>
 <form method="post" class="ms-2">
     <fieldset>
@@ -102,8 +109,89 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <a href="<?php echo base_url() . 'roomcreate?id=' . $rooms[0]["conference_id"] ?>"><button class="btn btn-primary">Add</button></a>
+                <a href="<?php echo base_url() . 'roomcreate?id=' . $_GET['id'] ?>"><button class="btn btn-primary">Add</button></a>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="presentationModal" tabindex="-1" aria-labelledby="presentationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="presentationModalLabel">Presentations</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Confirmed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($presentations as $presentation) : ?>
+                            <tr>
+                                <td><?php echo $presentation["name"] ?></td>
+                                <form>
+                                <td>
+                                    <?php if($presentation["confirmed"]):?>
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="" style="vertical-align: middle; position: relative;">
+                                    <?php else: ?>
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <?php endif; ?>
+                                </td>
+                                </form>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>                       
+</div>
+
+<div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservationModalLabel">Reservations</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Surename</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($reservations as $reservation) : ?>
+                            <tr>
+                                <td><?php echo $reservation["name"] ?></td>
+                                <td><?php echo $reservation["surename"] ?></td>
+                                <td><?php echo $reservation["email"] ?></td>
+                                <td><?php echo $reservation["code"] ?></td>
+                                <form>
+                                <td>
+                                    <?php if($reservation["paid"]):?>
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="" style="vertical-align: middle; position: relative;">
+                                    <?php else: ?>
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <?php endif; ?>
+                                </td>
+                                </form>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>                       
+</div>
+

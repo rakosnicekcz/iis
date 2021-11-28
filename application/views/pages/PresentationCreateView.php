@@ -25,21 +25,7 @@
               <div class="form-group">
                 <label for="formFile" class="form-label mt-4">Image</label>
                 <input class="form-control" type="file" name="image" id="image" accept="image/*">
-              </div>
-              <div class="form-outline form-white mb-4">
-                <!-- Date input -->
-                <label class="control-label" for="from">Presentation start</label>
-                <input class="form-control" id="start" type="datetime-local" name="start">
-                <span class="text-danger"><?php echo form_error('start'); ?></span>
-              </div>
-            </div>
-            <div class="form-outline form-white mb-4">
-              <!-- Date input -->
-              <label class="control-label" for="finish">Presentation end</label>
-              <input class="form-control" id="finish" type="datetime-local" name="finish">
-              <span class="text-danger"><?php echo form_error('finish'); ?><?php echo $this->session->flashdata('date_error'); ?></span>
-            </div>
-
+              </div><br></br>
             <button class="btn btn-outline-light btn-lg px-5" type="submit" name="submit">Create</button>
             <?php form_close(); ?>
           </div>

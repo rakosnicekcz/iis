@@ -137,7 +137,10 @@ class PresentationController extends CI_Controller
         }
 
         $data["presentation"] = $this->PresentationModel->get_presentation_by_id($id);
-
+        if(!$data["presentation"])
+        {
+            redirect("/");
+        }
         $this->load->model('RoomModel');
         $data["room"] = $this->RoomModel->get_room_by_id($data["presentation"]["room_id"]);
 

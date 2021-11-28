@@ -6,6 +6,12 @@ class TicketModel extends CI_Model
         $this->load->database();
     }
 
+    public function get_all_tickets()
+    {
+        $query = $this->db->get('Tickets');
+        return $query->result_array();
+    }
+
     public function add_ticket($email, $name, $surename, $code, $conference_id)
     {
         $this->db->insert("tickets", ["email" => $email, "name" => $name, "surename" => $surename, "code" => $code, "conference_id" => $conference_id]);

@@ -18,7 +18,7 @@
         </div>
       </div>
       <h3 style="margin-top: 10px">Lecturer:</h3>
-      <?php echo $user->name ?>
+      <?php echo $user->name . " " . $user->surename ?>
       <br>
     </div>
   </div>
@@ -34,13 +34,14 @@
 
 
 <div style="margin-top: 80px; margin-left: 10px">
+  <?php if($presentation["confirmed"]): ?>
     <h3>Location</h3>
     Room <?php echo $room["name"];?><br></br>
     <?php echo $room["city"] . ", " . $room["street"] . " " . $room["street_number"] . ", " . $room["postcode"]?><br></br>
     <h3>Date and time</h3>
     From <?php echo date("d. m. Y H:i", strtotime($presentation["start"])) ?> <br>Until <?php echo date("d. m. Y H:i", strtotime($presentation["finish"])) ?><br></br>
+  <?php endif; ?>  
     <h3>Description</h3>
     <p><?php echo $presentation["description"] ?></p>
     <?php echo $presentation["tags"] ?><br></br>
-    
 </div>

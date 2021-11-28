@@ -29,12 +29,13 @@ class ConferenceManagerController extends CI_Controller
         $this->load->model('RoomModel');
         $this->load->model('PresentationModel');
         $this->load->model('Conference_model');
+        $this->load->model('TicketModel');
         $data["rooms"] = $this->RoomModel->get_rooms_by_conference_id($_GET["id"]);
         $conference = $this->Conference_model->get_conference_by_id($_GET["id"]);
         $data["presentations"] = $this->PresentationModel->get_confirmed_presentations_by_conference_id($_GET["id"]);
 
         $data["plan"] = $this->PresentationModel->get_confirmed_presentations_with_rooms($_GET["id"]);
-
+        $data["reservations"] = $this->TicketModel->get_all_tickets();
         function cmp($a, $b)
         {
             return (int)$a["room_id"] > (int)$b["room_id"];
