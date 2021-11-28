@@ -10,6 +10,19 @@ class UserAccessController extends CI_Controller
         $this->load->library(['form_validation']);
         $this->load->library('session');
         $this->load->database();
+        $this->autologout();
+    }
+
+    private function autoLogout()
+    {
+        if (isset($_SESSION["id"])) {
+            if ((time() - $_SESSION['last_login_timestamp']) > 600) {
+                $this->session->sess_destroy();
+                redirect('/', 'refresh');
+            } else {
+                $_SESSION["last_login_timestamp"] = time();
+            }
+        }
     }
 
     private function redirect_if_logged()
@@ -19,8 +32,8 @@ class UserAccessController extends CI_Controller
         }
     }
 
-    public function reservation_with_registration(){
-
+    public function reservation_with_registration()
+    {
     }
 
     public function registration()
@@ -54,13 +67,9 @@ class UserAccessController extends CI_Controller
                 return;
             } else {
                 $insertedId = $this->user_model->add_user($email, $name, $surename, password_hash($password, PASSWORD_DEFAULT));
-                $this->session->set_userdata(['id' => $insertedId, 'name' => $name, 'surename' => $surename, 'email' => $email, "admin" => "0", "justloggedin" => true]);
-                redirect("/");
-                $this->session->set_userdata(['name' => $name, 'surename' => $surename, 'email' => $email, "justloggedin" => true]);
-                $this->user_model->add_user($email, $name, $surename, password_hash($password, PASSWORD_DEFAULT));
-                
-                if($this->input->post('conference_id'))
-                {
+                $this->session->set_userdata(['id' => $insertedId, 'name' => $name, 'surename' => $surename, 'email' => $email, "admin" => "0", "last_login_timestamp" => time(), "justloggedin" => true]);
+
+                if ($this->input->post('conference_id')) {
                     redirect('reserveTickets?reserve=' . $this->input->post('conference_id'));
                 }
 
@@ -103,7 +112,7 @@ class UserAccessController extends CI_Controller
                 redirect('/');
             }
 
-            $this->session->set_userdata(['admin' => $user->is_admin, 'id' => $user->id, 'name' => $user->name, 'surename' => $user->surename, 'email' => $user->email, "justloggedin" => true]); ///TODO víc dat + info o prihlaseni
+            $this->session->set_userdata(['admin' => $user->is_admin, 'id' => $user->id, 'name' => $user->name, "last_login_timestamp" => time(), 'surename' => $user->surename, 'email' => $user->email, "justloggedin" => true]);
             redirect('/');
         }
         $this->load->view('templates/footer');

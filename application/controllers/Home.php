@@ -7,6 +7,19 @@ class Home extends CI_Controller
         $this->load->helper(array('form', 'url'));
         $this->load->library(['form_validation', 'session']);
         $this->load->database();
+        $this->autoLogout();
+    }
+
+    private function autoLogout()
+    {
+        if (isset($_SESSION["id"])) {
+            if ((time() - $_SESSION['last_login_timestamp']) > 600) {
+                $this->session->sess_destroy();
+                redirect('/', 'refresh');
+            } else {
+                $_SESSION["last_login_timestamp"] = time();
+            }
+        }
     }
 
     public function home()

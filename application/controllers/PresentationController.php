@@ -9,6 +9,19 @@ class PresentationController extends CI_Controller
         $this->load->library('session');
         $this->load->model("PresentationModel");
         $this->load->database();
+        $this->autoLogout();
+    }
+
+    private function autoLogout()
+    {
+        if (isset($_SESSION["id"])) {
+            if ((time() - $_SESSION['last_login_timestamp']) > 600) {
+                $this->session->sess_destroy();
+                redirect('/', 'refresh');
+            } else {
+                $_SESSION["last_login_timestamp"] = time();
+            }
+        }
     }
 
     public function edit()
@@ -24,11 +37,11 @@ class PresentationController extends CI_Controller
         $data["rooms"] = $this->RoomModel->get_rooms_by_conference_id($data["presentation"]["conference_id"]);
         $data["id"] = $id;
 
-        if(!$data["presentation"]["start"]){
+        if (!$data["presentation"]["start"]) {
             $data["presentation"]["start"] = "";
         }
 
-        if(!$data["presentation"]["finish"]){
+        if (!$data["presentation"]["finish"]) {
             $data["presentation"]["finish"] = "";
         }
 
@@ -66,14 +79,14 @@ class PresentationController extends CI_Controller
                 $this->session->set_flashdata('date_error', 'Presentation start time must come before its finish time.', 300);
                 redirect(uri_string() . "?id=" . $id);
             }
-            
+
             $this->PresentationModel->update_presentation($sdata, $data["presentation"]["presentation_id"]);
             redirect('PresentationEdit?id=' . $id);
         }
     }
 
     public function create()
-    {   
+    {
         if (!isset($this->input->get()["conference_id"]) && !isset($this->input->post()["conference_id"])) {
             redirect('/');
         }
@@ -109,7 +122,7 @@ class PresentationController extends CI_Controller
             $sdata['finish'] = $this->input->post('finish');
             $sdata['tags'] = $this->input->post('tags');
             $sdata['conference_id'] = $this->input->post('conference_id');
-            $sdata['user_id'] = 0;//$this->input->post('user_id');
+            $sdata['user_id'] = 0; //$this->input->post('user_id');
 
             if (strtotime($sdata["start"]) > strtotime($sdata["finish"])) {
                 $this->session->set_flashdata('date_error', 'Presentation start time must come before its finish time.', 300);
@@ -126,7 +139,7 @@ class PresentationController extends CI_Controller
     }
 
     public function presentation()
-    {   
+    {
 
         $id = 0;
 
@@ -137,14 +150,13 @@ class PresentationController extends CI_Controller
         }
 
         $data["presentation"] = $this->PresentationModel->get_presentation_by_id($id);
-        if(!$data["presentation"])
-        {
+        if (!$data["presentation"]) {
             redirect("/");
         }
         $this->load->model('RoomModel');
         $data["room"] = $this->RoomModel->get_room_by_id($data["presentation"]["room_id"]);
 
-        if($data["presentation"]["user_id"]){
+        if ($data["presentation"]["user_id"]) {
             $this->load->model('User_model');
             $data["user"] = $this->User_model->get_user_by_id($data["presentation"]["user_id"]);
         }

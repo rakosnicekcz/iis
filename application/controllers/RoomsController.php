@@ -9,6 +9,19 @@ class RoomsController extends CI_Controller
         $this->load->library(['form_validation']);
         $this->load->library('session');
         $this->load->database();
+        $this->autoLogout();
+    }
+
+    private function autoLogout()
+    {
+        if (isset($_SESSION["id"])) {
+            if ((time() - $_SESSION['last_login_timestamp']) > 600) {
+                $this->session->sess_destroy();
+                redirect('/', 'refresh');
+            } else {
+                $_SESSION["last_login_timestamp"] = time();
+            }
+        }
     }
 
     public function create()

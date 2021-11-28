@@ -11,19 +11,31 @@ class ReservationController extends CI_Controller
         $this->load->library(['form_validation']);
         $this->load->library('session');
         $this->load->database();
+        $this->autoLogout();
+    }
+
+    private function autoLogout()
+    {
+        if (isset($_SESSION["id"])) {
+            if ((time() - $_SESSION['last_login_timestamp']) > 600) {
+                $this->session->sess_destroy();
+                redirect('/', 'refresh');
+            } else {
+                $_SESSION["last_login_timestamp"] = time();
+            }
+        }
     }
 
     public function reserveTickets()
     {
         $this->load->model('Conference_model');
-        if(!isset($_GET['reserve']) || (($conf = $this->Conference_model->get_conference_by_id($_GET['reserve'])) == NULL))
-        {
+        if (!isset($_GET['reserve']) || (($conf = $this->Conference_model->get_conference_by_id($_GET['reserve'])) == NULL)) {
             redirect('/');
         }
 
         $this->load->view('templates/header');
-        
-        
+
+
         $this->form_validation->set_rules('num_tickets', 'Number of tickets', 'required');
 
         $code = "";
@@ -34,14 +46,10 @@ class ReservationController extends CI_Controller
             }
         }
 
-        if ($this->session->has_userdata("email")) 
-        {
-            if ($this->form_validation->run() == false) 
-            {
+        if ($this->session->has_userdata("email")) {
+            if ($this->form_validation->run() == false) {
                 $this->load->view('pages/reserveTicketsLogged');
-            } 
-            else 
-            {
+            } else {
                 $id = $_SESSION["id"];
                 $name = $_SESSION["name"];
                 $surename = $_SESSION["surename"];
@@ -52,33 +60,25 @@ class ReservationController extends CI_Controller
                 $data["name"] = $name;
                 $data["surename"] = $surename;
                 $data["email"] = $email;
-                if($num_tickets > $rem)
-                {
+                if ($num_tickets > $rem) {
                     $this->session->set_flashdata('number_error', 'Please, select a number of tickets within the available capacity of the conference');
                     $this->load->view('pages/reserveTicketsLogged');
                     $this->load->view('templates/footer');
                     return;
                 }
                 $conference_id = $_GET['reserve'];
-                for ($i = 0; $i < $num_tickets; $i++) 
-                {
+                for ($i = 0; $i < $num_tickets; $i++) {
                     $this->TicketModel->add_ticketR($email, $name, $surename, $code, $conference_id, $id);
                 }
             }
-        } 
-        else 
-        {
+        } else {
 
             $this->form_validation->set_rules('email', 'Email', 'required');
             $this->form_validation->set_rules('name', 'Name', 'required');
             $this->form_validation->set_rules('surename', 'Surename', 'required');
-            if ($this->form_validation->run() == false) 
-            {
+            if ($this->form_validation->run() == false) {
                 $this->load->view('pages/reserveTickets');
-            } 
-
-            else 
-            {
+            } else {
                 $name = $this->input->post('name');
                 $surename = $this->input->post('surename');
                 $email = $this->input->post('email');
@@ -88,8 +88,7 @@ class ReservationController extends CI_Controller
                 $data["name"] = $name;
                 $data["surename"] = $surename;
                 $data["email"] = $email;
-                if($num_tickets > $rem)
-                {
+                if ($num_tickets > $rem) {
                     $this->session->set_flashdata('number_error', 'Please, select a number of tickets within the available capacity of the conference');
                     $this->load->view('pages/reserveTickets');
                     $this->load->view('templates/footer');
@@ -97,8 +96,7 @@ class ReservationController extends CI_Controller
                 }
                 $conference_id = $_GET['reserve'];
 
-                for ($i = 0; $i < $num_tickets; $i++)
-                {
+                for ($i = 0; $i < $num_tickets; $i++) {
                     $this->TicketModel->add_ticket($email, $name, $surename, $code, $conference_id);
                 }
             }
@@ -110,7 +108,7 @@ class ReservationController extends CI_Controller
         // $config['smtp_host'] = 'ssl://smtp.googlemail.com';
         // $config['smtp_port'] = 465;
         // $config['smtp_timeout'] = 5;
-        
+
         // $config['smtp_user'] = 'iisconferencemanager@gmail.com';
         // $config['smtp_pass'] = 'iisconference';
         // $config['charset'] = 'utf-8';
@@ -129,8 +127,6 @@ class ReservationController extends CI_Controller
         // echo "adamec".$returnval;
         $this->load->view('pages/TicketView', $data);
         $this->load->view('templates/footer');
-        
-
     }
 
     public function removeTicket()

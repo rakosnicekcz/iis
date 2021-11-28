@@ -14,6 +14,20 @@ class ConferenceManagerController extends CI_Controller
         $this->load->model('PresentationModel');
         $this->load->model('Conference_model');
         $this->load->model('TicketModel');
+
+        $this->autoLogout();
+    }
+
+    private function autoLogout()
+    {
+        if (isset($_SESSION["id"])) {
+            if ((time() - $_SESSION['last_login_timestamp']) > 600) {
+                $this->session->sess_destroy();
+                redirect('/', 'refresh');
+            } else {
+                $_SESSION["last_login_timestamp"] = time();
+            }
+        }
     }
 
     private function checkDateOverlap($startDate1, $endDate1, $startDate2, $endDate2)

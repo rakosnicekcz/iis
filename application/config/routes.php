@@ -56,6 +56,7 @@ $route['PresentationEdit'] = 'PresentationController/edit';
 $route['PresentationDetail'] = 'PresentationController/detail';
 $route['registration'] = 'userAccessController/registration';
 $route['login'] = 'userAccessController/login';
+$route['logout'] = 'userAccessController/logout';
 $route['ajax-getUserById'] = 'user/ajaxGetUserById'; //ajax get user data
 $route['ajax-updateUserById'] = 'user/ajaxUpdateUserById'; //ajax set user data
 $route['ajax-deleteUserById'] = 'user/ajaxDeleteUserById';
