@@ -22,3 +22,23 @@ function removeResrvationsByCode(ele, code) {
 		ele.parentElement.parentElement.remove();
 	});
 }
+
+function deleteRoomById(ele, id) {
+	var formData = new FormData();
+	formData.append("id", id);
+
+	fetch(ajaxPath + "ajax-managerDeleteRoomById", {
+		method: "POST",
+		body: formData,
+	})
+		.then(function (response) {
+			return response.json();
+		})
+		.then(function (data) {
+			if (data == "ok") {
+				ele.parentElement.parentElement.remove();
+			} else {
+				alert("there are presentations in this room");
+			}
+		});
+}

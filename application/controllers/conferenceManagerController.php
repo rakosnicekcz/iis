@@ -32,6 +32,17 @@ class ConferenceManagerController extends CI_Controller
         $this->TicketModel->delete_ticket_by_code($_POST["code"]);
     }
 
+    public function ajaxDeleteRoomById()
+    {
+        //TODO check prihlaseni;
+        if ($this->PresentationModel->get_presentations_by_room_id($_POST["id"])) {
+            echo json_encode("err");
+        } else {
+            $this->RoomModel->delete_room($_POST["id"]);
+            echo json_encode("ok");
+        }
+    }
+
     public function confirmPresentation()
     {
         //TODO check prihlaseni a GET id

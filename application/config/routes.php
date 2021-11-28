@@ -68,6 +68,7 @@ $route['presentation'] = 'PresentationController/presentation';
 $route["managerTimePlanner"] = 'ConferenceManagerController/timePlanner';
 $route["ajax-managerDeletePlan"] = 'ConferenceManagerController/ajaxDeletePlan';
 $route["ajax-managerDeleteTicketByCode"] = 'ConferenceManagerController/ajaxDeleteTicketByCode';
+$route["ajax-managerDeleteRoomById"] = 'ConferenceManagerController/ajaxDeleteRoomById';
 
 $route["roomcreate"] = "RoomsController/create";
 $route["roomedit"] = "RoomsController/edit";

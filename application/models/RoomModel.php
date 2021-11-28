@@ -45,4 +45,9 @@ class RoomModel extends CI_Model
         $this->db->where('id', $id);
         $this->db->update('Rooms', $data);
     }
+
+    public function delete_room($id)
+    {
+        $this->db->delete('rooms', ['id' => $id]);
+    }
 }

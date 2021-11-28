@@ -103,7 +103,7 @@
                                 <td><?php echo $room["street_number"] ?></td>
                                 <td><?php echo $room["postcode"] ?></td>
                                 <td><a href="<?php echo base_url() . 'roomedit?id=' . $room["id"] ?>"><button class="btn btn-info">Edit</button></a>
-                                    <button class="btn btn-danger ms-2">Delete</button>
+                                    <button class="btn btn-danger ms-2" onclick="deleteRoomById(this, <?php echo $room['id'] ?>)">Delete</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -47,6 +47,12 @@ class PresentationModel extends CI_Model
         $this->db->update('Presentations', $data);
     }
 
+    public function get_presentations_by_room_id($id)
+    {
+        $query = $this->db->get_where("presentations", ["room_id" => $id]);
+        return $query->result_array();
+    }
+
     public function update_multiple_presentations_by_id($data)
     {
         $this->db->update_batch('presentations', $data, 'id');
