@@ -93,12 +93,14 @@
         <?php endif; ?>
         <?php endforeach; ?>
       </div>
+      <?php if(isset($_SESSION["id"])):?>
       <form action=<?php echo site_url('PresentationCreate')?> method="get">
           <input type="hidden" value="<?= $conference["id"] ?>" name="conference_id">
           <button type="submit" class="btn btn-labeled btn-outline-info mt-3 ms-2">
               <span class="btn-label"></span>Create a presentation
           </button>
       </form>
+      <?php endif; ?>
     </div>
   </div>
 </div>

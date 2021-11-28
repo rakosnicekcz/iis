@@ -13,7 +13,7 @@
                 </div>
                 <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!"></a></p>
                 <button class="btn btn-outline-light btn-lg px-5" type="submit" name="submit">Reserve tickets</button>
-              <p class="text-danger" style="margin-top: 10px"></p>
+                <p class="text-danger" style="margin-top: 10px"><?php echo $this->session->flashdata('number_error'); ?></p>
               <?php form_close();?>
             </div>
           </div>

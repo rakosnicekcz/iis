@@ -15,11 +15,15 @@ class ReservationController extends CI_Controller
 
     public function reserveTickets()
     {
-        $this->load->view('templates/header');
+        $this->load->model('Conference_model');
+        if(!isset($_GET['reserve']) || (($conf = $this->Conference_model->get_conference_by_id($_GET['reserve'])) == NULL))
+        {
+            redirect('/');
+        }
 
-        $this->form_validation->set_rules('email', 'Email', 'required');
-        $this->form_validation->set_rules('name', 'Name', 'required');
-        $this->form_validation->set_rules('surename', 'Surename', 'required');
+        $this->load->view('templates/header');
+        
+        
         $this->form_validation->set_rules('num_tickets', 'Number of tickets', 'required');
 
         $code = "";
@@ -30,31 +34,103 @@ class ReservationController extends CI_Controller
             }
         }
 
-        if ($this->session->has_userdata("email")) {
-            $this->load->view('pages/reserveTicketsLogged');
-            $id = $_SESSION["id"];
-            $name = $_SESSION["name"];
-            $surename = $_SESSION["surename"];
-            $email = $_SESSION["email"];
-            $num_tickets = $this->input->post('num_tickets');
-            $conference_id = "";
-            $conference_id = $_GET['reserve'];
-            for ($i = 0; $i < $num_tickets; $i++) {
-                $this->TicketModel->add_ticketR($email, $name, $surename, $code, $conference_id, $id);
+        if ($this->session->has_userdata("email")) 
+        {
+            if ($this->form_validation->run() == false) 
+            {
+                $this->load->view('pages/reserveTicketsLogged');
+            } 
+            else 
+            {
+                $id = $_SESSION["id"];
+                $name = $_SESSION["name"];
+                $surename = $_SESSION["surename"];
+                $email = $_SESSION["email"];
+                $num_tickets = $this->input->post('num_tickets');
+                $rem = $conf["capacity"] - $this->Conference_model->get_sold_tickets_count_by_conference_id($conf["id"])["sold"];
+                $data["num_tickets"] = $num_tickets;
+                $data["name"] = $name;
+                $data["surename"] = $surename;
+                $data["email"] = $email;
+                if($num_tickets > $rem)
+                {
+                    $this->session->set_flashdata('number_error', 'Please, select a number of tickets within the available capacity of the conference');
+                    $this->load->view('pages/reserveTicketsLogged');
+                    $this->load->view('templates/footer');
+                    return;
+                }
+                $conference_id = $_GET['reserve'];
+                for ($i = 0; $i < $num_tickets; $i++) 
+                {
+                    $this->TicketModel->add_ticketR($email, $name, $surename, $code, $conference_id, $id);
+                }
             }
-        } else {
-            $this->load->view('pages/reserveTickets');
-            $name = $this->input->post('name');
-            $surename = $this->input->post('surename');
-            $email = $this->input->post('email');
-            $num_tickets = $this->input->post('num_tickets');
-            $conference_id = $_GET['reserve'];
+        } 
+        else 
+        {
 
-            for ($i = 0; $i < $num_tickets; $i++) {
-                $this->TicketModel->add_ticket($email, $name, $surename, $code, $conference_id);
+            $this->form_validation->set_rules('email', 'Email', 'required');
+            $this->form_validation->set_rules('name', 'Name', 'required');
+            $this->form_validation->set_rules('surename', 'Surename', 'required');
+            if ($this->form_validation->run() == false) 
+            {
+                $this->load->view('pages/reserveTickets');
+            } 
+
+            else 
+            {
+                $name = $this->input->post('name');
+                $surename = $this->input->post('surename');
+                $email = $this->input->post('email');
+                $num_tickets = $this->input->post('num_tickets');
+                $rem = $conf["capacity"] - $this->Conference_model->get_sold_tickets_count_by_conference_id($conf["id"])["sold"];
+                $data["num_tickets"] = $num_tickets;
+                $data["name"] = $name;
+                $data["surename"] = $surename;
+                $data["email"] = $email;
+                if($num_tickets > $rem)
+                {
+                    $this->session->set_flashdata('number_error', 'Please, select a number of tickets within the available capacity of the conference');
+                    $this->load->view('pages/reserveTickets');
+                    $this->load->view('templates/footer');
+                    return;
+                }
+                $conference_id = $_GET['reserve'];
+
+                for ($i = 0; $i < $num_tickets; $i++)
+                {
+                    $this->TicketModel->add_ticket($email, $name, $surename, $code, $conference_id);
+                }
             }
         }
+        $data["code"] = $code;
+        // $this->load->library('email');
+        // $config['useragent'] = 'CodeIgniter';
+        // $config['protocol'] = "smtp";
+        // $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+        // $config['smtp_port'] = 465;
+        // $config['smtp_timeout'] = 5;
+        
+        // $config['smtp_user'] = 'iisconferencemanager@gmail.com';
+        // $config['smtp_pass'] = 'iisconference';
+        // $config['charset'] = 'utf-8';
+        // $config['newline'] = "\r\n";
+        // $config['mailtype'] = 'html';
+        // $config['validate'] = FALSE;
+        // $this->email->initialize($config);
+        // $this->email->set_mailtype("html");
+        // $this->email->from('iisconferencemanager@gmail.com', 'iisconferencemanager@gmail.com');
+        // $this->email->to('marhefka.adam99@gmail.com');
+        // $this->email->subject('Email Test');
+        // $this->email->message('Testing the email class.');
+
+        // $returnval = $this->email->send();
+        // echo $returnval;
+        // echo "adamec".$returnval;
+        $this->load->view('pages/TicketView', $data);
         $this->load->view('templates/footer');
+        
+
     }
 
     public function removeTicket()
