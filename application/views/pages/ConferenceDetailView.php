@@ -59,7 +59,7 @@
       </div>
 
       <div style="margin-left: 50px; margin-top: 20px;float:left; margin-bottom: 10px">
-        <form action="<?php echo site_url('reserveTickets'); ?>" method="post">
+        <form action="<?php echo site_url('reserveTickets'); ?>" method="get">
           <input type="hidden" name="reserve" value="<?= $conference["id"] ?>">
           <button type="submit" class="btn btn-primary">Reserve tickets</button>
         </form>

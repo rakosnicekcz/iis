@@ -1,3 +1,40 @@
+<script>
+
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
+
+function post() {
+
+const form2 = document.createElement('form');
+form2.method = 'post';
+form2.action = 'userAccessController/registration?conference_id=' + "<?php echo $_GET['reserve']?>";
+
+var params = [];
+params.push({"type" : "hidden", "name" : "name", "value" : document.getElementById("name").value});
+params.push({"type" : "hidden", "name" : "surename", "value" : document.getElementById("surename").value});
+params.push({"type" : "hidden", "name" : "email", "value" : document.getElementById("email").value});
+
+
+
+for (var i = 0 ; i < params.length ; i++) {
+    const hiddenField = document.createElement('input');
+    hiddenField.type = params[i]["type"];
+    hiddenField.name = params[i]["name"];
+    hiddenField.value = params[i]["value"];
+    form2.appendChild(hiddenField);
+}
+
+document.body.appendChild(form2);
+form2.submit();
+}
+
+</script>
+
 <section class="vh-100 gradient-custom">
   <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -8,7 +45,7 @@
             <div class="mb-md-5 mt-md-4">
               <h3 class="fw-bold mb-2">Please, fill out the details for your reservation</h3>
 
-              <?php echo form_open('ReservationController/reserveTickets'); ?>
+              <?php echo form_open('ReservationController/reserveTickets?reserve=' . $_GET["reserve"]); ?>
                 <div class="form-outline form-white mb-4" style="margin:auto; width: 180px">
                   <input type="number" min="1" class="form-control" id="num_tickets" name="num_tickets" aria-describedby="emailHelp" style="width: 180px; text-align: center" value="1">
                   <label class="form-label" for="num_tickets" style="">Number of tickets<b class="text-danger">*</b></label>
@@ -30,7 +67,11 @@
                     <span class="text-danger"></span>
                     <label class="form-label" for="email">Email<b class="text-danger">*</b></label>
                 </div>
-                <input type="hidden" name="reserve" value="<?php echo $_POST['reserve'];?>">
+
+                <div>
+                  <p class="mb-0">Register to simplify the reservation process <a type="submit" name="submit" onclick="post();" class="text-white-50 fw-bold">Register now</a></p>
+                </div>
+
                 <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!"></a></p>
 
                 <button class="btn btn-outline-light btn-lg px-5" type="submit" name="submit">Reserve tickets</button>

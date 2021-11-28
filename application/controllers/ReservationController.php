@@ -14,7 +14,7 @@ class ReservationController extends CI_Controller
     }
 
     public function reserveTickets()
-    {
+    {   
         $this->load->view('templates/header');
 
         $this->form_validation->set_rules('email', 'Email', 'required');
@@ -29,7 +29,8 @@ class ReservationController extends CI_Controller
             $surename = $_SESSION["surename"];
             $email = $_SESSION["email"];
             $num_tickets = $this->input->post('num_tickets');
-            $conference_id = $_POST['reserve'];           
+            $conference_id = "";
+            $conference_id = $_GET['reserve'];
             for($i = 0; $i < $num_tickets; $i++)
             {
                 $this->TicketModel->add_ticketR($email, $name, $surename, "example_code", $conference_id, $id);
@@ -41,7 +42,7 @@ class ReservationController extends CI_Controller
             $surename = $this->input->post('surename');
             $email = $this->input->post('email');
             $num_tickets = $this->input->post('num_tickets');
-            $conference_id = $_POST['reserve'];
+            $conference_id = $_GET['reserve'];
 
             for($i = 0; $i < $num_tickets; $i++)
             {

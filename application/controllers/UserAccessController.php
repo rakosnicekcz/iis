@@ -19,6 +19,10 @@ class UserAccessController extends CI_Controller
         }
     }
 
+    public function reservation_with_registration(){
+
+    }
+
     public function registration()
     {
         $this->redirect_if_logged();
@@ -52,6 +56,15 @@ class UserAccessController extends CI_Controller
                 $insertedId = $this->user_model->add_user($email, $name, $surename, password_hash($password, PASSWORD_DEFAULT));
                 $this->session->set_userdata(['id' => $insertedId, 'name' => $name, 'surename' => $surename, 'email' => $email, "admin" => "0", "justloggedin" => true]);
                 redirect("/");
+                $this->session->set_userdata(['name' => $name, 'surename' => $surename, 'email' => $email, "justloggedin" => true]);
+                $this->user_model->add_user($email, $name, $surename, password_hash($password, PASSWORD_DEFAULT));
+                
+                if($this->input->post('conference_id'))
+                {
+                    redirect('reserveTickets?reserve=' . $this->input->post('conference_id'));
+                }
+
+                redirect('/');
             }
         }
     }

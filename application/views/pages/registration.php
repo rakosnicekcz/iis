@@ -35,6 +35,10 @@
                 <label class="form-label" for="typePasswordAgain">Password again <b class="text-danger">*</b></label>
               </div>
 
+              <?php if($_GET["conference_id"]){ ?>
+                <input type="hidden" id="conference_id" name="conference_id" class="form-control form-control-lg" value="<?php echo $_GET["conference_id"]?>">
+              <?php } ?>
+
               <button class="btn btn-outline-light btn-lg px-5" type="submit" name="submit">Sign Up</button>
               <p class="text-danger"><?php echo $this->session->flashdata('registration_error'); ?></p>
               <?php form_close(); ?>
