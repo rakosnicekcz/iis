@@ -66,7 +66,7 @@
         <?php foreach ($plan as $item) : ?>
             <tr>
                 <td><?php echo $item["rname"] ?></td>
-                <td><?php echo $item["name"] ?></td>
+                <td><a href=<?php echo '"' . base_url() . 'presentation?id=' . $presentation["id"] . '"' ?>><?php echo $item["name"] ?></a></td>
                 <td><?php echo $item["start"] ?></td>
                 <td><?php echo $item["finish"] ?></td>
                 <td><button class="btn btn-danger" onclick="removePlanItem(this, <?php echo $item['id'] ?>)">Remove</button></td>
@@ -134,7 +134,7 @@
                     <tbody>
                         <?php foreach ($allpresentations as $presentation) : ?>
                             <tr>
-                                <td><?php echo $presentation["name"] ?></td>
+                                <td><a href=<?php echo '"' . base_url() . 'presentation?id=' . $presentation["id"] . '"' ?>><?php echo $presentation["name"] ?></a></td>
                                 <td>
                                     <?php if ($presentation["confirmed"]) : ?>
                                         <input class="form-check-input" type="checkbox" value="<?php echo $presentation["id"] ?>" name="<?php echo $presentation["id"] ?>" checked style="vertical-align: middle; position: relative;">
