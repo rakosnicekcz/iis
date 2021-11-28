@@ -23,10 +23,16 @@ class ConferenceManagerController extends CI_Controller
 
     public function ajaxDeletePlan()
     {
+        //TODO check prihlaseni;
         $this->PresentationModel->update_presentation(["room_id" => NULL, "start" => NULL, "finish" => NULL], $_POST["id"]);
     }
 
-    public function confirmReservation()
+    public function ajaxDeleteTicketByCode()
+    {
+        $this->TicketModel->delete_ticket_by_code($_POST["code"]);
+    }
+
+    public function confirmPresentation()
     {
         //TODO check prihlaseni a GET id
         $allPresentations = $this->PresentationModel->get_presentations_by_conference_id($_POST["id"]);
@@ -42,6 +48,18 @@ class ConferenceManagerController extends CI_Controller
         redirect(base_url() . "managerTimePlanner?id=" . $_POST["id"]);
     }
 
+    public function confirmReservation()
+    {
+        //TODO check prihlaseni a GET id
+        $tickets = $this->TicketModel->get_tickets_by_conference_id($_POST["id"]);
+        $updateData = [];
+        foreach ($tickets as $key => $value) {
+            $updateData[] = ["id" => $value["id"], "paid" => isset($_POST[$value["code"]])];
+        }
+        $this->TicketModel->update_multiple_tickets_by_id($updateData);
+        redirect(base_url() . "managerTimePlanner?id=" . $_POST["id"]);
+    }
+
     public function timePlanner()
     {
         //TODO check prihlaseni a GET id
@@ -52,7 +70,8 @@ class ConferenceManagerController extends CI_Controller
         $data["allpresentations"] = $this->PresentationModel->get_presentations_by_conference_id($_GET["id"]);
 
         $data["plan"] = $this->PresentationModel->get_confirmed_presentations_with_rooms($_GET["id"]);
-        $data["reservations"] = $this->TicketModel->get_all_tickets();
+        $data["reservations"] = $this->TicketModel->get_tickets_by_conference_group_by_code($_GET["id"]);
+
         function cmp($a, $b)
         {
             return (int)$a["room_id"] > (int)$b["room_id"];

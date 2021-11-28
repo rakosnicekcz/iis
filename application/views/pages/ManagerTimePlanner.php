@@ -102,8 +102,8 @@
                                 <td><?php echo $room["street"] ?></td>
                                 <td><?php echo $room["street_number"] ?></td>
                                 <td><?php echo $room["postcode"] ?></td>
-                                <td><a href="<?php echo base_url() . 'roomedit?id=' . $room["id"] ?>"><button class="btn btn-info">Edit</button>
-                                        <button class="btn btn-danger ms-2">Delete</button></a>
+                                <td><a href="<?php echo base_url() . 'roomedit?id=' . $room["id"] ?>"><button class="btn btn-info">Edit</button></a>
+                                    <button class="btn btn-danger ms-2">Delete</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -123,7 +123,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <?php echo form_open('conferenceManagerController/confirmReservation', "", ["id" => $_GET["id"]]); ?>
+                <?php echo form_open('conferenceManagerController/confirmPresentation', "", ["id" => $_GET["id"]]); ?>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -147,7 +147,7 @@
                     </tbody>
                 </table>
                 <button type="submit" class="btn btn-primary">Confirm</button>
-                <?php form_close(); ?>
+                <?php echo form_close(); ?>
             </div>
         </div>
     </div>
@@ -161,6 +161,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <?php echo form_open('conferenceManagerController/confirmReservation', "", ["id" => $_GET["id"]]); ?>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -168,7 +169,9 @@
                             <th scope="col">Surename</th>
                             <th scope="col">Email</th>
                             <th scope="col">Code</th>
+                            <th scope="col">Count</th>
                             <th scope="col">Paid</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -178,19 +181,24 @@
                                 <td><?php echo $reservation["surename"] ?></td>
                                 <td><?php echo $reservation["email"] ?></td>
                                 <td><?php echo $reservation["code"] ?></td>
-                                <form>
-                                    <td>
-                                        <?php if ($reservation["paid"]) : ?>
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="" style="vertical-align: middle; position: relative;">
-                                        <?php else : ?>
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                        <?php endif; ?>
-                                    </td>
-                                </form>
+                                <td><?php echo $reservation["count"] ?></td>
+                                <td>
+                                    <?php if ($reservation["paid"]) : ?>
+                                        <input class="form-check-input" type="checkbox" value="<?php echo $reservation["code"] ?>" name="<?php echo $reservation["code"] ?>" id="flexCheckDefault" checked style="vertical-align: middle; position: relative;">
+                                    <?php else : ?>
+                                        <input class="form-check-input" type="checkbox" value="<?php echo $reservation["code"] ?>" name="<?php echo $reservation["code"] ?>" id="flexCheckDefault">
+                                    <?php endif; ?>
+                                </td>
+                                <?php if (!$reservation["paid"]) : ?>
+                                    <?php $jsfce = 'removeResrvationsByCode(this,"' . $reservation['code'] . '")' ?>
+                                    <td><button type="button" onclick='<?php echo $jsfce ?>' class="btn btn-danger ms-2">Delete</button></td>
+                                <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <button type="submit" class="btn btn-primary ms-2">Confirm</button>
+                <?php echo form_close(); ?>
             </div>
         </div>
     </div>
