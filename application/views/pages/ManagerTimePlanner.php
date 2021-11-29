@@ -82,6 +82,11 @@
                 <h5 class="modal-title" id="addRoomModalLabel">Rooms</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+            <div class="form-group ms-2">
+                <input class="form-control" id="roomsFilter" placeholder="Search">
+            </div>
+
             <div class="modal-body">
                 <table class="table table-hover">
                     <thead>
@@ -94,7 +99,7 @@
                             <th scope="col"></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="roomsTbody">
                         <?php foreach ($rooms as $room) : ?>
                             <tr>
                                 <td><?php echo $room["name"] ?></td>
@@ -122,6 +127,9 @@
                 <h5 class="modal-title" id="presentationModalLabel">Presentations</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="form-group ms-2">
+                <input class="form-control" id="presentationsFilter" placeholder="Search">
+            </div>
             <div class="modal-body">
                 <?php echo form_open('conferenceManagerController/confirmPresentation', "", ["id" => $_GET["id"]]); ?>
                 <table class="table table-hover">
@@ -131,7 +139,7 @@
                             <th scope="col">Confirmed</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="presentationsTbody">
                         <?php foreach ($allpresentations as $presentation) : ?>
                             <tr>
                                 <td><a href=<?php echo '"' . base_url() . 'presentation?id=' . $presentation["id"] . '"' ?>><?php echo $presentation["name"] ?></a></td>
@@ -160,6 +168,9 @@
                 <h5 class="modal-title" id="reservationModalLabel">Reservations</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="form-group ms-2">
+                <input class="form-control" id="reservationsFilter" placeholder="Search">
+            </div>
             <div class="modal-body">
                 <?php echo form_open('conferenceManagerController/confirmReservation', "", ["id" => $_GET["id"]]); ?>
                 <table class="table table-hover">
@@ -175,7 +186,7 @@
                             <th scope="col"></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="reservationsTbody">
                         <?php foreach ($reservations as $reservation) : ?>
                             <tr>
                                 <td><?php echo $reservation["name"] ?></td>
