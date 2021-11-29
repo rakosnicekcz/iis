@@ -9,8 +9,8 @@
             <div class="mb-md-5 mt-md-4">
               <h2 class="fw-bold mb-2 text-uppercase">Create a new presentation</h2>
               <div class="form-outline form-white mb-4">
-                <label for="name" class="form-label mt-4">Name</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <label for="name" class="form-label mt-4">Name<b class="text-danger">*</b></label>
+                <input type="text" class="form-control" id="name" name="name" required>
                 <span class="text-danger"><?php echo form_error('name'); ?></span>
                 <small id="name" class="form-text text-muted">Please type name for your presentaton</small>
               </div>
