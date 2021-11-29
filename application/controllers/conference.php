@@ -59,6 +59,7 @@ class Conference extends CI_Controller
             $this->load->view('pages/ConferenceEditView', $data);
             $this->load->view('templates/footer');
         } else {
+            $sdata = [];
 
             if ($_FILES["image"]["size"] != 0) {
                 $config['upload_path'] = './uploads/'; // upload image
@@ -67,16 +68,15 @@ class Conference extends CI_Controller
                 $config['encrypt_name'] = true;
                 $this->load->library('upload', $config);
 
-                $this->upload->do_upload('image');
+                if ($this->upload->do_upload('image')) {
+                    $sdata['image'] = $this->upload->data()["file_name"];
+                }
             }
 
             $sdata['name'] = $this->input->post('name');
             $data['country_id'] = $this->input->post('country_id');
             $sdata['genre_id'] = $this->input->post('genre_id');
             $sdata['description'] = $this->input->post('description');
-            if ($_FILES["image"]["size"] != 0) {
-                $sdata['image'] = $this->upload->data()["file_name"];
-            }
             $sdata['place'] = $this->input->post('place');
             $sdata['from'] = $this->input->post('from');
             $sdata['to'] = $this->input->post('to');
@@ -129,19 +129,22 @@ class Conference extends CI_Controller
             $this->load->view('templates/header');
             $this->load->view('pages/ConferenceCreateView', $data);
         } else {
+            $sdata = [];
+            if ($_FILES["image"]["size"] != 0) {
+                $config['upload_path'] = './uploads/'; // upload image
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = 50000;
+                $config['encrypt_name'] = true;
+                $this->load->library('upload', $config);
 
-            $config['upload_path'] = './uploads/'; // upload image
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = 50000;
-            $config['encrypt_name'] = true;
-            $this->load->library('upload', $config);
-
-            $this->upload->do_upload('image');
+                if ($this->upload->do_upload('image')) {
+                    $sdata['image'] = $this->upload->data()["file_name"];
+                }
+            }
 
             $sdata['name'] = $this->input->post('name');
             $sdata['genre_id'] = $this->input->post('genre_id');
             $sdata['description'] = $this->input->post('description');
-            $sdata['image'] = $this->upload->data()["file_name"];
             $sdata['place'] = $this->input->post('place');
             $sdata['country_id'] = $this->input->post('country_id');
             $sdata['from'] = $this->input->post('from');

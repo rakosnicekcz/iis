@@ -44,7 +44,7 @@ class PresentationController extends CI_Controller
             $this->load->view('pages/PresentationEditView', $data);
             $this->load->view('templates/footer');
         } else {
-
+            $sdata = [];
             if ($_FILES["image"]["size"] != 0) {
                 $config['upload_path'] = './uploads/'; // upload image
                 $config['allowed_types'] = 'gif|jpg|png';
@@ -52,20 +52,18 @@ class PresentationController extends CI_Controller
                 $config['encrypt_name'] = true;
                 $this->load->library('upload', $config);
 
-                $this->upload->do_upload('image');
+                if ($this->upload->do_upload('image')) {
+                    $sdata['image'] = $this->upload->data()["file_name"];
+                }
             }
 
             $sdata['name'] = $this->input->post('name');
             $sdata['room_id'] = $this->input->post('room_id');
             $sdata['description'] = $this->input->post('description');
-            if ($_FILES["image"]["size"] != 0) {
-                $sdata['image'] = $this->upload->data()["file_name"];
-            }
-
             $sdata['tags'] = $this->input->post('tags');
-            $sdata['user_id'] = $this->input->post('user_id');
+            $sdata['user_id'] = $_SESSION["id"];
 
-            $this->PresentationModel->update_presentation($sdata, $data["presentation"]["presentation_id"]);
+            $this->PresentationModel->update_presentation($sdata, $data["presentation"]["id"]);
             redirect('presentation?id=' . $id);
         }
     }
@@ -88,21 +86,21 @@ class PresentationController extends CI_Controller
             $this->load->view('pages/PresentationCreateView', $data);
             $this->load->view('templates/footer');
         } else {
+            $sdata = [];
+            if ($_FILES["image"]["size"] != 0) {
+                $config['upload_path'] = './uploads/'; // upload image
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = 50000;
+                $config['encrypt_name'] = true;
+                $this->load->library('upload', $config);
 
-            $config['upload_path'] = './uploads/'; // upload image
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = 50000;
-            $config['encrypt_name'] = true;
-            $this->load->library('upload', $config);
-
-            $this->upload->do_upload('image');
-
+                if ($this->upload->do_upload('image')) {
+                    $sdata['image'] = $this->upload->data()["file_name"];
+                }
+            }
             $sdata['name'] = $this->input->post('name');
             $sdata['room_id'] = $this->input->post('room_id');
             $sdata['description'] = $this->input->post('description');
-            if ($_FILES["image"]["size"] != 0) {
-                $sdata['image'] = $this->upload->data()["file_name"];
-            }
             $sdata['tags'] = $this->input->post('tags');
             $sdata['conference_id'] = $this->input->post('conference_id');
             $sdata['user_id'] = $_SESSION["id"];
