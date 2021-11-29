@@ -1,13 +1,5 @@
 <script>
 
-function wait(ms){
-   var start = new Date().getTime();
-   var end = start;
-   while(end < start + ms) {
-     end = new Date().getTime();
-  }
-}
-
 function post() {
 
 const form2 = document.createElement('form');

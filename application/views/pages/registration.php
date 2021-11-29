@@ -8,7 +8,7 @@
             <div class="mb-md-5 mt-md-4">
               <h2 class="fw-bold mb-2 text-uppercase">Registration</h2>
               <p class="text-white-50 mb-5">Please enter your login and password!</p>
-              <?php echo form_open('userAccessController/registration'); ?>
+              <?php echo form_open('userAccessController/' . $url); ?>
               <div class="form-outline form-white mb-4">
                 <input type="email" id="typeEmail" name="email" class="form-control form-control-lg" value="<?php echo set_value('email'); ?>">
                 <span class="text-danger"><?php echo form_error('email'); ?></span>

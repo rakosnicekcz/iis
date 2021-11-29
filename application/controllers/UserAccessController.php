@@ -50,9 +50,22 @@ class UserAccessController extends CI_Controller
         $this->form_validation->set_rules('surename', 'Surename', 'required');
         $this->form_validation->set_rules('passwordAgain', 'Password again', 'required');
 
+        $data["url"] = "";
+        if ($this->input->post('conference_id')) {
+            $data["url"] = "registration?conference_id=" . $this->input->post('conference_id');
+        }
+
+        else if(isset($_GET["conference_id"])){
+            $data["url"] = "registration?conference_id=" . $_GET["conference_id"];
+        }
+        
+        else{
+            $data["url"] = "registration";
+        }
+
         $this->load->view('templates/header');
         if ($this->form_validation->run() == false) {
-            $this->load->view('pages/registration');
+            $this->load->view('pages/registration', $data);
         } else {
             $email = $this->input->post('email');
             $password = $this->input->post('password');
@@ -62,16 +75,16 @@ class UserAccessController extends CI_Controller
 
             if ($this->user_model->get_user_by_email($email)) {
                 $this->session->set_flashdata('registration_error', 'Account with this email already exists.', 300);
-                $this->load->view('pages/registration');
+                $this->load->view('pages/registration', $data);
                 $this->load->view('templates/footer');
                 return;
             } elseif (!$this->validatePassword($this->input->post('password'))) {
                 $this->session->set_flashdata('registration_error', 'Passwords have to be at least 6 charackter long and contain big character, small characket and number.', 300);
-                $this->load->view('pages/registration');
+                $this->load->view('pages/registration', $data);
                 $this->load->view('templates/footer');
             } elseif ($password !== $passwordAgain) {
                 $this->session->set_flashdata('registration_error', 'Passwords are not same.', 300);
-                $this->load->view('pages/registration');
+                $this->load->view('pages/registration', $data);
                 $this->load->view('templates/footer');
                 return;
             } else {
