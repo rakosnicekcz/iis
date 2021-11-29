@@ -118,21 +118,14 @@ class PresentationController extends CI_Controller
             if ($_FILES["image"]["size"] != 0) {
                 $sdata['image'] = $this->upload->data()["file_name"];
             }
-            $sdata['start'] = $this->input->post('start');
-            $sdata['finish'] = $this->input->post('finish');
             $sdata['tags'] = $this->input->post('tags');
             $sdata['conference_id'] = $this->input->post('conference_id');
-            $sdata['user_id'] = 0; //$this->input->post('user_id');
-
-            if (strtotime($sdata["start"]) > strtotime($sdata["finish"])) {
-                $this->session->set_flashdata('date_error', 'Presentation start time must come before its finish time.', 300);
-                // dopln mateji redirect ja uz nemuzu premyslet (uri_string() . "?id=" . $id);
-            }
+            $sdata['user_id'] = $_SESSION["id"];
 
             $this->load->model('PresentationModel');
             $this->PresentationModel->insert_presentation($sdata);
             $presentation = $this->PresentationModel->get_presentation_by_highest_id();
-            redirect('presentation?id=' . $presentation["presentation_id"]);
+            redirect('presentation?id=' . $presentation["id"]);
         }
 
         $this->load->view('templates/footer');
