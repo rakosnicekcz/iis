@@ -38,13 +38,13 @@ class PresentationModel extends CI_Model
 
     public function insert_presentation($data)
     {
-        $this->db->insert('Presentations', $data);
+        $this->db->insert('presentations', $data);
     }
 
     public function update_presentation($data, $id)
     {
         $this->db->where('id', $id);
-        $this->db->update('Presentations', $data);
+        $this->db->update('presentations', $data);
     }
 
     public function get_presentations_by_room_id($id)
