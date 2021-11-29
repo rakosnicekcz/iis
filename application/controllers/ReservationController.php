@@ -49,6 +49,7 @@ class ReservationController extends CI_Controller
         if ($this->session->has_userdata("email")) {
             if ($this->form_validation->run() == false) {
                 $this->load->view('pages/reserveTicketsLogged');
+                return;
             } else {
                 $id = $_SESSION["id"];
                 $name = $_SESSION["name"];
@@ -78,6 +79,7 @@ class ReservationController extends CI_Controller
             $this->form_validation->set_rules('surename', 'Surename', 'required');
             if ($this->form_validation->run() == false) {
                 $this->load->view('pages/reserveTickets');
+                return;
             } else {
                 $name = $this->input->post('name');
                 $surename = $this->input->post('surename');
