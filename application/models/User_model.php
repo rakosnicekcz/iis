@@ -24,7 +24,7 @@ class User_model extends CI_Model
 
     public function get_tickets_by_user_id_groub_by_code($id)
     {
-        $query = $this->db->query('SELECT c.name, c.image, c.from, c.to, t.code, c.id, t.id as "tid", count(t.code) as "count" FROM TICKETS t iNNER JOIN CONFERENCES c ON t.conference_id = c.id WHERE t.user_id = ? Group by t.code', [$id]);
+        $query = $this->db->query('SELECT c.name, t.paid, c.image, c.from, c.to, t.code, c.id, t.id as "tid", count(t.code) as "count" FROM TICKETS t iNNER JOIN CONFERENCES c ON t.conference_id = c.id WHERE t.user_id = ? Group by t.code', [$id]);
         return $query->result_array();
     }
 

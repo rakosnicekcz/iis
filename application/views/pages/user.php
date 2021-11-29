@@ -32,6 +32,7 @@
                             <th scope="col">Ticket count</th>
                             <th scope="col">Code</th>
                             <th scope="col">Date</th>
+                            <th scope="col">Paid</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -42,6 +43,9 @@
                                 <td><?php echo $ticket["count"] ?></td>
                                 <td><?php echo $ticket["code"] ?></td>
                                 <td><?php echo $ticket["from"] . " - " . $ticket["to"] ?></td>
+                                <td><?php echo intval($ticket["paid"]) ? '<i class="text-success fa fa-check me-1 "></i>' : '<i class="text-danger fa fa-close me-1 "></i>' ?></td>
+
+                                </td>
                                 <td>
                                     <form onsubmit="return confirm('Do you really want to delete your reservation ?')" method="post" action="<?php echo base_url() . 'removeTicket' ?>">
                                         <input type="hidden" name="removed" value="<?php echo $ticket["code"] ?>">
@@ -77,7 +81,7 @@
                                 <td>
                                     <form onsubmit="return confirm('Do you really want to delete your presentation ?')" method="post" action="<?php echo base_url() . 'removePresentation' ?>">
                                         <input type="hidden" name="removed" value="<?php echo $pres["id"] ?>">
-                                        <button type="submit" class="btn btn-primary">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Cancel</button>
                                     </form>
                                 </td>
                             </tr>
@@ -108,7 +112,7 @@
                                 <td>
                                     <form onsubmit="return confirm('Do you really want to delete your conference ?')" method="post" action="<?php echo base_url() . 'removeConference' ?>">
                                         <input type="hidden" name="removed" value="<?php echo $conf["id"] ?>">
-                                        <button type="submit" class="btn btn-primary">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Cancel</button>
                                     </form>
                                 </td>
                             </tr>
