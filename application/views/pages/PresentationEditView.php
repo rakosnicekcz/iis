@@ -24,20 +24,6 @@
               <div class="form-group">
                 <label for="formFile" class="form-label mt-4">Image</label>
                 <input class="form-control" type="file" name="image" id="image" accept="image/*"><br></br>
-              <div class="form-outline form-white mb-4">
-                <!-- Date input -->
-                <label class="control-label" for="from">Presentation start</label>
-                <input class="form-control" id="start" type="datetime-local" name="start" value="<?php echo $presentation["start"] == NULL ? date('Y-m-d\TH:i', strtotime($presentation["start"])) : ""; ?>">
-                <span class="text-danger"><?php echo form_error('start'); ?></span>
-              </div>
-            </div>
-            <div class="form-outline form-white mb-4">
-              <!-- Date input -->
-              <label class="control-label" for="to">Presentation end</label>
-              <input class="form-control" type="datetime-local" id="finish" type="date" name="finish" value="<?php echo $presentation["finish"] == NULL ? date('Y-m-d\TH:i', strtotime($presentation["finish"])) : "" ; ?>">
-              <span class="text-danger"><?php echo form_error('finish'); ?><?php echo $this->session->flashdata('date_error'); ?></span>
-            </div>
-
             <button class="btn btn-outline-light btn-lg px-5" type="submit" value="<?php echo $id ?>" name="submit">Edit</button>
             <?php form_close(); ?>
           </div>

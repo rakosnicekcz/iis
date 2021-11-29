@@ -34,7 +34,7 @@
 
 
 <div style="margin-top: 80px; margin-left: 10px">
-  <?php if($presentation["confirmed"]): ?>
+  <?php if(isset($presentation["start"]) && isset($presentation["finish"]) && isset($presentation["room_id"])): ?>
     <h3>Location</h3>
     Room <?php echo $room["name"];?><br></br>
     <?php echo $room["city"] . ", " . $room["street"] . " " . $room["street_number"] . ", " . $room["postcode"]?><br></br>

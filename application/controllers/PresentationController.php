@@ -37,14 +37,6 @@ class PresentationController extends CI_Controller
         $data["rooms"] = $this->RoomModel->get_rooms_by_conference_id($data["presentation"]["conference_id"]);
         $data["id"] = $id;
 
-        if (!$data["presentation"]["start"]) {
-            $data["presentation"]["start"] = "";
-        }
-
-        if (!$data["presentation"]["finish"]) {
-            $data["presentation"]["finish"] = "";
-        }
-
         $this->form_validation->set_rules('name', 'Name', 'required');
 
         if ($this->form_validation->run() == false) {
@@ -70,18 +62,11 @@ class PresentationController extends CI_Controller
                 $sdata['image'] = $this->upload->data()["file_name"];
             }
 
-            $sdata['start'] = $this->input->post('start');
-            $sdata['finish'] = $this->input->post('finish');
             $sdata['tags'] = $this->input->post('tags');
             $sdata['user_id'] = $this->input->post('user_id');
 
-            if (strtotime($sdata["start"]) > strtotime($sdata["finish"])) {
-                $this->session->set_flashdata('date_error', 'Presentation start time must come before its finish time.', 300);
-                redirect(uri_string() . "?id=" . $id);
-            }
-
             $this->PresentationModel->update_presentation($sdata, $data["presentation"]["presentation_id"]);
-            redirect('PresentationEdit?id=' . $id);
+            redirect('presentation?id=' . $id);
         }
     }
 

@@ -49,7 +49,7 @@
                             echo $this->session->flashdata("presentation_error");
                             echo $this->session->flashdata("room_error");
                             echo $this->session->flashdata("conf_date_error"); ?></p>
-    <?php unset($_SESSION["room_error"], $_SESSION["presentation_error"], $_SESSION["room_error"], $_SESSION["conf_date_error"]); ?>
+    <?php unset($_SESSION["room_error"], $_SESSION["presentation_error"], $_SESSION["date_error"], $_SESSION["conf_date_error"]); ?>
 </form>
 <br>
 <table class="table table-hover">
