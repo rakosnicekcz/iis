@@ -84,7 +84,7 @@
             </div>
 
             <div class="form-group ms-2">
-                <input class="form-control" id="roomsFilter" placeholder="Search">
+                <input class="form-control w-auto mt-1" id="roomsFilter" placeholder="Search">
             </div>
 
             <div class="modal-body">
@@ -128,7 +128,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="form-group ms-2">
-                <input class="form-control" id="presentationsFilter" placeholder="Search">
+                <input class="form-control w-auto mt-1" id="presentationsFilter" placeholder="Search">
             </div>
             <div class="modal-body">
                 <?php echo form_open('conferenceManagerController/confirmPresentation', "", ["id" => $_GET["id"]]); ?>
@@ -169,7 +169,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="form-group ms-2">
-                <input class="form-control" id="reservationsFilter" placeholder="Search">
+                <input class="form-control w-auto mt-1" id="reservationsFilter" placeholder="Search">
             </div>
             <div class="modal-body">
                 <?php echo form_open('conferenceManagerController/confirmReservation', "", ["id" => $_GET["id"]]); ?>
