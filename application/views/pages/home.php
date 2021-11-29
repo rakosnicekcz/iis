@@ -323,7 +323,7 @@ function filterDateRange(){
             </div>
         <?php endif; ?>
         <ul class="list-group list-group-flush price">
-            <li class="list-group-item price">Price: <?php echo $conf["price"] ?></li>
+            <li class="list-group-item price">Price: <?php echo $conf["price"] ?> $</li>
         </ul>
         <ul class="list-group list-group-flush tickets_left">
             <li class="list-group-item tickets_left">Tickets left: <?php echo '<span class="ticketsLeft">' . $conf["left"] . '</span>/<span class="ticketsCapacity" >' . $conf["capacity"] . "</span>" ?></li>

@@ -10,7 +10,7 @@
                 <p>Name on reservation: <?php echo $name ." ". $surename; ?></p>
                 <p>Number of tickets: <?php echo $num_tickets; ?></p>
                 <p>Code of reservation: <?php echo $code; ?></p>
-                <p>Details of your reservation have been sent to <?php echo $email; ?></p>
+                <p>Email: <?php echo $email; ?></p>
               </div><br></br>
               <a href="<?php echo base_url(); ?>">
                 <button type="button" class="btn btn-primary btn-lg">Home</button>
