@@ -110,12 +110,16 @@ class Conference extends CI_Controller
         if (!$this->session->has_userdata("id")) {
             redirect('/');
         }
+
+        $this->load->model('Conference_model');
         $this->load->model('GenreModel');
         $data["genres"] = $this->GenreModel->get_all_genres();
+        $data["countries"] = $this->Conference_model->get_all_countries();
 
         $this->form_validation->set_rules('name', 'Name', 'required');
         $this->form_validation->set_rules('genre_id', 'Genre id', 'required');
         $this->form_validation->set_rules('place', 'Place', 'required');
+        $this->form_validation->set_rules('country_id', 'Counry', 'required');
         $this->form_validation->set_rules('price', 'Price', 'required');
         $this->form_validation->set_rules('from', 'From', 'required');
         $this->form_validation->set_rules('to', 'Until', 'required');
@@ -139,11 +143,12 @@ class Conference extends CI_Controller
             $sdata['description'] = $this->input->post('description');
             $sdata['image'] = $this->upload->data()["file_name"];
             $sdata['place'] = $this->input->post('place');
+            $sdata['country_id'] = $this->input->post('country_id');
             $sdata['from'] = $this->input->post('from');
             $sdata['to'] = $this->input->post('to');
             $sdata['price'] = $this->input->post('price');
             $sdata['capacity'] = $this->input->post('capacity');
-            $sdata['user_id'] = 0;
+            $sdata['user_id'] = $_SESSION["id"];
 
             if (strtotime($sdata["from"]) > strtotime($sdata["to"])) {
                 $this->session->set_flashdata('date_error', 'Conference start after it ends.', 300);
@@ -153,7 +158,6 @@ class Conference extends CI_Controller
                 return;
             }
 
-            $this->load->model('Conference_model');
             $this->Conference_model->insert_conference($sdata);
             $confId = $this->conference_model->get_conference_by_highest_id();
             redirect('conference?id=' . $confId["id"]);

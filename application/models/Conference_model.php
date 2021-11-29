@@ -67,4 +67,9 @@ class Conference_model extends CI_Model
     {
         $this->db->delete('conferences', ['id' => $id]);
     }
+
+    public function get_all_countries()
+    {
+        return $this->db->query("SELECT * FROM countries")->result_array();
+    }
 }

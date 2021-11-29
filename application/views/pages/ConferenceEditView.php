@@ -17,7 +17,7 @@
                 <label for="country" class="form-label mt-4">Country <b class="text-danger">*</b></label>
                 <select class="form-select" id="country" name="country_id" required>
                   <?php foreach ($countries as $country) : ?>
-                    <option value="<?php echo $country["id"] ?>" name="country" <?php $country["id"] == $conference["country_id"] ? "selected" : "" ?>> <?php echo $country["name"] ?> </option>
+                    <option value="<?php echo $country["id"] ?>" <?php echo $country["id"] == $conference["country_id"] ? "selected" : "" ?>> <?php echo $country["name"] ?> </option>
                   <?php endforeach; ?>
                 </select>
                 <span class="text-danger"><?php echo form_error('country_id'); ?></span>

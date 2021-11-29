@@ -37,6 +37,15 @@
                 <small id="place" class="form-text text-muted">Please type where your conference takes place</small>
               </div>
               <div class="form-outline form-white mb-4">
+                <label for="country" class="form-label mt-4">Country <b class="text-danger">*</b></label>
+                <select class="form-select" id="country" name="country_id" required>
+                  <?php foreach ($countries as $country) : ?>
+                    <option value="<?php echo $country["id"] ?>"> <?php echo $country["name"] ?> </option>
+                  <?php endforeach; ?>
+                </select>
+                <span class="text-danger"><?php echo form_error('genre_id'); ?></span>
+              </div>
+              <div class="form-outline form-white mb-4">
                 <label for="price" class="form-label mt-4">Price <b class="text-danger">*</b></label>
                 <input type="number" step="0.1" min="0" class="form-control" id="price" aria-describedby="price" name="price" value="<?php echo set_value('price'); ?>" required>
                 <span class="text-danger"><?php echo form_error('price'); ?></span>
