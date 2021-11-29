@@ -32,7 +32,7 @@ class PresentationModel extends CI_Model
 
     public function get_presentation_by_highest_id()
     {
-        $query = $this->db->query("SELECT presentation_id FROM Presentations ORDER BY presentation_id DESC LIMIT 1");
+        $query = $this->db->query("SELECT id FROM Presentations ORDER BY id DESC LIMIT 1");
         return $query->row_array();
     }
 
