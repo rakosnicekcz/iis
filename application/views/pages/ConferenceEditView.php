@@ -49,7 +49,7 @@
                 <label for="price" class="form-label mt-4">Price <b class="text-danger">*</b></label>
                 <input type="number" step="0.1" min="0" class="form-control" id="price" aria-describedby="price" name="price" value="<?php echo set_value('price', $conference["price"]) ?>" required>
                 <span class="text-danger"><?php echo form_error('price'); ?></span>
-                <small id="price" class="form-text text-muted">Please type ticket price</small>
+                <small id="price" class="form-text text-muted">Please type ticket price in $</small>
               </div>
               <div class="form-outline form-white mb-4">
                 <!-- Date input -->
