@@ -8,7 +8,7 @@ div.dropdown-multicol{
 
 .cards-devices{
   display:inline-block;
-  
+  max-width: 350px;
   margin-left: 4%;
   margin-right: 2%;
   margin-top: 20px;
@@ -44,9 +44,7 @@ div.dropdown-multicol{
       height: auto;
       margin-left: 20px;
       object-fit: cover;
-      
-      margin-top: 0px;
-      
+      margin-top: 0px;     
     }
     
     .detail-desc{
@@ -80,8 +78,7 @@ div.dropdown-multicol{
       width: 100%;
       height: auto;
       margin:auto;
-      object-fit: cover;
-      
+      object-fit: cover; 
       margin-top: 0px;
       display: inline-block;
       justify-content: center;
@@ -100,6 +97,7 @@ div.dropdown-multicol{
       margin-top: 20px;
       margin-bottom: 20px;
       display:inline-block;
+      max-width: 350px;
     }
   }
   
@@ -110,6 +108,7 @@ div.dropdown-multicol{
       width: 400px;
       margin-bottom: 20px;
       display:flex;
+      max-width: 400px;
     }
     
   }
